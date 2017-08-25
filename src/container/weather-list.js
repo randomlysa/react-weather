@@ -8,8 +8,9 @@ import { connect } from 'react-redux';
 class WeatherList extends Component {
     renderWeather(cityData) {
         const name = cityData.city.name;
-        const temps = cityData.list.map(weather => weather.main.temp);
-        const pressure = cityData.list.map(weather => weather.main.pressure);
+        const tempsInK = cityData.list.map(weather => weather.main.temp);
+        const tempsInC = tempsInK.map(temp => temp - 273.15);
+        const tempsInF = tempsInC.map(temp => temp * 9 / 5 + 32)
         const humidity = cityData.list.map(weather => weather.main.humidity);
         const { lon, lat } = cityData.city.coord;
 
@@ -18,9 +19,9 @@ class WeatherList extends Component {
                 <td>
                     <GoogleMap lat={lat} lon={lon} />
                 </td>
-                <td><Chart data={temps} type="temp" color="blue" units="K" /></td>
+                <td><Chart data={tempsInC} type="temp" color="blue" units="C" /></td>
+                <td><Chart data={tempsInF} type="temp" color="blue" units="F" /></td>
                 <td><Chart data={humidity} color="black" units="%" /></td>
-                <td><Chart data={pressure} color="green" units="hPa" /></td>
             </tr>
         );
     }
@@ -30,10 +31,10 @@ class WeatherList extends Component {
             <table className="table table-hover">
                 <thead>
                     <tr>
-                        <th>City/Cities</th>
-                        <th>Temperature (K)</th>
+                        <th>City</th>
+                        <th>Temperature (C)</th>
+                        <th>Temperature (F)</th>
                         <th>Humidity (%)</th>
-                        <th>Pressure</th>
                     </tr>
                 </thead>
                 <tbody>

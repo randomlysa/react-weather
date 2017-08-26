@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWeather } from '../actions/index'
+import { fetchWeatherFromOpenWeather } from '../actions/index'
 
 class SearchBar extends Component {
     constructor(props) {
@@ -22,8 +22,8 @@ class SearchBar extends Component {
         event.preventDefault();
 
         // Fetch weather data.
-        this.props.fetchWeather(this.state.term)
-        this.setState({ term: '' })
+        this.props.fetchWeatherFromOpenWeather(this.state.term);
+        this.setState({ term: '' });
     }
 
     render() {
@@ -44,7 +44,7 @@ class SearchBar extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchWeather}, dispatch);
+    return bindActionCreators({ fetchWeatherFromOpenWeather }, dispatch);
 }
 
 // null means we don't need state here.

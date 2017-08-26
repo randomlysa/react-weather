@@ -4,9 +4,26 @@ import GoogleMap from '../components/google-map';
 
 // Gets weather from state.
 import { connect } from 'react-redux';
+import { fetchWeatherFromLocalStorage } from '../actions'
+import { loadState, saveState } from '../manageLocalStorage';
+import _ from 'lodash';
 
 class WeatherList extends Component {
+
+    componentDidMount()   {
+        this.props.fetchWeatherFromLocalStorage();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.weather[0]) {
+            saveState(
+                nextProps.weather
+            );
+        }
+    }
+
     renderWeather(cityData) {
+
         const name = cityData.city.name;
         const tempsInK = cityData.list.map(weather => weather.main.temp);
         const tempsInC = tempsInK.map(temp => temp - 273.15);
@@ -46,8 +63,8 @@ class WeatherList extends Component {
 }
 
 // Gets weather from state.
-function mapStateToProps({ weather }) { // same as state.weather
+function mapStateToProps({ weather }) {
     return { weather }; // same as { weather: weather}
 }
 
-export default connect(mapStateToProps)(WeatherList)
+export default connect(mapStateToProps, { fetchWeatherFromLocalStorage })(WeatherList)

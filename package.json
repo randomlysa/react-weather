@@ -35,7 +35,6 @@
     "react-router": "^2.0.1",
     "react-sparklines": "^1.6.0",
     "redux": "^3.0.4",
-    "redux-promise": "^0.5.3",
-    "redux-save-state": "^1.0.1"
+    "redux-promise": "^0.5.3"
   }
 }

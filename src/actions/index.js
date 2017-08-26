@@ -1,5 +1,7 @@
+import _ from 'lodash';
 import axios from 'axios';
 import { loadState } from '../manageLocalStorage';
+import { codes } from 'iso-country-codes';
 
 const API_KEY = '0ef0dca7d078d40465c8a1d8cfd77296';
 const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
@@ -7,8 +9,12 @@ const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KE
 export const FETCH_WEATHER_FROM_OPENWEATHER = 'FETCH_WEATHER_FROM_OPENWEATHER';
 export const FETCH_WEATHER_FROM_LOCALSTORAGE = 'FETCH_WEATHER_FROM_LOCALSTORAGE';
 
-export function fetchWeatherFromOpenWeather(city) {
-    const url = `${ROOT_URL}&q=${city},US`;
+export function fetchWeatherFromOpenWeather(location) {
+    const items = location.split(",")
+    const [city, country = "United States of America (the)"] = items;
+    const alpha2code = _.filter(codes, {"name": country.trim() })[0].alpha2;
+
+    const url = `${ROOT_URL}&q=${city},${alpha2code}`;
     const request = axios.get(url);
 
     return {

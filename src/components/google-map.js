@@ -7,7 +7,8 @@ class GoogleMap extends Component {
             center: {
                 lat: this.props.lat,
                 lng: this.props.lon
-            }
+            },
+            disableDefaultUI: true
         })
     }
 

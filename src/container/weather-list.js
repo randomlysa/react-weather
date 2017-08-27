@@ -24,21 +24,28 @@ class WeatherList extends Component {
 
     renderWeather(cityData) {
 
-        const name = cityData.city.name;
-        const tempsInK = cityData.list.map(weather => weather.main.temp);
-        const tempsInC = tempsInK.map(temp => temp - 273.15);
-        const tempsInF = tempsInC.map(temp => temp * 9 / 5 + 32)
-        const humidity = cityData.list.map(weather => weather.main.humidity);
-        const { lon, lat } = cityData.city.coord;
+        console.log(cityData)
+
+        const id = cityData.id;
+        const name = cityData.name;
+        const tempsInK = Math.round(cityData.main.temp);
+        console.log(tempsInK - 273);
+        const tempsInC = tempsInK- 273;
+        const tempsInF = Math.round(tempsInC * 9 / 5 + 32);
+        const humidity = cityData.main.humidity;
+        const { lon, lat } = cityData.coord;
 
         return (
-            <tr key={name}>
+            <tr key={id}>
                 <td>
                     <GoogleMap lat={lat} lon={lon} />
+                    {/* {name} */}
                 </td>
-                <td><Chart data={tempsInC} type="temp" color="blue" units="C" /></td>
-                <td><Chart data={tempsInF} type="temp" color="blue" units="F" /></td>
-                <td><Chart data={humidity} color="black" units="%" /></td>
+                <td>
+                    <Chart data={tempsInC} units="C" />
+                    <Chart data={tempsInF} units="F" />
+                </td>
+                <td><Chart data={humidity} units="%" /></td>
             </tr>
         );
     }
@@ -49,8 +56,7 @@ class WeatherList extends Component {
                 <thead>
                     <tr>
                         <th>City</th>
-                        <th>Temperature (C)</th>
-                        <th>Temperature (F)</th>
+                        <th>Temp</th>
                         <th>Humidity (%)</th>
                     </tr>
                 </thead>

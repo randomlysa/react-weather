@@ -4,7 +4,7 @@ import { loadState } from '../manageLocalStorage';
 import { codes } from 'iso-country-codes';
 
 const API_KEY = '0ef0dca7d078d40465c8a1d8cfd77296';
-const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
+const ROOT_URL = `http://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}`
 
 export const FETCH_WEATHER_FROM_OPENWEATHER = 'FETCH_WEATHER_FROM_OPENWEATHER';
 export const FETCH_WEATHER_FROM_LOCALSTORAGE = 'FETCH_WEATHER_FROM_LOCALSTORAGE';

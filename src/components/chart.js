@@ -5,7 +5,7 @@ import React from 'react';
 export default (props) => {
     return (
         <span>
-            {props.data} {props.units}
+            {props.data} {props.units} {props.label}
         </span>
     )
 }

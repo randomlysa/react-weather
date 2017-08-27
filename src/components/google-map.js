@@ -14,7 +14,7 @@ class GoogleMap extends Component {
 
     render() {
         // this.refs.map refers to this element
-        return <div ref="map" className="googleMapDiv"></div>;
+        return <div ref="map" className="google-map-div"></div>;
     }
 }
 

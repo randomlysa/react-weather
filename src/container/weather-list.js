@@ -24,6 +24,8 @@ class WeatherList extends Component {
 
     renderWeather(cityData) {
 
+        console.log(cityData)
+
         const id = cityData.id;
         const name = cityData.name;
         const description = cityData.weather[0].description;
@@ -34,18 +36,22 @@ class WeatherList extends Component {
 
         return (
             <div className="row" key={id}>
-                <div className="col-md-6">
+                <div className="col-md-3">
                     <GoogleMap lat={lat} lon={lon} />
                 </div>
-                <div className="col-md-3">
-                    ({description})
-                    &nbsp;/&nbsp;
-                    <Chart data={tempInC} units="C" />
-                    &nbsp;/&nbsp;
-                    <Chart data={tempInF} units="F" />
-                </div>
-                <div className="col-md-3">
-                    <Chart data={humidity} units="%" />
+                <div className="weather-info-text">
+
+                    <div className="col-md-9 col-xs-12">
+                        ({description})
+                    </div>
+                    <div className="col-md-9 col-xs-12">
+                        <Chart data={tempInC} units="C" />
+                        &nbsp;/&nbsp;
+                        <Chart data={tempInF} units="F" />
+                    </div>
+                    <div className="col-md-9 col-xs-12">
+                        <Chart data={humidity} units="%" label="Humidity" />
+                    </div>
                 </div>
             </div>
         );

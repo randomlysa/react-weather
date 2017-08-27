@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
+
 .input-group {
     margin: 20px 0;
 }
@@ -6,9 +8,16 @@ svg {
     height: 150px;
 }
 
-.googleMapDiv {
+.google-map-div {
+    text-align: center;
     height: 200px;
-    width: 250px;
+    width: 100%;
+}
+
+.weather-info-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 30pt;
+    text-align: center;
 }
 
 .row {

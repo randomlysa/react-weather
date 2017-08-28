@@ -21,7 +21,8 @@ export function fetchWeatherFromOpenWeather(location, cityId) {
 
         url = `${WEATHER_URL}&q=${city},${alpha2code}`;
     }
-    const request = axios.get(url);
+    console.log('requesting')
+    // const request = axios.get(url);
 
     return {
         type: FETCH_WEATHER_FROM_OPENWEATHER,

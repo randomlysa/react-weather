@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { fetchWeatherFromLocalStorage } from '../actions'
 import { loadState, saveState } from '../manageLocalStorage';
 import _ from 'lodash';
+import moment from 'moment';
 
 class WeatherList extends Component {
 
@@ -33,6 +34,7 @@ class WeatherList extends Component {
         const tempInF = Math.round(tempInC * 9 / 5 + 32);
         const humidity = cityData.main.humidity;
         const { lon, lat } = cityData.coord;
+        const timeLastUpdated = moment.unix(cityData.dt).fromNow();
 
         return (
             <div className="row" key={id}>
@@ -50,7 +52,8 @@ class WeatherList extends Component {
                         <Chart data={tempInF} units="F" />
                     </div>
                     <div className="col-md-9 col-xs-12">
-                        <Chart data={humidity} units="%" label="Humidity" />
+                        <Chart data={humidity} units="%" label="Humidity" /><br />
+                        <i>last updated {timeLastUpdated}</i>
                     </div>
                 </div>
             </div>

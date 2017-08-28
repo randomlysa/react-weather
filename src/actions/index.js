@@ -9,20 +9,16 @@ const UVI_URL = `http://api.openweathermap.org/data/2.5/uvi?appid=${API_KEY}`; /
 
 export const FETCH_WEATHER_FROM_OPENWEATHER = 'FETCH_WEATHER_FROM_OPENWEATHER';
 export const FETCH_WEATHER_FROM_LOCALSTORAGE = 'FETCH_WEATHER_FROM_LOCALSTORAGE';
+export const FETCH_WEATHER_UPDATE = 'FETCH_WEATHER_UPDATE';
 
-export function fetchWeatherFromOpenWeather(location, cityId) {
-    let url;
-    if (cityId) {
-        url = `${WEATHER_URL}&id=${cityId}`;
-    } else {
-        const items = location.split(",")
-        const [city, country = "United States of America (the)"] = items;
-        const alpha2code = _.filter(codes, {"name": country.trim() })[0].alpha2;
+export function fetchWeatherFromOpenWeather(location) {
 
-        url = `${WEATHER_URL}&q=${city},${alpha2code}`;
-    }
-    console.log('requesting')
-    // const request = axios.get(url);
+    const items = location.split(",")
+    const [city, country = "United States of America (the)"] = items;
+    const alpha2code = _.filter(codes, {"name": country.trim() })[0].alpha2;
+
+    const url = `${WEATHER_URL}&q=${city},${alpha2code}`;
+    const request = axios.get(url);
 
     return {
         type: FETCH_WEATHER_FROM_OPENWEATHER,
@@ -37,4 +33,15 @@ export function fetchWeatherFromLocalStorage() {
         type: FETCH_WEATHER_FROM_LOCALSTORAGE,
         payload: request
     }
+}
+
+export function fetchWeatherUpdate(cityId) {
+    const url = `${WEATHER_URL}&id=${cityId}`;
+    const request = axios.get(url);
+
+    return {
+        type: FETCH_WEATHER_UPDATE,
+        payload: request
+    }
+
 }

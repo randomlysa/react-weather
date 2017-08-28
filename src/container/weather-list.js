@@ -4,13 +4,12 @@ import GoogleMap from '../components/google-map';
 
 // Gets weather from state.
 import { connect } from 'react-redux';
-import { fetchWeatherFromLocalStorage } from '../actions'
+import { fetchWeatherFromLocalStorage, fetchWeatherUpdate } from '../actions'
 import { loadState, saveState } from '../manageLocalStorage';
 import _ from 'lodash';
 import moment from 'moment';
 
 class WeatherList extends Component {
-
     componentDidMount()   {
         this.props.fetchWeatherFromLocalStorage();
     }
@@ -21,11 +20,18 @@ class WeatherList extends Component {
                 nextProps.weather
             );
         }
+        nextProps.weather.map((city) => {
+            const [number, units] = moment.unix(city.dt).fromNow(true).split(" ");
+
+            // If city data is less than an hour old, 'units' will be 'minutes.'
+            // Example: 29 minutes.
+            if (units !== "minutes") {
+                nextProps.fetchWeatherUpdate(city.id)
+            }
+        })
     }
 
     renderWeather(cityData) {
-
-        console.log(cityData)
 
         const id = cityData.id;
         const name = cityData.name;
@@ -74,4 +80,4 @@ function mapStateToProps({ weather }) {
     return { weather }; // same as { weather: weather}
 }
 
-export default connect(mapStateToProps, { fetchWeatherFromLocalStorage })(WeatherList)
+export default connect(mapStateToProps, { fetchWeatherFromLocalStorage, fetchWeatherUpdate })(WeatherList)

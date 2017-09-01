@@ -61,7 +61,7 @@ class WeatherList extends Component {
                     </div>
                     <div className="col-md-9 col-xs-12">
                         <Chart data={humidity} units="%" label="Humidity" /><br />
-                        <i>last updated {timeLastUpdated}</i>
+                        <i>updated {timeLastUpdated}</i>
                     </div>
                 </div>
             </div>

@@ -20,3 +20,11 @@ export const saveState = (weather) => {
         // Ignore write errors.
     }
 }
+
+export const clearStorage = () => {
+    try {
+        localStorage.setItem('weather', '');
+    } catch (err) {
+        console.log(err);
+    }
+}

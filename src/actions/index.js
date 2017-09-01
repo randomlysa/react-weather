@@ -11,14 +11,26 @@ export const FETCH_WEATHER_FROM_OPENWEATHER = 'FETCH_WEATHER_FROM_OPENWEATHER';
 export const FETCH_WEATHER_FROM_LOCALSTORAGE = 'FETCH_WEATHER_FROM_LOCALSTORAGE';
 export const FETCH_WEATHER_UPDATE = 'FETCH_WEATHER_UPDATE';
 
-export function fetchWeatherFromOpenWeather(location) {
+let numberOfRequests = 0;
 
+function manageRequestVolume(url) {
+    numberOfRequests++;
+    console.log(numberOfRequests)
+    if (numberOfRequests > 10) {
+        alert("Sorry, too many requests... take a break!");
+        return;
+    } else {
+        return axios.get(url);
+    }
+}
+
+export function fetchWeatherFromOpenWeather(location) {
     const items = location.split(",")
     const [city, country = "United States of America (the)"] = items;
     const alpha2code = _.filter(codes, {"name": country.trim() })[0].alpha2;
 
     const url = `${WEATHER_URL}&q=${city},${alpha2code}`;
-    const request = axios.get(url);
+    const request = manageRequestVolume(url);
 
     return {
         type: FETCH_WEATHER_FROM_OPENWEATHER,
@@ -37,7 +49,7 @@ export function fetchWeatherFromLocalStorage() {
 
 export function fetchWeatherUpdate(cityId) {
     const url = `${WEATHER_URL}&id=${cityId}`;
-    const request = axios.get(url);
+    const request = manageRequestVolume(url);
 
     return {
         type: FETCH_WEATHER_UPDATE,

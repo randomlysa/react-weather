@@ -21,14 +21,16 @@ class WeatherList extends Component {
             );
         }
         nextProps.weather.map((city) => {
-            const [number, units] = moment.unix(city.dt).fromNow(true).split(" ");
+            const { timeFetched } = city;
+            const now = new Date().getTime();
+            // Convert milliseconds to minutes.
+            const timeDifference = (now - timeFetched) / 1000 / 60;
 
-            // If city data is less than an hour old, 'units' will be 'minutes.'
-            // Example: 29 minutes.
-            if (units !== "minutes") {
-                nextProps.fetchWeatherUpdate(city.id)
+            // Update weather if it was fetched over 30 minutes ago.
+            if (timeDifference > 30 || timeFetched === undefined) {
+                nextProps.fetchWeatherUpdate(city.id);
             }
-        })
+        });
     }
 
     renderWeather(cityData) {

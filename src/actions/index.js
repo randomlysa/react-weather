@@ -39,7 +39,7 @@ export function fetchWeatherFromOpenWeather(location) {
     const alpha2code = _.filter(codes, {"name": country.trim() })[0].alpha2;
 
     const url = `${WEATHER_URL}&q=${city},${alpha2code}`;
-    const request = manageRequestVolume(url);
+    const request = manageRequestVolume(url, city);
 
     return {
         type: FETCH_WEATHER_FROM_OPENWEATHER,

@@ -12,14 +12,23 @@ export const FETCH_WEATHER_FROM_LOCALSTORAGE = 'FETCH_WEATHER_FROM_LOCALSTORAGE'
 export const FETCH_WEATHER_UPDATE = 'FETCH_WEATHER_UPDATE';
 
 let numberOfRequests = 0;
+let listOfCities = [];
 
-function manageRequestVolume(url) {
-    numberOfRequests++;
-    console.log(numberOfRequests)
+// In weather-list > componentWillReceiveProps, the initial run requests an
+// update for each city that has weather that was requested more than 30
+// minutes ago. If there is more than once city to update, once one city is
+// updated and componentWillReceiveProps runs, it will request another update
+// for the remaining cities that are still out of date. listOfCities keeps
+// track of what cities have had an update requested and ignores duplicate
+// requests.
+function manageRequestVolume(url, cityId) {
     if (numberOfRequests > 10) {
         alert("Sorry, too many requests... take a break!");
         return;
-    } else {
+    }
+    if (listOfCities.indexOf(cityId) === -1) {
+        listOfCities = [...listOfCities, cityId]
+        numberOfRequests++;
         return axios.get(url);
     }
 }
@@ -49,7 +58,7 @@ export function fetchWeatherFromLocalStorage() {
 
 export function fetchWeatherUpdate(cityId) {
     const url = `${WEATHER_URL}&id=${cityId}`;
-    const request = manageRequestVolume(url);
+    const request = manageRequestVolume(url, cityId);
 
     return {
         type: FETCH_WEATHER_UPDATE,

@@ -6,7 +6,6 @@ import GoogleMap from '../components/google-map';
 import { connect } from 'react-redux';
 import { fetchWeatherFromLocalStorage, fetchWeatherUpdate } from '../actions'
 import { loadState, saveState } from '../manageLocalStorage';
-import _ from 'lodash';
 import moment from 'moment';
 
 class WeatherList extends Component {
@@ -20,15 +19,17 @@ class WeatherList extends Component {
                 nextProps.weather
             );
         }
+
+        const now = new Date().getTime();
+
         nextProps.weather.map((city) => {
             const { timeFetched } = city;
-            const now = new Date().getTime();
             // Convert milliseconds to minutes.
             const timeDifference = (now - timeFetched) / 1000 / 60;
 
-            // Update weather if it was fetched over 30 minutes ago.
+            // Request weather update if fetched over 30 minutes ago.
             if (timeDifference > 30 || timeFetched === undefined) {
-                nextProps.fetchWeatherUpdate(city.id);
+                this.props.fetchWeatherUpdate(city.id);
             }
         });
     }
@@ -48,6 +49,7 @@ class WeatherList extends Component {
             <div className="row" key={id}>
                 <div className="col-md-3">
                     <GoogleMap lat={lat} lon={lon} />
+                    {name}
                 </div>
                 <div className="weather-info-text">
 

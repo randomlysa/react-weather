@@ -7,20 +7,25 @@ import _ from 'lodash'
 
 export default function(state = [], action) {
     const now = new Date().getTime();
-
     switch (action.type) {
         case FETCH_WEATHER_FROM_LOCALSTORAGE:
             return action.payload
         case FETCH_WEATHER_FROM_OPENWEATHER:
-            action.payload.data.timeFetched = now;
-           return [ action.payload.data, ...state]
+            // Copy payload.data (new city) to new object.
+            let newCityObject = Object.assign({}, action.payload.data);
+            newCityObject.timeFetched = now;
+           return [ newCityObject, ...state]
         case FETCH_WEATHER_UPDATE:
-            // Find where the cityToUpdate is in the state.
-            const cityToUpdate = _.findKey(state, {id: action.payload.data.id} );
-            // Remove old city and add cityToUpdate
-            action.payload.data.timeFetched = now;
-            state.splice(cityToUpdate, 1, action.payload.data);
-            return [ ...state ]
+            if(action.payload) {
+                // Find where the cityToUpdate is in the state.
+                const cityToUpdate = _.findKey(state, {id: action.payload.data.id} );
+                // Copy payload.data (new city) to new object.
+                let updateCityObject = Object.assign({}, action.payload.data);
+                updateCityObject.timeFetched = now;
+                // Update state.
+                state.splice(cityToUpdate, 1, updateCityObject);
+                return [ ...state ]
+            }
     }
     return state;
 }

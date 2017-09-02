@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display');
 
+body {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+}
+
 .input-group {
     margin: 20px 0;
 }
@@ -14,11 +19,17 @@ svg {
     width: 100%;
 }
 
+.weather-map-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 14pt;
+}
+
 .weather-info-text {
     font-family: 'Playfair Display', serif;
     font-size: 30pt;
-    text-align: center;
 }
+
+
 
 .weather-temp {
     padding-left: 20px;

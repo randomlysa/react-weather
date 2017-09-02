@@ -44,15 +44,16 @@ class WeatherList extends Component {
         const humidity = cityData.main.humidity;
         const { lon, lat } = cityData.coord;
         const timeLastUpdated = moment.unix(cityData.dt).fromNow();
+        const timeLastFetched = moment(cityData.timeFetched).fromNow();
 
         return (
             <div className="row" key={id}>
-                <div className="col-md-3">
+                <div className="col-md-3 weather-map-text">
                     <GoogleMap lat={lat} lon={lon} />
-                    {name}
+                    <strong>{name}</strong> <br />
+                    fetched {timeLastFetched}
                 </div>
                 <div className="weather-info-text">
-
                     <div className="col-md-9 col-xs-12">
                         ({description})
                     </div>

@@ -20,6 +20,10 @@ svg {
     text-align: center;
 }
 
+.weather-temp {
+    padding-left: 20px;
+}
+
 .row {
     border-bottom: solid 2px #ADAAAA;
     padding-top: 15px;

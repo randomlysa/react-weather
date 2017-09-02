@@ -58,7 +58,6 @@ class WeatherList extends Component {
                     </div>
                     <div className="col-md-9 col-xs-12">
                         <Chart data={tempInC} units="C" />
-                        &nbsp;/&nbsp;
                         <Chart data={tempInF} units="F" />
                     </div>
                     <div className="col-md-9 col-xs-12">

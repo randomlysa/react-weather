@@ -1,12 +1,15 @@
 import {
     FETCH_WEATHER_FROM_LOCALSTORAGE,
     FETCH_WEATHER_FROM_OPENWEATHER,
-    FETCH_WEATHER_UPDATE
+    FETCH_WEATHER_UPDATE,
+
+    DELETE_ONE_CITY
 } from '../actions/index';
 import _ from 'lodash'
 
 export default function(state = [], action) {
     const now = new Date().getTime();
+
     switch (action.type) {
         case FETCH_WEATHER_FROM_LOCALSTORAGE:
             return action.payload
@@ -26,6 +29,14 @@ export default function(state = [], action) {
                 state.splice(cityToUpdate, 1, updateCityObject);
                 return [ ...state ]
             }
+        case DELETE_ONE_CITY:
+            // Find where the cityToDelete is in the state.
+            const cityToDelete = _.findKey(
+                state, {'id': parseInt(action.payload)}
+            );
+
+            state.splice(cityToDelete, 1);
+            return [ ...state ];
     }
     return state;
 }

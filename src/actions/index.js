@@ -11,6 +11,8 @@ export const FETCH_WEATHER_FROM_OPENWEATHER = 'FETCH_WEATHER_FROM_OPENWEATHER';
 export const FETCH_WEATHER_FROM_LOCALSTORAGE = 'FETCH_WEATHER_FROM_LOCALSTORAGE';
 export const FETCH_WEATHER_UPDATE = 'FETCH_WEATHER_UPDATE';
 
+export const DELETE_ONE_CITY = 'DELETE_ONE_CITY';
+
 let numberOfRequests = 0;
 let listOfCities = [];
 
@@ -64,5 +66,12 @@ export function fetchWeatherUpdate(cityId) {
         type: FETCH_WEATHER_UPDATE,
         payload: request
     }
+}
 
+export function deleteCity(e) {
+    const request = e.target.id;
+    return {
+        type: DELETE_ONE_CITY,
+        payload: request
+    }
 }

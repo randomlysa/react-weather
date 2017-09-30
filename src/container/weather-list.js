@@ -4,7 +4,7 @@ import GoogleMap from '../components/google-map';
 
 // Gets weather from state.
 import { connect } from 'react-redux';
-import { fetchWeatherFromLocalStorage, fetchWeatherUpdate } from '../actions'
+import { fetchWeatherFromLocalStorage, fetchWeatherUpdate, deleteCity } from '../actions'
 import { loadState, saveState } from '../manageLocalStorage';
 import moment from 'moment';
 
@@ -56,14 +56,22 @@ class WeatherList extends Component {
                 <div className="weather-info-text">
                     <div className="col-md-9 col-xs-12">
                         ({description})
-                    </div>
-                    <div className="col-md-9 col-xs-12">
+
+                        <br/>
+
                         <Chart data={tempInC} units="C" />
                         <Chart data={tempInF} units="F" />
-                    </div>
-                    <div className="col-md-9 col-xs-12">
+
+                        <br/>
+
                         <Chart data={humidity} units="%" label="Humidity" /><br />
                         <i>updated {timeLastUpdated}</i>
+
+                        <br/>
+
+                        <button onClick={this.props.deleteCity} id={id}>
+                            x
+                        </button>
                     </div>
                 </div>
             </div>
@@ -73,7 +81,10 @@ class WeatherList extends Component {
     render() {
         return (
             <div>
-                {this.props.weather.map(this.renderWeather)}
+                {this.props.weather.map(function(city) {
+                        return this.renderWeather (city, this)
+                    }, this)
+                }
             </div>
         );
     }
@@ -84,4 +95,6 @@ function mapStateToProps({ weather }) {
     return { weather }; // same as { weather: weather}
 }
 
-export default connect(mapStateToProps, { fetchWeatherFromLocalStorage, fetchWeatherUpdate })(WeatherList)
+export default connect(mapStateToProps, {
+    fetchWeatherFromLocalStorage, fetchWeatherUpdate, deleteCity
+})(WeatherList)

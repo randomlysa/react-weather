@@ -27,7 +27,7 @@ export default function(state = [], action) {
                 updateCityObject.timeFetched = now;
                 // Update state.
                 state.splice(cityToUpdate, 1, updateCityObject);
-                return [ ...state ]
+                return [ ...state ];
             }
         case DELETE_ONE_CITY:
             // Find where the cityToDelete is in the state.

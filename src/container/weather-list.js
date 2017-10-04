@@ -4,13 +4,15 @@ import GoogleMap from '../components/google-map';
 
 // Gets weather from state.
 import { connect } from 'react-redux';
-import { fetchWeatherFromLocalStorage, fetchWeatherUpdate, deleteCity } from '../actions'
+import { bindActionCreators } from 'redux';
+import * as actionCreators from '../actions'
+
 import { loadState, saveState } from '../manageLocalStorage';
 import moment from 'moment';
 
 class WeatherList extends Component {
     componentDidMount()   {
-        this.props.fetchWeatherFromLocalStorage();
+        this.props.actions.fetchWeatherFromLocalStorage();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -29,7 +31,7 @@ class WeatherList extends Component {
 
             // Request weather update if fetched over 30 minutes ago.
             if (timeDifference > 30 || timeFetched === undefined) {
-                this.props.fetchWeatherUpdate(city.id);
+                this.props.actions.fetchWeatherUpdate(city.id);
             }
         });
     }
@@ -69,7 +71,7 @@ class WeatherList extends Component {
 
                         <br/>
 
-                        <button onClick={this.props.deleteCity} id={id}>
+                        <button onClick={this.props.actions.deleteCity} id={id}>
                             x
                         </button>
                     </div>
@@ -82,7 +84,7 @@ class WeatherList extends Component {
         return (
             <div>
                 {this.props.weather.map(function(city) {
-                        return this.renderWeather (city, this)
+                    return this.renderWeather (city, this)
                     }, this)
                 }
             </div>
@@ -95,6 +97,11 @@ function mapStateToProps({ weather }) {
     return { weather }; // same as { weather: weather}
 }
 
-export default connect(mapStateToProps, {
-    fetchWeatherFromLocalStorage, fetchWeatherUpdate, deleteCity
-})(WeatherList)
+function mapDispatchToProps(dispatch) {
+    // Assign all actions (import * as actionCreators) to props.actions
+    return {
+        actions: bindActionCreators(actionCreators, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WeatherList)

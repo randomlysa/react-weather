@@ -3,7 +3,7 @@ import axios from 'axios';
 import { loadState } from '../manageLocalStorage';
 import { codes } from 'iso-country-codes';
 
-const API_KEY = '0ef0dca7d078d40465c8a1d8cfd77296';
+const API_KEY = 'df53338709b54a2247c6e16358430a33';
 const WEATHER_URL = `http://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}&units=metric`;
 const UVI_URL = `http://api.openweathermap.org/data/2.5/uvi?appid=${API_KEY}`; // &lat={lat}&lon={lon}
 

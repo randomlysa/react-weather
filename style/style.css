@@ -40,3 +40,9 @@ svg {
     padding-top: 15px;
     padding-bottom: 15px;
 }
+
+.btn-delete-city {
+    position: relative;
+    float: left;
+    top: -200px
+}

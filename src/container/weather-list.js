@@ -52,6 +52,13 @@ class WeatherList extends Component {
             <div className="row" key={id}>
                 <div className="col-md-3 weather-map-text">
                     <GoogleMap lat={lat} lon={lon} />
+
+                    <button
+                            className="btn btn-danger btn-delete-city"
+                            onClick={this.props.actions.deleteCity} id={id}>
+                            x
+                    </button>
+
                     <strong>{name}</strong> <br />
                     fetched {timeLastFetched}
                 </div>
@@ -69,11 +76,6 @@ class WeatherList extends Component {
                         <Chart data={humidity} units="%" label="Humidity" /><br />
                         <i>updated {timeLastUpdated}</i>
 
-                        <br/>
-
-                        <button onClick={this.props.actions.deleteCity} id={id}>
-                            x
-                        </button>
                     </div>
                 </div>
             </div>

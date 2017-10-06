@@ -24,6 +24,7 @@ export const saveState = (weather) => {
 export const clearStorage = () => {
     try {
         localStorage.setItem('weather', '');
+        window.location.reload(true);
     } catch (err) {
         console.log(err);
     }

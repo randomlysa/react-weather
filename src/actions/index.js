@@ -68,8 +68,8 @@ export function fetchWeatherUpdate(cityId) {
     }
 }
 
-export function deleteCity(e) {
-    const request = e.target.id;
+export function deleteCity(id) {
+    const request = id;
     return {
         type: DELETE_ONE_CITY,
         payload: request

@@ -12,6 +12,7 @@ export const FETCH_WEATHER_FROM_LOCALSTORAGE = 'FETCH_WEATHER_FROM_LOCALSTORAGE'
 export const FETCH_WEATHER_UPDATE = 'FETCH_WEATHER_UPDATE';
 
 export const DELETE_ONE_CITY = 'DELETE_ONE_CITY';
+export const ERROR_FETCHING_NEW_LOCATION = 'ERROR_FETCHING_NEW_LOCATION';
 
 let numberOfRequests = 0;
 let listOfCities = [];
@@ -38,7 +39,18 @@ function manageRequestVolume(url, cityId) {
 export function fetchWeatherFromOpenWeather(location) {
     const items = location.split(",")
     const [city, country = "United States of America (the)"] = items;
-    const alpha2code = _.filter(codes, {"name": country.trim() })[0].alpha2;
+    let alpha2code;
+
+    const countryCodes = _.filter(codes, {"name": country.trim() });
+    if (countryCodes.length === 1) {
+        alpha2code = countryCodes[0].alpha2;
+    } else {
+        // Error
+        return {
+            type: ERROR_FETCHING_NEW_LOCATION,
+            message: "Sorry, I couldn't find that location."
+        }
+    } // else
 
     const url = `${WEATHER_URL}&q=${city},${alpha2code}`;
     const request = manageRequestVolume(url, city);

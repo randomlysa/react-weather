@@ -20,23 +20,28 @@ export default function(state = [], action) {
            return [ newCityObject, ...state]
         case FETCH_WEATHER_UPDATE:
             if(action.payload) {
-                // Find where the cityToUpdate is in the state.
-                const cityToUpdate = _.findKey(state, {id: action.payload.data.id} );
-                // Copy payload.data (new city) to new object.
-                let updateCityObject = Object.assign({}, action.payload.data);
-                updateCityObject.timeFetched = now;
-                // Update state.
-                state.splice(cityToUpdate, 1, updateCityObject);
+                let updatedCity = action.payload.data;
+                updatedCity.timeFetched = now;
+
+                // Return state with updatedCity.
+                return state.map(city => {
+                    if(city.id !== action.payload.data.id) {
+                        return city;
+                    }
+
+                    return updatedCity;
+                });
+            } // if(action.payload)
+        case DELETE_ONE_CITY:
+            if(action.payload) {
+                // Find where the cityToDelete is in the state.
+                const cityToDelete = _.findKey(
+                    state, {'id': parseInt(action.payload)}
+                );
+
+                state.splice(cityToDelete, 1);
                 return [ ...state ];
             }
-        case DELETE_ONE_CITY:
-            // Find where the cityToDelete is in the state.
-            const cityToDelete = _.findKey(
-                state, {'id': parseInt(action.payload)}
-            );
-
-            state.splice(cityToDelete, 1);
-            return [ ...state ];
     }
     return state;
 }

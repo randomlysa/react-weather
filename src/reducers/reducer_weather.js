@@ -33,14 +33,8 @@ export default function(state = [], action) {
                 });
             } // if(action.payload)
         case DELETE_ONE_CITY:
-            if(action.payload) {
-                // Find where the cityToDelete is in the state.
-                const cityToDelete = _.findKey(
-                    state, {'id': parseInt(action.payload)}
-                );
-
-                state.splice(cityToDelete, 1);
-                return [ ...state ];
+            if (action.payload) {
+                return _.reject(state, {'id': parseInt(action.payload)});
             }
     }
     return state;

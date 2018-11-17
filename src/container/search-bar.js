@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import awsomeplete from 'awesomplete';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWeatherFromOpenWeather } from '../actions/index'
+import { fetchWeatherFromOpenWeather } from '../actions/index';
 
 class SearchBar extends Component {
     constructor(props) {
@@ -32,9 +33,10 @@ class SearchBar extends Component {
                 <form onSubmit={this.onFormSubmit} className="input-group">
                     <input
                         placeholder="Check the weather in your favorite cities"
-                        className="form-control"
+                        className="awesomplete form-control"
                         value={this.state.term}
                         onChange={this.onInputChange}
+                        data-list="Ada, Java, JavaScript, Brainfuck, LOLCODE, Node.js, Ruby on Rails"
                         />
                     <span className="input-group-btn">
                         <button type="submit" className="btn btn-secondary">Submit</button>

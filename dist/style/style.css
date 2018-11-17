@@ -34,9 +34,12 @@ svg {
 }
 
 .row {
-    border-bottom: solid 2px #ADAAAA;
     padding-top: 15px;
     padding-bottom: 15px;
+}
+
+.row--with-border {
+    border-bottom: solid 2px #ADAAAA;
 }
 
 .btn-delete-city {
@@ -55,4 +58,9 @@ svg {
     top: 0;
     left: 0;
     background-color: #fff;
+}
+
+.nocities {
+    padding: 20px;
+    font-size: 200%;
 }

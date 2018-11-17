@@ -59,7 +59,7 @@ class WeatherList extends Component {
         const timeLastFetched = moment(cityData.timeFetched).fromNow();
 
         return (
-            <div className="row" key={id}>
+            <div className="row row--with-border" key={id}>
                 <div className="col-md-3 weather-map-text">
                     <GoogleMap lat={lat} lon={lon} />
                     <ModalConfirmCancelDelete name={name} id={id} />

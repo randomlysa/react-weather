@@ -37,23 +37,16 @@ function manageRequestVolume(url, cityId) {
 }
 
 export function fetchWeatherFromOpenWeather(location) {
-    const items = location.split(",")
-    const [city, country = "United States of America (the)"] = items;
-    let alpha2code;
+    let url;
 
-    const countryCodes = _.filter(codes, {"name": country.trim() });
-    if (countryCodes.length === 1) {
-        alpha2code = countryCodes[0].alpha2;
-    } else {
-        // Error
-        return {
-            type: ERROR_FETCHING_NEW_LOCATION,
-            message: "Sorry, I couldn't find that location."
-        }
-    } // else
+    // Location is an object that was fetched from my database. It should have
+    // the openweather city id.
+    if (typeof location === 'object') {
+        url = `${WEATHER_URL}&id=${location.id}`;
+    }
 
-    const url = `${WEATHER_URL}&q=${city},${alpha2code}`;
-    const request = manageRequestVolume(url, city);
+    // const url = `${WEATHER_URL}&q=${city},${alpha2code}`;
+    const request = manageRequestVolume(url, location.name);
 
     return {
         type: FETCH_WEATHER_FROM_OPENWEATHER,

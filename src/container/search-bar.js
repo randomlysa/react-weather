@@ -14,7 +14,7 @@ class SearchBar extends Component {
         // term: updated onInputChange
         // isLoading: needed for typeahead
         // caseSensitive: typeahead setting
-        // city: ? possibly remove
+        // city: is set to an object when a city is selected from the dropdown
         // options: list of cities returned from searching, used by typeahead
         this.state = {
             term: '',
@@ -28,15 +28,11 @@ class SearchBar extends Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
-    onInputChange(event) {
-        this.setState({ term: event.target.value })
-    }
-
     onFormSubmit(event) {
         event.preventDefault();
 
         // Fetch weather data.
-        this.props.fetchWeatherFromOpenWeather(this.state.term);
+        this.props.fetchWeatherFromOpenWeather(this.state.city);
         this.setState({ term: '' });
     }
 
@@ -79,11 +75,12 @@ class SearchBar extends Component {
                         isLoading={this.state.isLoading}
                         onSearch={query => this.onInputChange(query)}
                         options={this.state.options}
+                        ref="searchFor"
 
                         placeholder="Check the weather in your favorite cities"
                         className="form-control"
                         value={this.state.term}
-                        onChange={this.onInputChange}
+                        onChange={city => this.setState({ city: city[0] }) }
                         />
                     <span className="input-group-btn">
                         <button type="submit" className="btn btn-secondary">Submit</button>

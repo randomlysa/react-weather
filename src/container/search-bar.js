@@ -8,6 +8,14 @@ import { fetchWeatherFromOpenWeather } from '../actions/index';
 import {AsyncTypeahead} from 'react-bootstrap-typeahead'; // ES2015
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
+const searchForCity = (city) => {
+    return $.ajax({
+        url:  `http://localhost/react-weather/sqlite/sqliteSearchForName.php?city=${city}`,
+        type: 'GET',
+        dataType: 'json'
+    })
+} // searchForCity
+
 class SearchBar extends Component {
     constructor(props) {
         super(props);
@@ -53,15 +61,10 @@ class SearchBar extends Component {
     }
 
     // For typeahead
-    onInputChange(query) {
+    onInputChange(city) {
         this.setState({isLoading: true});
 
-        $.ajax({
-          url:  `http://localhost/react-weather/sqlite/sqliteSearchForName.php?city=${query}`,
-          type: 'GET',
-          dataType: 'json'
-        })
-        .done(data => {
+        searchForCity(city).done(data => {
           if (data) {
             this.setState({
               isLoading: false,

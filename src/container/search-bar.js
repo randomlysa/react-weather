@@ -57,12 +57,11 @@ class SearchBar extends Component {
           if (data) {
             this.setState({
               isLoading: false,
-              options: data.map(row => {
-                // Typeahead filters by label.
-                // Make a label with city, area, country name
-                const label = `${row.city}, ${row.area}, ${row.country}`;
-                return {...row, label }
-              })
+              // Move the label to the component prop. Return data so id is
+              // included, since it's recommended to have one.
+              // See "Duplicate Data" section:
+              // https://github.com/ericgio/react-bootstrap-typeahead/blob/27790f1e70a994432c55128fe15e50ba11e76fcf/docs/Data.md
+              options: data
             });
           } else {
             this.setState({
@@ -83,6 +82,7 @@ class SearchBar extends Component {
                         isLoading={this.state.isLoading}
                         onSearch={query => this.onInputChange(query)}
                         options={this.state.options}
+                        labelKey={row => `${row.city}, ${row.area}, ${row.country}`}
 
                         placeholder="Check the weather in your favorite cities"
                         onChange={city => this.setState({ city: city[0] }) }

@@ -46,8 +46,8 @@ class SearchBar extends Component {
             // user typed in something and clicked search. there is no city
             // in state, search the database for all cities named userInput.
             const userInput = this.typeahead.getInstance().getInput().value;
-            this.setState({ cityList: searchForCity(userInput) });
-
+            searchForCity(userInput)
+            .done(data => this.setState({ cityList: data }));
             return;
         }
 

@@ -29,6 +29,14 @@ class SearchBar extends Component {
 
     onFormSubmit(event) {
         event.preventDefault();
+        if (!this.state.city) {
+            // user typed in something and clicked search. there is no city
+            // in state, search the database for all cities named userInput.
+            const userInput = this.typeahead.getInstance().getInput().value;
+
+            return;
+        }
+
         const currentId = parseInt(this.state.city.id);
         // Check if the id has already been searched for.
         const hasCity = _.find(this.props.cities, ['id', currentId])
@@ -83,7 +91,7 @@ class SearchBar extends Component {
                         onSearch={query => this.onInputChange(query)}
                         options={this.state.options}
                         labelKey={row => `${row.city}, ${row.area}, ${row.country}`}
-
+                        ref={(typeahead) => this.typeahead = typeahead}
                         placeholder="Check the weather in your favorite cities"
                         onChange={city => this.setState({ city: city[0] }) }
                         />

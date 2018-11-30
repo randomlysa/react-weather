@@ -8,6 +8,8 @@ import { fetchWeatherFromOpenWeather } from '../actions/index';
 import {AsyncTypeahead} from 'react-bootstrap-typeahead'; // ES2015
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
+import CityList from './city-list'
+
 const searchForCity = (city) => {
     return $.ajax({
         url:  `http://localhost/react-weather/sqlite/sqliteSearchForName.php?city=${city}`,
@@ -23,12 +25,15 @@ class SearchBar extends Component {
         // caseSensitive: typeahead setting
         // city: is set to an object when a city is selected from the dropdown
         // options: list of cities returned from searching, used by typeahead
+        // messageForUser: errors, etc
+        // cityList: a list of cities to select from when typeahead isn't used
         this.state = {
             isLoading: false,
             caseSensitive: false,
             city: '',
             options: [],
-            messageForUser: ''
+            messageForUser: '',
+            cityList: ''
         };
 
         this.onInputChange = this.onInputChange.bind(this);
@@ -103,6 +108,7 @@ class SearchBar extends Component {
                     </span>
                 </form>
                 {this.state.messageForUser ? <p>{this.state.messageForUser}</p> : undefined}
+                <CityList cityList={this.state.cityList} />
             </div>
         );
     }

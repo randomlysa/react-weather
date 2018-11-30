@@ -11,13 +11,11 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 class SearchBar extends Component {
     constructor(props) {
         super(props);
-        // term: updated onInputChange
         // isLoading: needed for typeahead
         // caseSensitive: typeahead setting
         // city: is set to an object when a city is selected from the dropdown
         // options: list of cities returned from searching, used by typeahead
         this.state = {
-            term: '',
             isLoading: false,
             caseSensitive: false,
             city: '',
@@ -85,11 +83,8 @@ class SearchBar extends Component {
                         isLoading={this.state.isLoading}
                         onSearch={query => this.onInputChange(query)}
                         options={this.state.options}
-                        ref="searchFor"
 
                         placeholder="Check the weather in your favorite cities"
-                        className="form-control"
-                        value={this.state.term}
                         onChange={city => this.setState({ city: city[0] }) }
                         />
                     <span className="input-group-btn">

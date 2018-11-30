@@ -3,7 +3,13 @@ import React, { Component } from 'react';
 export default class CityList extends Component {
   renderCities(cityList) {
     return cityList.map(city => {
-      return <p key={city.id}>{city.city}, {city.area}, {city.country}</p>
+      return (
+        <p key={city.id}>
+          <button onClick={() => this.props.fetchWeather(city)}>
+            {city.city}, {city.area}, {city.country}
+          </button>
+        </p>
+      )
     })
   }
 

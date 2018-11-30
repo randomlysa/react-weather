@@ -131,7 +131,7 @@ class SearchBar extends Component {
                     </span>
                 </form>
                 {this.state.messageForUser ? <p>{this.state.messageForUser}</p> : undefined}
-                <CityList cityList={this.state.cityList} />
+                <CityList cityList={this.state.cityList} fetchWeather={this.props.fetchWeatherFromOpenWeather} />
             </div>
         );
     }

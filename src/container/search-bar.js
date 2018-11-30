@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import _ from 'lodash';
 import $ from 'jquery';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -21,7 +21,8 @@ class SearchBar extends Component {
             isLoading: false,
             caseSensitive: false,
             city: '',
-            options: []
+            options: [],
+            messageForUser: ''
         };
 
         this.onInputChange = this.onInputChange.bind(this);
@@ -30,10 +31,19 @@ class SearchBar extends Component {
 
     onFormSubmit(event) {
         event.preventDefault();
+        const currentId = parseInt(this.state.city.id);
+        // Check if the id has already been searched for.
+        const hasCity = _.find(this.props.cities, ['id', currentId])
+
+        if (hasCity) {
+            return this.setState({
+                messageForUser: 'This city is already listed below.'
+            });
+        }
 
         // Fetch weather data.
         this.props.fetchWeatherFromOpenWeather(this.state.city);
-        this.setState({ term: '' });
+        this.setState({ messageForUser: '' });
     }
 
     // For typeahead
@@ -86,9 +96,14 @@ class SearchBar extends Component {
                         <button type="submit" className="btn btn-secondary">Submit</button>
                     </span>
                 </form>
+                {this.state.messageForUser ? <p>{this.state.messageForUser}</p> : undefined}
             </div>
         );
     }
+}
+
+function mapStateToProps(state) {
+    return { cities: state.weather }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -96,4 +111,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 // null means we don't need state here.
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

@@ -10,9 +10,9 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 import CityList from './city-list'
 
-const searchForCity = (city) => {
+const searchForCity = (city, limit = 5) => {
     return $.ajax({
-        url:  `http://localhost/react-weather/sqlite/sqliteSearchForName.php?city=${city}`,
+        url:  `http://localhost/react-weather/sqlite/sqliteSearchForName.php?city=${city}&limit=${limit}`,
         type: 'GET',
         dataType: 'json'
     })
@@ -46,7 +46,7 @@ class SearchBar extends Component {
             // user typed in something and clicked search. there is no city
             // in state, search the database for all cities named userInput.
             const userInput = this.typeahead.getInstance().getInput().value;
-            searchForCity(userInput)
+            searchForCity(userInput, 10)
             .done(data => this.setState({ cityList: data }));
             return;
         }
@@ -91,6 +91,27 @@ class SearchBar extends Component {
         }) // ajax
     } // onInputChange
 
+    filterResults(location, props) {
+        const {city, country} = location;
+        const { text } = props;
+        // No commma, easy filter
+        if (!text.includes(",")) {
+            return _.startsWith(city, text)
+        } else {
+            // The 'search by country' is already handled by PHP, so this
+            // doesn't really filter. It splits the entered text on a comma,
+            // then returns any results where the city starts with the city that
+            // was entered, ignoring what was after the comma.
+            // Example: entered text: "Bos, US"
+            // searchForCity = Bos
+            // ", US" is ignored, handled by PHP
+            const [ searchForCity, searchForCountry ] = text.split(",");
+            return _.startsWith(city, searchForCity);
+        }
+
+        // return props;
+    }
+
     render() {
         return (
             <div className="row">
@@ -103,6 +124,7 @@ class SearchBar extends Component {
                         ref={(typeahead) => this.typeahead = typeahead}
                         placeholder="Check the weather in your favorite cities"
                         onChange={city => this.setState({ city: city[0] }) }
+                        filterBy={this.filterResults.bind(this)}
                         />
                     <span className="input-group-btn">
                         <button type="submit" className="btn btn-secondary">Submit</button>

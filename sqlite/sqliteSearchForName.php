@@ -3,17 +3,34 @@
 
   // http://theonlytutorials.com/php-pdo-sqlite-example-insert-read-search/
   if( $_GET ){
-    $city = $_GET['city'];
+    $location = $_GET['city'];
     $limit = isset($_GET['limit']) ? $_GET['limit'] : '5';
 
     try{
       include('sqliteConfigWeather.php');
 
-      /* Create a prepared statement */
-      $stmt = $db -> prepare("SELECT * from weather where `city` LIKE :city || '%' LIMIT $limit");
+      // check for comma ~
+            $comma = stripos($location, ",");
+      if ($comma === false) {
+        // No country
+        $city = $location;
+      } else {
+        $locations = explode(",", $location);
+        $city = trim($locations[0]);
+        $country = trim($locations[1]);
+      }
 
-      /* bind param */
-      $stmt -> bindParam(':city', $city, PDO::PARAM_STR);
+      /* Create a prepared statement */
+      if ($comma === false) {
+        $stmt = $db -> prepare("SELECT * from weather where `city` LIKE :city || '%' LIMIT $limit");
+        /* bind param */
+        $stmt -> bindParam(':city', $city, PDO::PARAM_STR);
+      } else {
+        $stmt = $db -> prepare("SELECT * from weather where `city` LIKE :city || '%' and `country` = :country LIMIT $limit");
+        /* bind param */
+        $stmt -> bindParam(':city', $city, PDO::PARAM_STR);
+        $stmt -> bindParam(':country', $country, PDO::PARAM_STR);
+      }
 
       /* execute the query */
       $stmt -> execute();

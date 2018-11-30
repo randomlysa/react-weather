@@ -65,7 +65,7 @@ class SearchBar extends Component {
         .fail(e => {
           console.log(e);
         }) // ajax
-      }
+    } // onInputChange
 
     render() {
         return (

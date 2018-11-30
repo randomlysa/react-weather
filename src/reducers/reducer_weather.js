@@ -15,9 +15,17 @@ export default function(state = [], action) {
             return action.payload
         case FETCH_WEATHER_FROM_OPENWEATHER:
             // Copy payload.data (new city) to new object.
-            let newCityObject = Object.assign({}, action.payload.data);
-            newCityObject.timeFetched = now;
-           return [ newCityObject, ...state]
+            if (typeof action.payload.data === 'object') {
+                const cityWithTimeFetched = {
+                    ...action.payload.data,
+                    timeFetched: now
+                }
+                return [cityWithTimeFetched, ...state]
+            } else {
+                return state;
+            }
+
+
         case FETCH_WEATHER_UPDATE:
             if(action.payload) {
                 let updatedCity = action.payload.data;

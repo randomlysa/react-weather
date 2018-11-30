@@ -40,6 +40,12 @@ class SearchBar extends Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
+    // Used by city-list. Fetches weather info and clears state.cityList.
+    fetchWeatherAndClear(city) {
+        this.props.fetchWeatherFromOpenWeather(city);
+        this.setState({cityList: ''})
+    }
+
     onFormSubmit(event) {
         event.preventDefault();
         if (!this.state.city) {
@@ -131,7 +137,10 @@ class SearchBar extends Component {
                     </span>
                 </form>
                 {this.state.messageForUser ? <p>{this.state.messageForUser}</p> : undefined}
-                <CityList cityList={this.state.cityList} fetchWeather={this.props.fetchWeatherFromOpenWeather} />
+                <CityList
+                    cityList={this.state.cityList}
+                    fetchWeatherAndClear={this.fetchWeatherAndClear.bind(this)}
+                />
             </div>
         );
     }

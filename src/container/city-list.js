@@ -5,7 +5,7 @@ export default class CityList extends Component {
     return cityList.map(city => {
       return (
         <p key={city.id}>
-          <button onClick={() => this.props.fetchWeather(city)}>
+          <button onClick={() => this.props.fetchWeatherAndClear(city)}>
             {city.city}, {city.area}, {city.country}
           </button>
         </p>

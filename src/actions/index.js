@@ -23,6 +23,8 @@ let listOfCities = [];
 // track of what cities have had an update requested and ignores duplicate
 // requests.
 function manageRequestVolume(url, cityId) {
+    // 2018 11 29 - tested, manageRequestVolume is still working  for
+    // multiple city updates - each city was only requested once. ~
     if (numberOfRequests > 10) {
         alert("Sorry, too many requests... take a break!");
         return;

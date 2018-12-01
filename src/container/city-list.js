@@ -24,3 +24,5 @@ export default class CityList extends Component {
     return renderItems;
   } // render
 } // class CityList
+
+// Todo: have an option to close the list without selecting a city.

@@ -9,8 +9,8 @@ export default class CityList extends Component {
             {city.city}, {city.area}, {city.country}
           </button>
         </p>
-      )
-    })
+      );
+    });
   }
 
   render() {
@@ -18,11 +18,7 @@ export default class CityList extends Component {
 
     let renderItems;
     if (cityList) {
-      renderItems = (
-        <div className="row">
-          {this.renderCities(cityList)}
-        </div>
-      )
+      renderItems = <div className="row">{this.renderCities(cityList)}</div>;
     } else renderItems = '';
 
     return renderItems;

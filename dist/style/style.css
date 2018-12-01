@@ -1,71 +1,70 @@
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display');
 
 body {
-    font-family: 'Playfair Display', serif;
-    text-align: center;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
 }
 
 .input-group {
-    margin: 20px 0;
-    width: 100%;
+  margin: 20px 0;
+  width: 100%;
 }
 
 svg {
-    height: 150px;
+  height: 150px;
 }
 
 .google-map-div {
-    text-align: center;
-    height: 200px;
-    width: 100%;
+  text-align: center;
+  height: 200px;
+  width: 100%;
 }
 
 .weather-map-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 14pt;
+  font-family: 'Playfair Display', serif;
+  font-size: 14pt;
 }
 
 .weather-info-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 30pt;
+  font-family: 'Playfair Display', serif;
+  font-size: 30pt;
 }
 
 .weather-temp {
-    padding-left: 20px;
+  padding-left: 20px;
 }
 
 .row {
-    padding-top: 15px;
-    padding-bottom: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .row--with-border {
-    border-bottom: solid 2px #ADAAAA;
+  border-bottom: solid 2px #adaaaa;
 }
 
 .btn-delete-city {
-    position: absolute;
-    top: 0;
-    left: 15px;
-
+  position: absolute;
+  top: 0;
+  left: 15px;
 }
 
 .confirm-delete {
-    z-index: -10;
-    position: absolute;
-    display: none;
-    width: 100%;
-    height: 200px;
-    top: 0;
-    left: 0;
-    background-color: #fff;
+  z-index: -10;
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 200px;
+  top: 0;
+  left: 0;
+  background-color: #fff;
 }
 
 .nocities {
-    padding: 20px;
-    font-size: 200%;
+  padding: 20px;
+  font-size: 200%;
 }
 
 .row--footer {
-    text-align: left;
+  text-align: left;
 }

@@ -1,49 +1,47 @@
 import {
-    FETCH_WEATHER_FROM_LOCALSTORAGE,
-    FETCH_WEATHER_FROM_OPENWEATHER,
-    FETCH_WEATHER_UPDATE,
-
-    DELETE_ONE_CITY
+  FETCH_WEATHER_FROM_LOCALSTORAGE,
+  FETCH_WEATHER_FROM_OPENWEATHER,
+  FETCH_WEATHER_UPDATE,
+  DELETE_ONE_CITY
 } from '../actions/index';
-import _ from 'lodash'
+import _ from 'lodash';
 
 export default function(state = [], action) {
-    const now = new Date().getTime();
+  const now = new Date().getTime();
 
-    switch (action.type) {
-        case FETCH_WEATHER_FROM_LOCALSTORAGE:
-            return action.payload
-        case FETCH_WEATHER_FROM_OPENWEATHER:
-            // Copy payload.data (new city) to new object.
-            if (typeof action.payload.data === 'object') {
-                const cityWithTimeFetched = {
-                    ...action.payload.data,
-                    timeFetched: now
-                }
-                return [cityWithTimeFetched, ...state]
-            } else {
-                return state;
-            }
+  switch (action.type) {
+    case FETCH_WEATHER_FROM_LOCALSTORAGE:
+      return action.payload;
+    case FETCH_WEATHER_FROM_OPENWEATHER:
+      // Copy payload.data (new city) to new object.
+      if (typeof action.payload.data === 'object') {
+        const cityWithTimeFetched = {
+          ...action.payload.data,
+          timeFetched: now
+        };
+        return [cityWithTimeFetched, ...state];
+      } else {
+        return state;
+      }
 
+    case FETCH_WEATHER_UPDATE:
+      if (action.payload) {
+        let updatedCity = action.payload.data;
+        updatedCity.timeFetched = now;
 
-        case FETCH_WEATHER_UPDATE:
-            if(action.payload) {
-                let updatedCity = action.payload.data;
-                updatedCity.timeFetched = now;
+        // Return state with updatedCity.
+        return state.map(city => {
+          if (city.id !== action.payload.data.id) {
+            return city;
+          }
 
-                // Return state with updatedCity.
-                return state.map(city => {
-                    if(city.id !== action.payload.data.id) {
-                        return city;
-                    }
-
-                    return updatedCity;
-                });
-            } // if(action.payload)
-        case DELETE_ONE_CITY:
-            if (action.payload) {
-                return _.reject(state, {'id': parseInt(action.payload)});
-            }
-    }
-    return state;
+          return updatedCity;
+        });
+      } // if(action.payload)
+    case DELETE_ONE_CITY:
+      if (action.payload) {
+        return _.reject(state, { id: parseInt(action.payload) });
+      }
+  }
+  return state;
 }

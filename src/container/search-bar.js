@@ -103,6 +103,9 @@ class SearchBar extends Component {
       });
       return;
     }
+
+    // Todo: Maybe better to clear on focus?
+    this.typeahead.getInstance().clear();
   }
 
   // For typeahead

@@ -47,30 +47,62 @@ class SearchBar extends Component {
   }
 
   onFormSubmit(event) {
-    event.preventDefault();
-    if (!this.state.city) {
-      // user typed in something and clicked search. there is no city
-      // in state, search the database for all cities named userInput.
-      const userInput = this.typeahead.getInstance().getInput().value;
-      searchForCity(userInput, 10).done(data =>
-        this.setState({ cityList: data })
-      );
+    // Scenarios:
+    // 1. User typed in a city, selected it with keyboard/mouse/touch, and
+    // pressed Submit. Everything here works as expected.
+
+    // 2. User typed in a city, selected a result from typeahead, and pressed
+    // enter. In this case, `userInput` should be in state.options. Find that
+    // option and search for it.
+
+    // 3. User typed in a city and pressed enter without selecting anything.
+    // Search the database for matching cities and show a list.
+
+    if (event) event.preventDefault();
+    const userInput = this.typeahead.getInstance().getInput().value;
+    let [city, area, country] = userInput.split(',').map(i => i.trim());
+
+    // Returns the object if it's in state otherwise undefined.
+    const userInputInOptions = _.find(this.state.options, {
+      city,
+      country,
+      area
+    });
+
+    if (this.state.city || userInputInOptions) {
+      let currentCity;
+      if (this.state.city) {
+        currentCity = this.state.city;
+      } else {
+        currentCity = userInputInOptions; // object
+      }
+
+      const id = parseInt(currentCity.id, 10);
+      // Check if the id has already been searched for.
+      const hasCity = _.find(this.props.cities, ['id', id]);
+      if (hasCity) {
+        return this.setState({
+          messageForUser: 'This city is already listed below.'
+        });
+      }
+
+      // Fetch weather data.
+      this.props.fetchWeatherFromOpenWeather(currentCity);
+      // Clear city otherwise this.state.city will always be true after the
+      // first search.
+      this.setState({ messageForUser: '', city: '' });
+    } else {
+      // else for - if(this.state.city || userInputInOptions)
+      // user typed in something and clicked search OR typed in something and
+      // pressed enter. nothing selected from typeahead.
+      // there is no city in state, search the database for all cities named
+      // userInput.
+      searchForCity(userInput, 10).done(data => {
+        this.typeahead.getInstance().clear();
+        this.setState({ cityList: data });
+      });
       return;
     }
-
-    const currentId = parseInt(this.state.city.id);
-    // Check if the id has already been searched for.
-    const hasCity = _.find(this.props.cities, ['id', currentId]);
-
-    if (hasCity) {
-      return this.setState({
-        messageForUser: 'This city is already listed below.'
-      });
-    }
-
-    // Fetch weather data.
-    this.props.fetchWeatherFromOpenWeather(this.state.city);
-    this.setState({ messageForUser: '' });
   }
 
   // For typeahead
@@ -120,6 +152,24 @@ class SearchBar extends Component {
     // return props;
   }
 
+  // Lets a user search by pressing enter without selecting from typeahead.
+  // Previous, typeahead would do nothing if enter was pressed but no selection
+  // had been made.
+  handleKeyDown(e) {
+    if (e.key === 'Enter') this.onFormSubmit();
+  }
+
+  // Props for AsyncTypeahead:
+  // isLoading - Whether or not a request is currently pending
+  //    * Necessary for the component to know when new results are available
+  // onSearch - updates results when a user is typing
+  // options - results to show in dropdown when user is searching
+  // labelKey - sets the text that is diplayed - "city, area, country"
+  // ref - used for this.typeahead.getInstance().clear()
+  // onChange - when a city is selected, set that city to state.city
+  // filterBy - custom filtering
+  // onKeyDown - allow using enter key without selecting from typeahead
+  // onInputChange - could be used to set value = state on each keypress.
   render() {
     return (
       <div className="row">
@@ -133,6 +183,7 @@ class SearchBar extends Component {
             placeholder="Check the weather in your favorite cities"
             onChange={city => this.setState({ city: city[0] })}
             filterBy={this.filterResults.bind(this)}
+            onKeyDown={e => this.handleKeyDown(e)}
           />
           <span className="input-group-btn">
             <button type="submit" className="btn btn-secondary">

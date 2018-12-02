@@ -18,7 +18,11 @@ export default class CityList extends Component {
 
     let renderItems;
     if (cityList) {
-      renderItems = <div className="row">{this.renderCities(cityList)}</div>;
+      renderItems = (
+        <div className="row" data-cy="cityList">
+          {this.renderCities(cityList)}
+        </div>
+      );
     } else renderItems = '';
 
     return renderItems;

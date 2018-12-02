@@ -184,6 +184,7 @@ class SearchBar extends Component {
             onChange={city => this.setState({ city: city[0] })}
             filterBy={this.filterResults.bind(this)}
             onKeyDown={e => this.handleKeyDown(e)}
+            data-cy="searchbar"
           />
           <span className="input-group-btn">
             <button type="submit" className="btn btn-secondary">

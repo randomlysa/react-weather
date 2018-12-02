@@ -8,7 +8,8 @@
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.dev.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "cypress:open": "cypress open"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "chai": "^4.1.2",
     "chai-jquery": "^2.0.0",
     "css-loader": "^1.0.1",
+    "cypress": "^3.1.2",
     "jquery": "^3.2.1",
     "jsdom": "^11.3.0",
     "mocha": "^4.0.1",

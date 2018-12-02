@@ -92,7 +92,11 @@ class WeatherList extends Component {
 
   render() {
     if (this.props.weather.length === 0) {
-      return <div className="nocities">No cities here - search for one!</div>;
+      return (
+        <div className="nocities" data-cy="nocities">
+          No cities here - search for one!
+        </div>
+      );
     }
 
     return (

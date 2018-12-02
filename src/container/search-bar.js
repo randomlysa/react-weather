@@ -181,7 +181,7 @@ class SearchBar extends Component {
             labelKey={row => `${row.city}, ${row.area}, ${row.country}`}
             ref={typeahead => (this.typeahead = typeahead)}
             placeholder="Check the weather in your favorite cities"
-            onChange={city => this.setState({ city: city[0] })}
+            // onChange={city => this.setState({ city: city[0] })}
             filterBy={this.filterResults.bind(this)}
             onKeyDown={e => this.handleKeyDown(e)}
             data-cy="searchbar"

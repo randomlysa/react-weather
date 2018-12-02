@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
+import find from 'lodash/find';
+import startsWith from 'lodash/startsWith';
 import $ from 'jquery';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -63,7 +64,7 @@ class SearchBar extends Component {
     let [city, area, country] = userInput.split(',').map(i => i.trim());
 
     // Returns the object if it's in state otherwise undefined.
-    const userInputInOptions = _.find(this.state.options, {
+    const userInputInOptions = find(this.state.options, {
       city,
       country,
       area
@@ -79,7 +80,7 @@ class SearchBar extends Component {
 
       const id = parseInt(currentCity.id, 10);
       // Check if the id has already been searched for.
-      const hasCity = _.find(this.props.cities, ['id', id]);
+      const hasCity = find(this.props.cities, ['id', id]);
       if (hasCity) {
         return this.setState({
           messageForUser: 'This city is already listed below.'
@@ -139,7 +140,7 @@ class SearchBar extends Component {
     const { text } = props;
     // No commma, easy filter
     if (!text.includes(',')) {
-      return _.startsWith(city, text);
+      return startsWith(city, text);
     } else {
       // The 'search by country' is already handled by PHP, so this
       // doesn't really filter. It splits the entered text on a comma,
@@ -149,7 +150,7 @@ class SearchBar extends Component {
       // searchForCity = Bos
       // ", US" is ignored, handled by PHP
       const [searchForCity, searchForCountry] = text.split(',');
-      return _.startsWith(city, searchForCity);
+      return startsWith(city, searchForCity);
     }
 
     // return props;

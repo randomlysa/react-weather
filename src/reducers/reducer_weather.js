@@ -4,7 +4,7 @@ import {
   FETCH_WEATHER_UPDATE,
   DELETE_ONE_CITY
 } from '../actions/index';
-import _ from 'lodash';
+import reject from 'lodash/reject';
 
 export default function(state = [], action) {
   const now = new Date().getTime();
@@ -40,7 +40,7 @@ export default function(state = [], action) {
       } // if(action.payload)
     case DELETE_ONE_CITY:
       if (action.payload) {
-        return _.reject(state, { id: parseInt(action.payload) });
+        return reject(state, { id: parseInt(action.payload) });
       }
   }
   return state;

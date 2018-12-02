@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 
 // Function based component, doesn't need state.

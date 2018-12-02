@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import axios from 'axios';
 import { loadState } from '../manageLocalStorage';
 

@@ -176,7 +176,11 @@ class SearchBar extends Component {
   render() {
     return (
       <div className="row">
-        <form onSubmit={this.onFormSubmit} className="input-group">
+        <form
+          onSubmit={this.onFormSubmit}
+          data-cy="submit"
+          className="input-group"
+        >
           <AsyncTypeahead
             isLoading={this.state.isLoading}
             onSearch={query => this.onInputChange(query)}

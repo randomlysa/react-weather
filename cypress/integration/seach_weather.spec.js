@@ -5,7 +5,7 @@ describe('Search bar', function() {
     cy.get('[data-cy=nocities').contains(/\w/);
   });
 
-  it('works to search using typeahead, down arrow, enter', function() {
+  it('should fetch weather using typeahead, down arrow, enter', function() {
     // If this is typed too fast, there will be a city search result with only
     // one city inside a button: <button>Boston District, England, GB</button>.
     // This is why I am checking for city name + fetched.
@@ -16,7 +16,7 @@ describe('Search bar', function() {
     cy.contains('Boston District fetched');
   });
 
-  it('works to search using typeahead, down arrow, enter AFTER a first search', function() {
+  it('should fetch weather using typeahead, down arrow, enter AFTER a first search', function() {
     cy.get('.rbt-input-main')
       .type('Tokyo')
       .wait(700) // Wait for typeahead to get some data and make a list.
@@ -24,11 +24,41 @@ describe('Search bar', function() {
     cy.contains('Tokyo fetched');
   });
 
-  it('shows a list of cities if user did not select typeahead option and pressed enter', function() {
+  it('should show a list of cities if user did not select typeahead option and pressed enter', function() {
     cy.get('.rbt-input-main')
       .type('Johan')
       .wait(400) // Wait for typeahead to get some data and make a list.
-      .type('{downarrow}{enter}');
-    cy.get('[data-cy=cityList]');
+      .type('{enter}');
+    cy.get('[data-cy=cityList--city]');
   });
+
+  it('should fetch weather for a city in cityList', function() {
+    cy.get('[data-cy=cityList--city]')
+      .first()
+      .invoke('text')
+      .then(text1 => {
+        const [city] = text1.split(',');
+        // text1 is the text of the first button. once it is clicked,
+        // there should be `${city} fetched on the page.
+        // Note, this currently also depends on there not being another
+        // city with this name already on the page.
+        // But I think it's also important to test this by itself AND
+        // with a search having been run before it.
+        cy.get('[data-cy=cityList--city]')
+          .first()
+          .click();
+        cy.contains(`${city} fetched`);
+      });
+  });
+
+  // Click doesn't work...
+  // it('should fetch weather when a user clicks on a typeahead item and presses submit', function() {
+  //   cy.get('.rbt-input-main')
+  //     .type('Prague')
+  //     .wait(700); // Wait for typeahead to get some data and make a list.
+  //   cy.get('li')
+  //     .first()
+  //     .click({ x: 5, y: 5 });
+  //   cy.get('[data-cy=submit').click();
+  // });
 });

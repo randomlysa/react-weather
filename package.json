@@ -42,6 +42,7 @@
     "axios": "^0.18.0",
     "babel-preset-stage-1": "^6.1.18",
     "babel-register": "^6.26.0",
+    "hammerjs": "^2.0.8",
     "iso-country-codes": "0.0.5",
     "lodash": "^4.17.4",
     "material-icons-react": "^1.0.4",

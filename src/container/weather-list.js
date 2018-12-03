@@ -1,18 +1,44 @@
 import React, { Component } from 'react';
-import Chart from '../components/chart';
-import GoogleMap from '../components/google-map';
-
 // Gets weather from state.
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions';
-
 import { saveState } from '../manageLocalStorage';
 import moment from 'moment';
+import Hammer from 'hammerjs';
+
+import Chart from '../components/chart';
+import GoogleMap from '../components/google-map';
 
 class WeatherList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      itemsWithSwipe: []
+    };
+  }
   componentDidMount() {
     this.props.actions.fetchWeatherFromLocalStorage();
+  }
+
+  componentDidUpdate() {
+    // Todo - add items to state, when component updates, skip
+    // items that already have swipe.
+    this.props.weather.map(city => {
+      const swipeMap = document.getElementById(city.id);
+      const mc = new Hammer.Manager(swipeMap);
+      const Swipe = new Hammer.Swipe();
+      mc.add(Swipe);
+      mc.on('swipeleft', e => {
+        // Todo - add confirmation and/or animation and then
+        // actually delete the city, not just the element. Or
+        // can I delete the city and not bother with deleting
+        // the element?
+        const elementToRemove = e.target.closest('.row-swipe');
+        elementToRemove.parentNode.removeChild(elementToRemove);
+      });
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,9 +70,10 @@ class WeatherList extends Component {
     const { lon, lat } = cityData.coord;
     const timeLastUpdated = moment.unix(cityData.dt).fromNow();
     const timeLastFetched = moment(cityData.timeFetched).fromNow();
+    const rowClassName = `row row--with-border row-swipe`;
 
     return (
-      <div className="row row--with-border" key={id}>
+      <div className={rowClassName} id={id} key={id}>
         <div className="col-md-3 weather-map-text">
           <GoogleMap lat={lat} lon={lon} />
           <strong>{name}</strong> <br />

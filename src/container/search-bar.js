@@ -9,6 +9,8 @@ import { fetchWeatherFromOpenWeather } from '../actions/index';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead'; // ES2015
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
+import { logError } from '../helpers/loggly';
+
 import CityList from './city-list';
 
 const searchForCity = (city, limit = 5) => {
@@ -106,12 +108,12 @@ class SearchBar extends Component {
       // userInput.
       try {
         searchForCity(userInput, 10).then(({ data }) => {
-          console.log(data);
           this.typeahead.getInstance().clear();
           this.setState({ cityList: data });
         });
       } catch (e) {
         console.log(e);
+        window._LTracker.push(e);
       }
       return;
     }
@@ -143,6 +145,7 @@ class SearchBar extends Component {
       });
     } catch (e) {
       console.log(e);
+      window._LTracker.push(e);
     } // try/catch
   } // onInputChange
 

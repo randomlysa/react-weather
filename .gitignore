@@ -9,3 +9,5 @@ npm-debug.log
 
 /_add/*
 cypress/integration/examples/*
+
+config.js

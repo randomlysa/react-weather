@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import find from 'lodash/find';
 import startsWith from 'lodash/startsWith';
-import $ from 'jquery';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchWeatherFromOpenWeather } from '../actions/index';
@@ -12,10 +12,16 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 import CityList from './city-list';
 
 const searchForCity = (city, limit = 5) => {
-  return $.ajax({
-    url: `http://localhost/react-weather/sqlite/sqliteSearchForName.php?city=${city}&limit=${limit}`,
-    type: 'GET',
-    dataType: 'json'
+  const env = process.env.NODE_ENV;
+  let url_base = 'code.randomlysa.com/weather';
+  if (env === 'development') url_base = 'localhost/react-weather';
+
+  // development: localhost/react-weather
+  // production code.randomlysa.com/weather
+  return axios({
+    method: 'get',
+    url: `http://${url_base}/sqlite/sqliteSearchForName.php?city=${city}&limit=${limit}`,
+    responseType: 'json'
   });
 }; // searchForCity
 
@@ -98,10 +104,15 @@ class SearchBar extends Component {
       // pressed enter. nothing selected from typeahead.
       // there is no city in state, search the database for all cities named
       // userInput.
-      searchForCity(userInput, 10).done(data => {
-        this.typeahead.getInstance().clear();
-        this.setState({ cityList: data });
-      });
+      try {
+        searchForCity(userInput, 10).then(({ data }) => {
+          console.log(data);
+          this.typeahead.getInstance().clear();
+          this.setState({ cityList: data });
+        });
+      } catch (e) {
+        console.log(e);
+      }
       return;
     }
 
@@ -113,8 +124,8 @@ class SearchBar extends Component {
   onInputChange(city) {
     this.setState({ isLoading: true });
 
-    searchForCity(city)
-      .done(data => {
+    try {
+      searchForCity(city).then(({ data }) => {
         if (data) {
           this.setState({
             isLoading: false,
@@ -129,10 +140,10 @@ class SearchBar extends Component {
             isLoading: false
           });
         }
-      })
-      .fail(e => {
-        console.log(e);
-      }); // ajax
+      });
+    } catch (e) {
+      console.log(e);
+    } // try/catch
   } // onInputChange
 
   filterResults(location, props) {

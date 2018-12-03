@@ -1,28 +1,16 @@
 import React, { Component } from 'react';
 import Chart from '../components/chart';
 import GoogleMap from '../components/google-map';
-import ModalConfirmCancelDelete from '../components/modal-confirm-cancel-delete';
-import $ from 'jquery';
 
 // Gets weather from state.
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions';
 
-import { loadState, saveState } from '../manageLocalStorage';
+import { saveState } from '../manageLocalStorage';
 import moment from 'moment';
 
 class WeatherList extends Component {
-  showModalConfirmCancelDelete(e) {
-    const id = e.target.id;
-    // Hide the 'x' button.
-    $(`#btn-delete-${id}`).fadeOut();
-    // Show the div with buttons to confirm/cancel deleting.
-    $(`#div-delete-${id}`)
-      .css('z-index', '10')
-      .fadeIn();
-  }
-
   componentDidMount() {
     this.props.actions.fetchWeatherFromLocalStorage();
   }
@@ -61,16 +49,6 @@ class WeatherList extends Component {
       <div className="row row--with-border" key={id}>
         <div className="col-md-3 weather-map-text">
           <GoogleMap lat={lat} lon={lon} />
-          <ModalConfirmCancelDelete name={name} id={id} />
-          <button
-            className="btn btn-danger btn-delete-city"
-            id={`btn-delete-${id}`}
-            onClick={this.showModalConfirmCancelDelete}
-            name={name}
-            id={id}
-          >
-            x
-          </button>
           <strong>{name}</strong> <br />
           fetched {timeLastFetched}
         </div>

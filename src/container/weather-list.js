@@ -6,6 +6,7 @@ import * as actionCreators from '../actions';
 import { saveState } from '../manageLocalStorage';
 import moment from 'moment';
 import Hammer from 'hammerjs';
+import Modal from 'react-modal';
 
 import Chart from '../components/chart';
 import GoogleMap from '../components/google-map';
@@ -15,11 +16,32 @@ class WeatherList extends Component {
     super(props);
 
     this.state = {
-      itemsWithSwipe: []
+      itemsWithSwipe: [],
+      modalIsOpen: false
     };
+
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.deleteCity = this.deleteCity.bind(this);
   }
+
+  openModal(city) {
+    this.currentCity = city;
+    this.setState({ modalIsOpen: true });
+  }
+
+  closeModal() {
+    this.setState({ modalIsOpen: false });
+  }
+
+  deleteCity() {
+    this.setState({ modalIsOpen: false });
+    this.props.actions.deleteCity(this.currentCity.id);
+  }
+
   componentDidMount() {
     this.props.actions.fetchWeatherFromLocalStorage();
+    this.currentCity = {};
   }
 
   componentDidUpdate() {
@@ -34,12 +56,8 @@ class WeatherList extends Component {
       const Swipe = new Hammer.Swipe();
       mc.add(Swipe);
       mc.on('swipeleft', e => {
-        // Todo - add confirmation and/or animation and then
-        // actually delete the city, not just the element. Or
-        // can I delete the city and not bother with deleting
-        // the element?
-        const elementToRemove = e.target.closest('.row-swipe');
-        elementToRemove.parentNode.removeChild(elementToRemove);
+        // Open a confirmation asking to delete the city or cancel.
+        this.openModal(city);
       });
     });
   }
@@ -109,6 +127,18 @@ class WeatherList extends Component {
 
     return (
       <div>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          contentLabel="Example Modal"
+          appElement={document.getElementById('app')}
+          className="modal--delete"
+        >
+          Delete {this.currentCity.name}?
+          <button onClick={this.deleteCity}>Delete</button>
+          <button onClick={this.closeModal}>Cancel</button>
+        </Modal>
         {this.props.weather.map(function(city) {
           return this.renderWeather(city, this);
         }, this)}

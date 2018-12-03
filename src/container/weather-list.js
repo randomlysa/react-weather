@@ -136,8 +136,12 @@ class WeatherList extends Component {
           className="modal--delete"
         >
           Delete {this.currentCity.name}?
-          <button onClick={this.deleteCity}>Delete</button>
-          <button onClick={this.closeModal}>Cancel</button>
+          <button className="btn btn-danger" onClick={this.deleteCity}>
+            Delete
+          </button>
+          <button className="btn btn-light" onClick={this.closeModal}>
+            Cancel
+          </button>
         </Modal>
         {this.props.weather.map(function(city) {
           return this.renderWeather(city, this);

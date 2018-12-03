@@ -23,9 +23,12 @@ class WeatherList extends Component {
   }
 
   componentDidUpdate() {
-    // Todo - add items to state, when component updates, skip
-    // items that already have swipe.
     this.props.weather.map(city => {
+      if (!this.state.itemsWithSwipe.includes(city.id)) {
+        this.setState(prevState => ({
+          itemsWithSwipe: [...prevState.itemsWithSwipe, city.id]
+        }));
+      }
       const swipeMap = document.getElementById(city.id);
       const mc = new Hammer.Manager(swipeMap);
       const Swipe = new Hammer.Swipe();

@@ -95,22 +95,19 @@ class WeatherList extends Component {
 
     return (
       <div className={rowClassName} id={id} key={id}>
-        <div className="col-md-3 weather-map-text">
+        <div className="col-md-3 weather-map-text text-center">
           <GoogleMap lat={lat} lon={lon} />
           <strong>{name}</strong> <br />
-          fetched {timeLastFetched}
+          <em>fetched {timeLastFetched}</em>
         </div>
-        <div className="weather-info-text">
-          <div className="col-md-9 col-xs-12">
-            ({description})
-            <br />
-            <Chart data={tempInC} units="C" />
-            <Chart data={tempInF} units="F" />
-            <br />
-            <Chart data={humidity} units="%" label="Humidity" />
-            <br />
-            <i>updated {timeLastUpdated}</i>
-          </div>
+        <div className="col-md-9 col-xs-12 weather-info-text text-center">
+          ({description})
+          <Chart data={tempInC} units="C" />
+          <Chart data={tempInF} units="F" />
+          <br />
+          <Chart data={humidity} units="%" label="Humidity" />
+          <br />
+          <i>updated {timeLastUpdated}</i>
         </div>
       </div>
     );

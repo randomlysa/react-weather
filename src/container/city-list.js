@@ -4,14 +4,14 @@ export default class CityList extends Component {
   renderCities(cityList) {
     return cityList.map(city => {
       return (
-        <p key={city.id} data-cy="cityList--city">
+        <div key={city.id} data-cy="cityList--city">
           <button
             className="btn btn-link"
             onClick={() => this.props.fetchWeatherAndClear(city)}
           >
             {city.city}, {city.area}, {city.country}
           </button>
-        </p>
+        </div>
       );
     });
   }
@@ -23,7 +23,7 @@ export default class CityList extends Component {
     if (cityList) {
       renderItems = (
         <div className="row" data-cy="cityList">
-          {this.renderCities(cityList)}
+          <div>{this.renderCities(cityList)}</div>
         </div>
       );
     } else renderItems = '';

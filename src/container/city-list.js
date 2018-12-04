@@ -48,9 +48,9 @@ class CityList extends Component {
     let renderItems;
     if (cityList.length > 0) {
       renderItems = (
-        <div data-cy="cityList" className="city-list__container">
-          <div className="col" />
-          <div className="col-6">
+        <div data-cy="cityList" className="city-list__container row">
+          <div className="col-sm-1 col-lg-3" />
+          <div className="col-sm-10 col-lg-6">
             <button
               type="button"
               className="close"
@@ -61,7 +61,7 @@ class CityList extends Component {
             </button>
             {this.renderCities(this.props.cityList)}
           </div>
-          <div className="col" />
+          <div className="col-sm-1 col-lg-3" />
         </div>
       );
     } else renderItems = '';

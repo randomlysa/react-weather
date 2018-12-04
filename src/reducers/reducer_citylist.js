@@ -5,5 +5,5 @@ export default function(state = [], action) {
     case SET_CITY_LIST:
       return action.payload;
   }
-  return '';
+  return state;
 }

@@ -23,7 +23,10 @@ module.exports = merge(common, {
     new HtmlWebpackPlugin({
       template: './src/index.html'
     }),
-    new CopyWebpackPlugin([{ from: 'src/style/', to: 'style/' }])
+    new CopyWebpackPlugin([
+      { from: 'src/style/', to: 'style/' },
+      { from: 'sqlite', to: 'sqlite' }
+    ])
   ],
 
   optimization: {

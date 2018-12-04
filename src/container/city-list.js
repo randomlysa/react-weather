@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchWeatherFromOpenWeather, setCityList } from '../actions/index';
+import find from 'lodash/find';
 
 class CityList extends Component {
   fetchWeatherAndClear(city) {
-    this.props.fetchWeatherFromOpenWeather(city);
-    this.props.setCityList(null);
+    // Check if the id has already been searched for.
+    const id = parseInt(city.id, 10);
+    const hasCity = find(this.props.cities, ['id', id]);
+    if (hasCity) {
+      // Todo: dispatch error message
+    } else {
+      this.props.fetchWeatherFromOpenWeather(city);
+      this.props.setCityList(null);
+    }
   }
 
   renderCities(cityList) {
@@ -51,8 +59,8 @@ class CityList extends Component {
   } // render
 } // class CityList
 
-function mapStateToProps({ cityList }) {
-  return { cityList };
+function mapStateToProps({ weather, cityList }) {
+  return { cities: weather, cityList };
 }
 
 function mapDispatchToProps(dispatch) {

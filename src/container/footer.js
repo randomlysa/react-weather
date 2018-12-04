@@ -5,6 +5,8 @@ import { deleteCity } from '../actions/index';
 import Modal from 'react-modal';
 import MaterialIcon from 'material-icons-react';
 
+import { saveState } from '../manageLocalStorage';
+
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +39,7 @@ class Footer extends Component {
     this.props.cities.map(city => {
       this.props.deleteCity(city.id);
     });
+    saveState();
   }
 
   render() {

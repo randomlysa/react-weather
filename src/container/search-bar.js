@@ -36,14 +36,12 @@ class SearchBar extends Component {
     // caseSensitive: typeahead setting
     // city: is set to an object when a city is selected from the dropdown
     // options: list of cities returned from searching, used by typeahead
-    // messageForUser: errors, etc
     // cityList: a list of cities to select from when typeahead isn't used
     this.state = {
       isLoading: false,
       caseSensitive: false,
       city: '',
       options: [],
-      messageForUser: '',
       cityList: ''
     };
 
@@ -91,9 +89,9 @@ class SearchBar extends Component {
 
       // Fetch weather data.
       this.props.fetchWeatherFromOpenWeather(currentCity);
-      // Clear city otherwise this.state.city will always be true after the
-      // first search.
-      this.setState({ messageForUser: '', city: '' });
+      // Todo: setState city: '' still needed?
+      this.setState({ city: '' });
+      this.props.setNotification('');
     } else {
       // else for - if(this.state.city || userInputInOptions)
       // user typed in something and clicked search OR typed in something and

@@ -73,10 +73,37 @@ svg {
   cursor: pointer;
   opacity: 0.4;
   transition: all 0.2s ease-in;
+  border: none;
+  background: none;
 }
 
 .icon-settings:hover {
   opacity: 1;
+}
+
+.icon-settings:hover,
+.icon-settings:active,
+.icon-settings:focus {
+  outline: none;
+}
+
+/* https://www.w3schools.com/howto/howto_css_dropup.asp */
+.settings-menu {
+  position: relative;
+}
+
+.settings-menu__content {
+  display: none;
+  position: absolute;
+  bottom: 50px;
+  right: 15px;
+  padding: 25px;
+}
+
+.settings-menu__content--display {
+  display: block;
+  background: #fff;
+  border: solid 1px #ddd;
 }
 
 .modal--delete {

@@ -17,7 +17,8 @@ class WeatherList extends Component {
 
     this.state = {
       itemsWithSwipe: [],
-      modalIsOpen: false
+      modalIsOpen: false,
+      rowToDelete: ''
     };
 
     this.openModal = this.openModal.bind(this);
@@ -36,12 +37,18 @@ class WeatherList extends Component {
 
   deleteCity() {
     this.setState({ modalIsOpen: false });
-    this.props.actions.deleteCity(this.currentCity.id);
+    this.rowToDelete.classList.add('animated');
+    this.rowToDelete.classList.add('faster');
+    this.rowToDelete.classList.add('zoomOut');
+    setTimeout(() => {
+      this.props.actions.deleteCity(this.currentCity.id);
+    }, 500);
   }
 
   componentDidMount() {
     this.props.actions.fetchWeatherFromLocalStorage();
     this.currentCity = {};
+    this.rowToDelete;
   }
 
   componentDidUpdate() {
@@ -56,6 +63,8 @@ class WeatherList extends Component {
       const Swipe = new Hammer.Swipe();
       mc.add(Swipe);
       mc.on('swipeleft', e => {
+        // If delete is confirmed, use css to animate-out this div.
+        this.rowToDelete = e.target.closest('.row-swipe');
         // Open a confirmation asking to delete the city or cancel.
         this.openModal(city);
       });

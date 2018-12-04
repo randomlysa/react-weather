@@ -17,7 +17,8 @@
       } else {
         $locations = explode(",", $location);
         $city = trim($locations[0]);
-        $country = trim($locations[1]);
+        // All country codes are uppercase in the database.
+        $country = strtoupper(trim($locations[1]));
       }
 
       /* Create a prepared statement */

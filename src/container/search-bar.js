@@ -106,7 +106,7 @@ class SearchBar extends Component {
         });
       } catch (e) {
         console.log(e);
-        window._LTracker.push(e);
+        logError(e);
       }
       return;
     }
@@ -138,7 +138,7 @@ class SearchBar extends Component {
       });
     } catch (e) {
       console.log(e);
-      window._LTracker.push(e);
+      logError(e);
     } // try/catch
   } // onInputChange
 

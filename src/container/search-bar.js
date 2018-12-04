@@ -147,7 +147,7 @@ class SearchBar extends Component {
     const { text } = props;
     // No commma, easy filter
     if (!text.includes(',')) {
-      return startsWith(city, text);
+      return startsWith(city.toLowerCase(), text.toLowerCase());
     } else {
       // The 'search by country' is already handled by PHP, so this
       // doesn't really filter. It splits the entered text on a comma,
@@ -157,7 +157,7 @@ class SearchBar extends Component {
       // searchForCity = Bos
       // ", US" is ignored, handled by PHP
       const [searchForCity, searchForCountry] = text.split(',');
-      return startsWith(city, searchForCity);
+      return startsWith(city.toLowerCase(), searchForCity.toLowerCase());
     }
 
     // return props;

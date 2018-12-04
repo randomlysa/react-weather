@@ -17,8 +17,14 @@ class CityList extends Component {
       this.props.setNotification('This city is already in your list');
     } else {
       this.props.fetchWeatherFromOpenWeather(city);
-      this.props.setCityList(null);
+      this.props.setNotification('');
+      this.props.setCityList([]);
     }
+  }
+
+  closeCityList() {
+    this.props.setCityList([]);
+    this.props.setNotification('');
   }
 
   renderCities(cityList) {
@@ -40,7 +46,7 @@ class CityList extends Component {
     const cityList = this.props.cityList;
 
     let renderItems;
-    if (cityList) {
+    if (cityList.length > 0) {
       renderItems = (
         <div data-cy="cityList" className="city-list__container">
           <div className="col" />
@@ -49,6 +55,7 @@ class CityList extends Component {
               type="button"
               className="close"
               aria-label="Close city list"
+              onClick={this.closeCityList.bind(this)}
             >
               <span aria-hidden="true">&times;</span>
             </button>

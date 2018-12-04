@@ -10,7 +10,7 @@ export const FETCH_WEATHER_FROM_LOCALSTORAGE =
 export const FETCH_WEATHER_UPDATE = 'FETCH_WEATHER_UPDATE';
 
 export const DELETE_ONE_CITY = 'DELETE_ONE_CITY';
-export const ERROR_FETCHING_NEW_LOCATION = 'ERROR_FETCHING_NEW_LOCATION';
+export const NOTIFICATION = 'NOTIFICATION';
 
 export const SET_CITY_LIST = 'SET_CITY_LIST';
 
@@ -87,5 +87,12 @@ export function setCityList(obj) {
   return {
     type: SET_CITY_LIST,
     payload: obj
+  };
+}
+
+export function setNotification(message) {
+  return {
+    type: NOTIFICATION,
+    payload: message
   };
 }

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWeatherFromOpenWeather, setCityList } from '../actions/index';
+import {
+  fetchWeatherFromOpenWeather,
+  setCityList,
+  setNotification
+} from '../actions/index';
 import find from 'lodash/find';
 
 class CityList extends Component {
@@ -10,7 +14,7 @@ class CityList extends Component {
     const id = parseInt(city.id, 10);
     const hasCity = find(this.props.cities, ['id', id]);
     if (hasCity) {
-      // Todo: dispatch error message
+      this.props.setNotification('This city is already in your list');
     } else {
       this.props.fetchWeatherFromOpenWeather(city);
       this.props.setCityList(null);
@@ -65,7 +69,7 @@ function mapStateToProps({ weather, cityList }) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { fetchWeatherFromOpenWeather, setCityList },
+    { fetchWeatherFromOpenWeather, setCityList, setNotification },
     dispatch
   );
 }

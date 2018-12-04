@@ -4,7 +4,11 @@ import startsWith from 'lodash/startsWith';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWeatherFromOpenWeather, setCityList } from '../actions/index';
+import {
+  fetchWeatherFromOpenWeather,
+  setCityList,
+  setNotification
+} from '../actions/index';
 
 import { AsyncTypeahead } from 'react-bootstrap-typeahead'; // ES2015
 import 'react-bootstrap-typeahead/css/Typeahead.css';
@@ -82,9 +86,7 @@ class SearchBar extends Component {
       // Check if the id has already been searched for.
       const hasCity = find(this.props.cities, ['id', id]);
       if (hasCity) {
-        return this.setState({
-          messageForUser: 'This city is already listed below.'
-        });
+        return this.props.setNotification('This city is already in your list');
       }
 
       // Fetch weather data.
@@ -218,7 +220,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { fetchWeatherFromOpenWeather, setCityList },
+    { fetchWeatherFromOpenWeather, setCityList, setNotification },
     dispatch
   );
 }

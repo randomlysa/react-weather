@@ -4,14 +4,12 @@ import startsWith from 'lodash/startsWith';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWeatherFromOpenWeather } from '../actions/index';
+import { fetchWeatherFromOpenWeather, setCityList } from '../actions/index';
 
 import { AsyncTypeahead } from 'react-bootstrap-typeahead'; // ES2015
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 import { logError } from '../helpers/loggly';
-
-import CityList from './city-list';
 
 const searchForCity = (city, limit = 5) => {
   const env = process.env.NODE_ENV;
@@ -47,12 +45,6 @@ class SearchBar extends Component {
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
-  }
-
-  // Used by city-list. Fetches weather info and clears state.cityList.
-  fetchWeatherAndClear(city) {
-    this.props.fetchWeatherFromOpenWeather(city);
-    this.setState({ cityList: '' });
   }
 
   onFormSubmit(event) {
@@ -110,6 +102,7 @@ class SearchBar extends Component {
         searchForCity(userInput, 10).then(({ data }) => {
           this.typeahead.getInstance().clear();
           this.setState({ cityList: data });
+          this.props.setCityList(data);
         });
       } catch (e) {
         console.log(e);
@@ -214,15 +207,6 @@ class SearchBar extends Component {
             </button>
           </span>
         </form>
-        {this.state.messageForUser ? (
-          <p>{this.state.messageForUser}</p>
-        ) : (
-          undefined
-        )}
-        <CityList
-          cityList={this.state.cityList}
-          fetchWeatherAndClear={this.fetchWeatherAndClear.bind(this)}
-        />
       </div>
     );
   }
@@ -233,7 +217,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchWeatherFromOpenWeather }, dispatch);
+  return bindActionCreators(
+    { fetchWeatherFromOpenWeather, setCityList },
+    dispatch
+  );
 }
 
 // null means we don't need state here.

@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchWeatherFromOpenWeather, setCityList } from '../actions/index';
 
-export default class CityList extends Component {
+class CityList extends Component {
+  fetchWeatherAndClear(city) {
+    this.props.fetchWeatherFromOpenWeather(city);
+    this.props.setCityList(null);
+  }
+
   renderCities(cityList) {
     return cityList.map(city => {
       return (
         <div key={city.id} data-cy="cityList--city">
           <button
             className="btn btn-link"
-            onClick={() => this.props.fetchWeatherAndClear(city)}
+            onClick={() => this.fetchWeatherAndClear(city)}
           >
             {city.city}, {city.area}, {city.country}
           </button>
@@ -22,8 +30,19 @@ export default class CityList extends Component {
     let renderItems;
     if (cityList) {
       renderItems = (
-        <div className="row" data-cy="cityList">
-          <div>{this.renderCities(cityList)}</div>
+        <div data-cy="cityList" className="city-list__container">
+          <div className="col" />
+          <div className="col-6">
+            <button
+              type="button"
+              className="close"
+              aria-label="Close city list"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            {this.renderCities(this.props.cityList)}
+          </div>
+          <div className="col" />
         </div>
       );
     } else renderItems = '';
@@ -32,4 +51,18 @@ export default class CityList extends Component {
   } // render
 } // class CityList
 
-// Todo: have an option to close the list without selecting a city.
+function mapStateToProps({ cityList }) {
+  return { cityList };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    { fetchWeatherFromOpenWeather, setCityList },
+    dispatch
+  );
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CityList);

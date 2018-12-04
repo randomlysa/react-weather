@@ -12,6 +12,8 @@ export const FETCH_WEATHER_UPDATE = 'FETCH_WEATHER_UPDATE';
 export const DELETE_ONE_CITY = 'DELETE_ONE_CITY';
 export const ERROR_FETCHING_NEW_LOCATION = 'ERROR_FETCHING_NEW_LOCATION';
 
+export const SET_CITY_LIST = 'SET_CITY_LIST';
+
 let numberOfRequests = 0;
 let listOfCities = [];
 
@@ -78,5 +80,12 @@ export function deleteCity(id) {
   return {
     type: DELETE_ONE_CITY,
     payload: request
+  };
+}
+
+export function setCityList(obj) {
+  return {
+    type: SET_CITY_LIST,
+    payload: obj
   };
 }

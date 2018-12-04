@@ -58,8 +58,8 @@ class WeatherList extends Component {
           itemsWithSwipe: [...prevState.itemsWithSwipe, city.id]
         }));
       }
-      const swipeMap = document.getElementById(city.id);
-      const mc = new Hammer.Manager(swipeMap);
+      const swipeRow = document.getElementById(city.id);
+      const mc = new Hammer.Manager(swipeRow);
       const Swipe = new Hammer.Swipe();
       mc.add(Swipe);
       mc.on('swipeleft', e => {

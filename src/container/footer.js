@@ -69,7 +69,16 @@ class Footer extends Component {
               <button className="btn btn-link" onClick={this.openModal}>
                 Delete All Cities
               </button>
-              <p>Disable Swipe to Delete</p>
+              <p>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={this.props.checkBoxChecked}
+                    onChange={this.props.updateCheckbox}
+                  />
+                  Use Swipe to Delete
+                </label>
+              </p>
             </div>
           </div>
         </div>

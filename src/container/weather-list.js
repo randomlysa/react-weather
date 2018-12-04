@@ -49,6 +49,11 @@ class WeatherList extends Component {
     this.props.actions.fetchWeatherFromLocalStorage();
     this.currentCity = {};
     this.rowToDelete;
+    // Store swipe object in an array. Was going to access objects later
+    // and remove swipeleft but that definitely didn't work.
+    // I could add a swiperight event later, but I could not disable (.off)
+    // or overwrite (use a new empty function) swipeleft.
+    this.swipeItems = [];
   }
 
   componentDidUpdate() {
@@ -59,10 +64,13 @@ class WeatherList extends Component {
         }));
       }
       const swipeRow = document.getElementById(city.id);
-      const mc = new Hammer.Manager(swipeRow);
-      const Swipe = new Hammer.Swipe();
-      mc.add(Swipe);
-      mc.on('swipeleft', e => {
+      const id = city.id;
+
+      this.swipeItems[id] = new Hammer(swipeRow);
+      this.swipeItems[id].on('swipeleft', e => {
+        // Can't figure out how to unbind/disable swipe left, so using
+        // this instead to disable the modal when needed.
+        if (!this.props.useSwipeToDelete) return;
         // If delete is confirmed, use css to animate-out this div.
         this.rowToDelete = e.target.closest('.row-swipe');
         // Open a confirmation asking to delete the city or cancel.

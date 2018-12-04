@@ -4,6 +4,10 @@
 body {
   font-family: 'Playfair Display', serif;
   text-align: center;
+  /* set height to 100vh - because clicking on the body closes the
+  dropup menu, this makes it more consistent when there are not enough
+  cities to make the body the full page height. */
+  height: 100vh;
 }
 
 .input-group {

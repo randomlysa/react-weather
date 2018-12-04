@@ -132,7 +132,7 @@ class WeatherList extends Component {
           appElement={document.getElementById('app')}
           className="modal--delete"
         >
-          Delete {this.currentCity.name}?
+          <h3>Delete {this.currentCity.name}?</h3>
           <button className="btn btn-danger" onClick={this.deleteCity}>
             Delete
           </button>

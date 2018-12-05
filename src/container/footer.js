@@ -21,17 +21,11 @@ class Footer extends Component {
   }
 
   openModal() {
-    this.toggleMenu();
     this.setState({ modalIsOpen: true });
   }
 
   closeModal() {
     this.setState({ modalIsOpen: false });
-  }
-
-  toggleMenu() {
-    const menu = document.getElementsByClassName('settings-menu__content')[0];
-    menu.classList.toggle('settings-menu__content--display');
   }
 
   deleteAllCities() {
@@ -62,7 +56,7 @@ class Footer extends Component {
             </button>
           </Modal>
           <div className="settings-menu">
-            <button className="icon-settings" onClick={this.toggleMenu}>
+            <button className="icon-settings">
               <MaterialIcon icon="settings" size="medium" />
             </button>
             <div className="settings-menu__content">

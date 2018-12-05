@@ -73,7 +73,7 @@ body {
 }
 
 .icon-settings {
-  margin-top: 5px;
+  padding: 25px;
   cursor: pointer;
   opacity: 0.4;
   transition: all 0.2s ease-in;
@@ -97,11 +97,19 @@ body {
 }
 
 .settings-menu__content {
-  display: none;
   position: absolute;
-  bottom: 50px;
-  right: 15px;
+  visibility: hidden;
+  bottom: 75px;
+  right: 0px;
   padding: 25px;
+  background: #fff;
+  border: solid 1px #ddd;
+  transition: all 0.2s;
+}
+.settings-menu__content:hover,
+.icon-settings:hover ~ .settings-menu__content {
+  display: block;
+  visibility: visible;
 }
 
 .settings-menu__content--display {

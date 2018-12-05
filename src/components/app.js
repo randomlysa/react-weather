@@ -17,8 +17,10 @@ export default class App extends Component {
 
   componentDidMount() {
     const settings = loadState('settings');
-    const useSwipeToDelete = settings.useSwipeToDelete;
-    this.setState({ useSwipeToDelete });
+    if (settings && settings.hasOwnProperty('useSwipeToDelete')) {
+      const useSwipeToDelete = settings.useSwipeToDelete;
+      this.setState({ useSwipeToDelete });
+    }
 
     // const menu = document.getElementsByClassName('settings-menu__content')[0];
     // const body = document.getElementById('body');

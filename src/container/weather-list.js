@@ -42,6 +42,7 @@ class WeatherList extends Component {
     this.rowToDelete.classList.add('zoomOut');
     setTimeout(() => {
       this.props.actions.deleteCity(this.currentCity.id);
+      saveState(this.props.weather);
     }, 500);
   }
 

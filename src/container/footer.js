@@ -70,7 +70,7 @@ class Footer extends Component {
                 Delete All Cities
               </button>
               <p>
-                <label>
+                <label className="btn btn-link">
                   <input
                     type="checkbox"
                     checked={this.props.checkBoxChecked}

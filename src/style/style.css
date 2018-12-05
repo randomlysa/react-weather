@@ -73,6 +73,7 @@ body {
 }
 
 .icon-settings {
+  margin-top: 5px;
   cursor: pointer;
   opacity: 0.4;
   transition: all 0.2s ease-in;
@@ -107,4 +108,8 @@ body {
   display: block;
   background: #fff;
   border: solid 1px #ddd;
+}
+
+input[type='checkbox'] {
+  margin-right: 5px;
 }

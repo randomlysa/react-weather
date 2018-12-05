@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { loadState, saveState } from '../manageLocalStorage';
 
 import SearchBar from '../container/search-bar';
 import Notification from '../container/notification';
@@ -15,6 +16,10 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    const settings = loadState('settings');
+    const useSwipeToDelete = settings.useSwipeToDelete;
+    this.setState({ useSwipeToDelete });
+
     // const menu = document.getElementsByClassName('settings-menu__content')[0];
     // const body = document.getElementById('body');
     // body.addEventListener('click', e => {
@@ -33,6 +38,7 @@ export default class App extends Component {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({ useSwipeToDelete: value });
+    saveState(null, { useSwipeToDelete: value });
   }
 
   render() {

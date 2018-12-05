@@ -1,21 +1,35 @@
 // https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage
 
-export const loadState = () => {
+export const loadState = (which = 'weather') => {
   try {
-    const serializedState = localStorage.getItem('weather');
-    if (serializedState === null) {
-      return undefined;
+    let stateToReturn;
+    // By default, return weather.
+    if (which === 'weather') {
+      stateToReturn = localStorage.getItem('weather');
+      if (stateToReturn === null) {
+        return undefined;
+      }
+    } else if (which === 'settings') {
+      stateToReturn = localStorage.getItem('weather_settings');
     }
-    return JSON.parse(serializedState);
+
+    return JSON.parse(stateToReturn);
   } catch (err) {
     return undefined;
   }
 };
 
-export const saveState = weather => {
+export const saveState = (weather, settings) => {
   try {
-    const serializedState = JSON.stringify(weather);
-    localStorage.setItem('weather', serializedState);
+    if (weather) {
+      const serializedState = JSON.stringify(weather);
+      localStorage.setItem('weather', serializedState);
+    }
+
+    if (settings) {
+      const serializedSettings = JSON.stringify(settings);
+      localStorage.setItem('weather_settings', serializedSettings);
+    }
   } catch (err) {
     // Ignore write errors.
   }

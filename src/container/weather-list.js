@@ -103,6 +103,9 @@ class WeatherList extends Component {
     const id = cityData.id;
     const name = cityData.name;
     const description = cityData.weather[0].description;
+    const icon = `https://openweathermap.org/img/w/${
+      cityData.weather[0].icon
+    }.png`;
     const tempInC = Math.round(cityData.main.temp);
     const tempInF = Math.round((tempInC * 9) / 5 + 32);
     const humidity = cityData.main.humidity;
@@ -119,7 +122,7 @@ class WeatherList extends Component {
           <em>fetched {timeLastFetched}</em>
         </div>
         <div className="col-md-9 col-xs-12 weather-info-text text-center">
-          ({description})
+          <img src={icon} alt={description} />
           <Chart data={tempInC} units="C" />
           <Chart data={tempInF} units="F" />
           <br />

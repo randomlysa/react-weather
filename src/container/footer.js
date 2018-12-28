@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import MaterialIcon from 'material-icons-react';
 
 import { saveState } from '../manageLocalStorage';
+import Option from '../components/option';
 
 class Footer extends Component {
   constructor(props) {
@@ -14,6 +15,17 @@ class Footer extends Component {
     this.state = {
       modalIsOpen: false
     };
+
+    this.optionsList = [
+      { option: 'useSwipeToDelete', text: 'Use Swipe to Delete' },
+      { option: 'showFetched', text: 'Show Fetched' },
+      { option: 'showUpdated', text: 'Show Updated' },
+      { option: 'showCelcius', text: 'Show Celcius' },
+      { option: 'showFahrenheit', text: 'Show Fahrenheit' },
+      { option: 'showHumidity', text: 'Show Humidity' },
+      { option: 'showSunrise', text: 'Show Sunrise' },
+      { option: 'showSunset', text: 'Show Sunset' }
+    ];
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -64,80 +76,14 @@ class Footer extends Component {
                 Delete All Cities
               </button>
               <p>
-                <label className="btn btn-link">
-                  <input
-                    type="checkbox"
-                    checked={this.props.checkBoxChecked.useSwipetoDelete}
-                    onChange={this.props.updateCheckbox}
+                {this.optionsList.map(option => (
+                  <Option
+                    text={option.text}
+                    key={option.option}
+                    isChecked={this.props.checkBoxChecked[option.option]}
+                    updateCheckbox={this.props.updateCheckbox}
                   />
-                  Use Swipe to Delete
-                </label>
-
-                <br />
-                <label className="btn btn-link">
-                  <input
-                    type="checkbox"
-                    checked={this.props.checkBoxChecked.showFetched}
-                    onChange={this.props.updateCheckbox}
-                  />
-                  Show Fetched
-                </label>
-
-                <br />
-                <label className="btn btn-link">
-                  <input
-                    type="checkbox"
-                    checked={this.props.checkBoxChecked.showUpdated}
-                    onChange={this.props.updateCheckbox}
-                  />
-                  Show Updated
-                </label>
-
-                <br />
-                <label className="btn btn-link">
-                  <input
-                    type="checkbox"
-                    checked={this.props.checkBoxChecked.showCelcius}
-                    onChange={this.props.updateCheckbox}
-                  />
-                  Show Celcius
-                </label>
-                <br />
-                <label className="btn btn-link">
-                  <input
-                    type="checkbox"
-                    checked={this.props.checkBoxChecked.showFahrenheit}
-                    onChange={this.props.updateCheckbox}
-                  />
-                  Show Fahrenheit
-                </label>
-                <br />
-                <label className="btn btn-link">
-                  <input
-                    type="checkbox"
-                    checked={this.props.checkBoxChecked.showHumidity}
-                    onChange={this.props.updateCheckbox}
-                  />
-                  Show Humidity
-                </label>
-                <br />
-                <label className="btn btn-link">
-                  <input
-                    type="checkbox"
-                    checked={this.props.checkBoxChecked.showSunrise}
-                    onChange={this.props.updateCheckbox}
-                  />
-                  Show Sunrise
-                </label>
-                <br />
-                <label className="btn btn-link">
-                  <input
-                    type="checkbox"
-                    checked={this.props.checkBoxChecked.showSunset}
-                    onChange={this.props.updateCheckbox}
-                  />
-                  Show Sunset
-                </label>
+                ))}
               </p>
             </div>
           </div>

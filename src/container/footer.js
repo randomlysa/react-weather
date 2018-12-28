@@ -72,6 +72,72 @@ class Footer extends Component {
                   />
                   Use Swipe to Delete
                 </label>
+
+                <br />
+                <label className="btn btn-link">
+                  <input
+                    type="checkbox"
+                    checked={this.props.checkBoxChecked}
+                    onChange={this.props.updateCheckbox}
+                  />
+                  Show Fetched
+                </label>
+
+                <br />
+                <label className="btn btn-link">
+                  <input
+                    type="checkbox"
+                    checked={this.props.checkBoxChecked}
+                    onChange={this.props.updateCheckbox}
+                  />
+                  Show Updated
+                </label>
+
+                <br />
+                <label className="btn btn-link">
+                  <input
+                    type="checkbox"
+                    checked={this.props.checkBoxChecked}
+                    onChange={this.props.updateCheckbox}
+                  />
+                  Show Celcius
+                </label>
+                <br />
+                <label className="btn btn-link">
+                  <input
+                    type="checkbox"
+                    checked={this.props.checkBoxChecked}
+                    onChange={this.props.updateCheckbox}
+                  />
+                  Show Fahrenheit
+                </label>
+                <br />
+                <label className="btn btn-link">
+                  <input
+                    type="checkbox"
+                    checked={this.props.checkBoxChecked}
+                    onChange={this.props.updateCheckbox}
+                  />
+                  Show Humidity
+                </label>
+                <br />
+                <label className="btn btn-link">
+                  <input
+                    type="checkbox"
+                    checked={this.props.checkBoxChecked}
+                    onChange={this.props.updateCheckbox}
+                  />
+                  Show Sunrise
+                </label>
+                <br />
+                <label className="btn btn-link">
+                  <input
+                    type="checkbox"
+                    checked={this.props.checkBoxChecked}
+                    onChange={this.props.updateCheckbox}
+                  />
+                  Show Sunset
+                </label>
               </p>
             </div>
           </div>

@@ -39,8 +39,10 @@ export default class App extends Component {
   updateCheckbox(e) {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({ useSwipeToDelete: value });
-    saveState(null, { useSwipeToDelete: value });
+    // Find text for label and remove spaces
+    const text = e.target.closest('label').textContent.replace(/\s/g, '');
+    this.setState({ [text]: value });
+    // saveState(null, { useSwipeToDelete: value });
   }
 
   render() {
@@ -52,7 +54,7 @@ export default class App extends Component {
         <WeatherList useSwipeToDelete={this.state.useSwipeToDelete} />
         <Footer
           updateCheckbox={this.updateCheckbox}
-          checkBoxChecked={this.state.useSwipeToDelete}
+          checkBoxChecked={this.state}
         />
       </div>
     );

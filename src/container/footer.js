@@ -67,7 +67,7 @@ class Footer extends Component {
                 <label className="btn btn-link">
                   <input
                     type="checkbox"
-                    checked={this.props.checkBoxChecked}
+                    checked={this.props.checkBoxChecked.UseSwipeToDelete}
                     onChange={this.props.updateCheckbox}
                   />
                   Use Swipe to Delete
@@ -77,7 +77,7 @@ class Footer extends Component {
                 <label className="btn btn-link">
                   <input
                     type="checkbox"
-                    checked={this.props.checkBoxChecked}
+                    checked={this.props.checkBoxChecked.ShowFetched}
                     onChange={this.props.updateCheckbox}
                   />
                   Show Fetched
@@ -87,7 +87,7 @@ class Footer extends Component {
                 <label className="btn btn-link">
                   <input
                     type="checkbox"
-                    checked={this.props.checkBoxChecked}
+                    checked={this.props.checkBoxChecked.ShowUpdated}
                     onChange={this.props.updateCheckbox}
                   />
                   Show Updated
@@ -97,7 +97,7 @@ class Footer extends Component {
                 <label className="btn btn-link">
                   <input
                     type="checkbox"
-                    checked={this.props.checkBoxChecked}
+                    checked={this.props.checkBoxChecked.ShowCelcius}
                     onChange={this.props.updateCheckbox}
                   />
                   Show Celcius
@@ -106,7 +106,7 @@ class Footer extends Component {
                 <label className="btn btn-link">
                   <input
                     type="checkbox"
-                    checked={this.props.checkBoxChecked}
+                    checked={this.props.checkBoxChecked.ShowFahrenheit}
                     onChange={this.props.updateCheckbox}
                   />
                   Show Fahrenheit
@@ -115,7 +115,7 @@ class Footer extends Component {
                 <label className="btn btn-link">
                   <input
                     type="checkbox"
-                    checked={this.props.checkBoxChecked}
+                    checked={this.props.checkBoxChecked.ShowHumidity}
                     onChange={this.props.updateCheckbox}
                   />
                   Show Humidity
@@ -124,7 +124,7 @@ class Footer extends Component {
                 <label className="btn btn-link">
                   <input
                     type="checkbox"
-                    checked={this.props.checkBoxChecked}
+                    checked={this.props.checkBoxChecked.ShowSunrise}
                     onChange={this.props.updateCheckbox}
                   />
                   Show Sunrise
@@ -133,7 +133,7 @@ class Footer extends Component {
                 <label className="btn btn-link">
                   <input
                     type="checkbox"
-                    checked={this.props.checkBoxChecked}
+                    checked={this.props.checkBoxChecked.ShowSunset}
                     onChange={this.props.updateCheckbox}
                   />
                   Show Sunset

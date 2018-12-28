@@ -12,18 +12,18 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      UseSwipetoDelete: true,
-      ShowFahrenheit: true,
-      ShowCelcius: true
+      useSwipetoDelete: true,
+      showFahrenheit: true,
+      showCelcius: true
     };
     this.updateCheckbox = this.updateCheckbox.bind(this);
   }
 
   componentDidMount() {
     const settings = loadState('settings');
-    if (settings && settings.hasOwnProperty('UseSwipetoDelete')) {
-      const UseSwipetoDelete = settings.UseSwipetoDelete;
-      this.setState({ UseSwipetoDelete });
+    if (settings && settings.hasOwnProperty('useSwipetoDelete')) {
+      const useSwipetoDelete = settings.useSwipetoDelete;
+      this.setState({ useSwipetoDelete });
     }
 
     // const menu = document.getElementsByClassName('settings-menu__content')[0];
@@ -45,7 +45,8 @@ export default class App extends Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     // Find text for label and remove spaces
     const text = e.target.closest('label').textContent.replace(/\s/g, '');
-    this.setState({ [text]: value });
+    const textFinal = text.slice(0, 1).toLowerCase() + text.slice(1);
+    this.setState({ [textFinal]: value });
     // saveState(null, { UseSwipetoDelete: value });
   }
 

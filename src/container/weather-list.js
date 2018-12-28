@@ -71,7 +71,7 @@ class WeatherList extends Component {
       this.swipeItems[id].on('swipeleft', e => {
         // Can't figure out how to unbind/disable swipe left, so using
         // this instead to disable the modal when needed.
-        if (!this.props.options.UseSwipetoDelete) return;
+        if (!this.props.options.useSwipetoDelete) return;
         // If delete is confirmed, use css to animate-out this div.
         this.rowToDelete = e.target.closest('.row-swipe');
         // Open a confirmation asking to delete the city or cancel.
@@ -102,17 +102,17 @@ class WeatherList extends Component {
   renderWeather(cityData) {
     // For conditional rendering
     const {
-      ShowFetched,
-      ShowUpdated,
-      ShowCelcius,
-      ShowFahrenheit,
-      ShowHumidity,
-      ShowSunrise,
-      ShowSunset
+      showFetched,
+      showUpdated,
+      showCelcius,
+      showFahrenheit,
+      showHumidity,
+      showSunrise,
+      showSunset
     } = this.props.options;
-    let ShowDash;
-    if (ShowFetched && ShowUpdated) ShowDash = ' - ';
-    else ShowDash = '';
+    let showDashFetchedUpdated, showDashSunrise;
+    if (showFetched && showUpdated) showDashFetchedUpdated = ' - ';
+    else showDashFetchedUpdated = '';
 
     const id = cityData.id;
     const name = cityData.name;
@@ -134,17 +134,17 @@ class WeatherList extends Component {
           <GoogleMap lat={lat} lon={lon} />
           <strong>{name}</strong> <br />
           <em>
-            {ShowFetched && `fetched ${timeLastFetched}`}
-            {ShowDash}
-            {ShowUpdated && `updated ${timeLastUpdated}`}
+            {showFetched && `fetched ${timeLastFetched}`}
+            {showDashFetchedUpdated}
+            {showUpdated && `updated ${timeLastUpdated}`}
           </em>
         </div>
         <div className="col-md-9 col-xs-12 weather-info-text text-center">
           <img src={icon} alt={description} />
-          {ShowCelcius && <Chart data={tempInC} units="C" />}
-          {ShowFahrenheit && <Chart data={tempInF} units="F" />}
+          {showCelcius && <Chart data={tempInC} units="C" />}
+          {showFahrenheit && <Chart data={tempInF} units="F" />}
           <br />
-          {ShowHumidity && <Chart data={humidity} units="%" label="Humidity" />}
+          {showHumidity && <Chart data={humidity} units="%" label="Humidity" />}
         </div>
       </div>
     );

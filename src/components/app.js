@@ -11,7 +11,11 @@ export default class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { UseSwipetoDelete: true };
+    this.state = {
+      UseSwipetoDelete: true,
+      ShowFahrenheit: true,
+      ShowCelcius: true
+    };
     this.updateCheckbox = this.updateCheckbox.bind(this);
   }
 

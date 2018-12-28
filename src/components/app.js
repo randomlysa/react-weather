@@ -51,7 +51,7 @@ export default class App extends Component {
         <SearchBar />
         <Notification />
         <CityList />
-        <WeatherList useSwipeToDelete={this.state.useSwipeToDelete} />
+        <WeatherList options={this.state} />
         <Footer
           updateCheckbox={this.updateCheckbox}
           checkBoxChecked={this.state}

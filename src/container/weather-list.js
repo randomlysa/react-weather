@@ -100,6 +100,20 @@ class WeatherList extends Component {
   }
 
   renderWeather(cityData) {
+    // For conditional rendering
+    const {
+      ShowFetched,
+      ShowUpdated,
+      ShowCelcius,
+      ShowFahrenheit,
+      ShowHumidity,
+      ShowSunrise,
+      ShowSunset
+    } = this.props.options;
+    let ShowDash;
+    if (ShowFetched && ShowUpdated) ShowDash = ' - ';
+    else ShowDash = '';
+
     const id = cityData.id;
     const name = cityData.name;
     const description = cityData.weather[0].description;
@@ -120,15 +134,17 @@ class WeatherList extends Component {
           <GoogleMap lat={lat} lon={lon} />
           <strong>{name}</strong> <br />
           <em>
-            fetched {timeLastFetched} - updated {timeLastUpdated}
+            {ShowFetched && `fetched ${timeLastFetched}`}
+            {ShowDash}
+            {ShowUpdated && `updated ${timeLastUpdated}`}
           </em>
         </div>
         <div className="col-md-9 col-xs-12 weather-info-text text-center">
           <img src={icon} alt={description} />
-          <Chart data={tempInC} units="C" />
-          <Chart data={tempInF} units="F" />
+          {ShowCelcius && <Chart data={tempInC} units="C" />}
+          {ShowFahrenheit && <Chart data={tempInF} units="F" />}
           <br />
-          <Chart data={humidity} units="%" label="Humidity" />
+          {ShowHumidity && <Chart data={humidity} units="%" label="Humidity" />}
         </div>
       </div>
     );

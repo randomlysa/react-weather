@@ -110,9 +110,6 @@ class WeatherList extends Component {
       showSunrise,
       showSunset
     } = this.props.options;
-    let showDashFetchedUpdated, showDashSunrise;
-    if (showFetched && showUpdated) showDashFetchedUpdated = ' - ';
-    else showDashFetchedUpdated = '';
 
     const id = cityData.id;
     const name = cityData.name;
@@ -128,11 +125,27 @@ class WeatherList extends Component {
     const timeLastFetched = moment(cityData.timeFetched).fromNow();
     const rowClassName = `row row--with-border row-swipe`;
 
+    // Sunrise, sunset
+    const { sunrise, sunset } = cityData.sys;
+    const formatSunrise = moment.unix(sunrise).format('HH:mm');
+    const formatSunset = moment.unix(sunset).format('HH:mm');
+
+    // Setup dashes between sunrise, sunset and time fetched, time updated.
+    let showDashFetchedUpdated, showDashSunrise;
+    if (showFetched && showUpdated) showDashFetchedUpdated = ' - ';
+    else showDashFetchedUpdated = '';
+    if (showSunrise && showSunset) showDashSunrise = ' - ';
+    else showDashSunrise = '';
+
     return (
       <div className={rowClassName} id={id} key={id}>
         <div className="col-md-3 weather-map-text text-center">
           <GoogleMap lat={lat} lon={lon} />
-          <strong>{name}</strong> <br />
+          <strong>{name}</strong> &nbsp;
+          {showSunrise && `${formatSunrise}`}
+          {showDashSunrise}
+          {showSunset && `${formatSunset}`}
+          <br />
           <em>
             {showFetched && `fetched ${timeLastFetched}`}
             {showDashFetchedUpdated}

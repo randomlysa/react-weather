@@ -67,7 +67,7 @@ class Footer extends Component {
                 <label className="btn btn-link">
                   <input
                     type="checkbox"
-                    checked={this.props.checkBoxChecked.UseSwipeToDelete}
+                    checked={this.props.checkBoxChecked.UseSwipetoDelete}
                     onChange={this.props.updateCheckbox}
                   />
                   Use Swipe to Delete

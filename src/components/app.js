@@ -11,15 +11,15 @@ export default class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { useSwipeToDelete: true };
+    this.state = { UseSwipetoDelete: true };
     this.updateCheckbox = this.updateCheckbox.bind(this);
   }
 
   componentDidMount() {
     const settings = loadState('settings');
-    if (settings && settings.hasOwnProperty('useSwipeToDelete')) {
-      const useSwipeToDelete = settings.useSwipeToDelete;
-      this.setState({ useSwipeToDelete });
+    if (settings && settings.hasOwnProperty('UseSwipetoDelete')) {
+      const UseSwipetoDelete = settings.UseSwipetoDelete;
+      this.setState({ UseSwipetoDelete });
     }
 
     // const menu = document.getElementsByClassName('settings-menu__content')[0];
@@ -42,7 +42,7 @@ export default class App extends Component {
     // Find text for label and remove spaces
     const text = e.target.closest('label').textContent.replace(/\s/g, '');
     this.setState({ [text]: value });
-    // saveState(null, { useSwipeToDelete: value });
+    // saveState(null, { UseSwipetoDelete: value });
   }
 
   render() {

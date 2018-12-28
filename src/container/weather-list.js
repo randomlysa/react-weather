@@ -71,7 +71,7 @@ class WeatherList extends Component {
       this.swipeItems[id].on('swipeleft', e => {
         // Can't figure out how to unbind/disable swipe left, so using
         // this instead to disable the modal when needed.
-        if (!this.props.useSwipeToDelete) return;
+        if (!this.props.options.UseSwipetoDelete) return;
         // If delete is confirmed, use css to animate-out this div.
         this.rowToDelete = e.target.closest('.row-swipe');
         // Open a confirmation asking to delete the city or cancel.

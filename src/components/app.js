@@ -12,7 +12,7 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      useSwipetoDelete: true,
+      useSwipeToDelete: true,
       showFahrenheit: true,
       showCelcius: true
     };
@@ -21,9 +21,9 @@ export default class App extends Component {
 
   componentDidMount() {
     const settings = loadState('settings');
-    if (settings && settings.hasOwnProperty('useSwipetoDelete')) {
-      const useSwipetoDelete = settings.useSwipetoDelete;
-      this.setState({ useSwipetoDelete });
+    if (settings && settings.hasOwnProperty('useSwipeToDelete')) {
+      const useSwipeToDelete = settings.useSwipeToDelete;
+      this.setState({ useSwipeToDelete });
     }
 
     // const menu = document.getElementsByClassName('settings-menu__content')[0];
@@ -47,7 +47,7 @@ export default class App extends Component {
     const text = e.target.closest('label').textContent.replace(/\s/g, '');
     const textFinal = text.slice(0, 1).toLowerCase() + text.slice(1);
     this.setState({ [textFinal]: value });
-    // saveState(null, { UseSwipetoDelete: value });
+    // saveState(null, { useSwipeToDelete: value });
   }
 
   render() {

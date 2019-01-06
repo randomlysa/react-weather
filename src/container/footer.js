@@ -71,7 +71,7 @@ class Footer extends Component {
             <button className="icon-settings">
               <MaterialIcon icon="settings" size="medium" />
             </button>
-            <div className="settings-menu__content">
+            <div className="settings-menu__content col-12 col-sm-12 col-md-3">
               <button className="btn btn-link" onClick={this.openModal}>
                 Delete All Cities
               </button>

@@ -75,16 +75,15 @@ class Footer extends Component {
               <button className="btn btn-link" onClick={this.openModal}>
                 Delete All Cities
               </button>
-              <p>
-                {this.optionsList.map(option => (
-                  <Option
-                    text={option.text}
-                    key={option.option}
-                    isChecked={this.props.checkBoxChecked[option.option]}
-                    updateCheckbox={this.props.updateCheckbox}
-                  />
-                ))}
-              </p>
+
+              {this.optionsList.map(option => (
+                <Option
+                  text={option.text}
+                  key={option.option}
+                  isChecked={this.props.checkBoxChecked[option.option]}
+                  updateCheckbox={this.props.updateCheckbox}
+                />
+              ))}
             </div>
           </div>
         </div>

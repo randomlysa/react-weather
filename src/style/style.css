@@ -112,5 +112,13 @@ body {
 }
 
 input[type='checkbox'] {
-  margin-right: 5px;
+  display: none;
+}
+
+input[type='checkbox'] ~ div {
+  text-decoration: line-through;
+}
+
+input[type='checkbox']:checked ~ div {
+  text-decoration: none;
 }

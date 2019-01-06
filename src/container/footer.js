@@ -17,7 +17,7 @@ class Footer extends Component {
     };
 
     this.optionsList = [
-      { option: 'useSwipeToDelete', text: 'Use Swipe to Delete' },
+      { option: 'useSwipeToDelete', text: 'Use Swipe To Delete' },
       { option: 'showFetched', text: 'Show Fetched' },
       { option: 'showUpdated', text: 'Show Updated' },
       { option: 'showCelcius', text: 'Show Celcius' },

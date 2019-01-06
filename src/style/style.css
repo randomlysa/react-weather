@@ -28,14 +28,8 @@ body {
 }
 
 /* weather-list.js */
-.weather-map-text {
+.weather-text {
   font-family: 'Playfair Display', serif;
-  font-size: 14pt;
-}
-
-.weather-info-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 30pt;
 }
 
 .weather-temp {
@@ -113,7 +107,6 @@ body {
 }
 
 .settings-menu__content--display {
-  display: block;
   background: #fff;
   border: solid 1px #ddd;
 }

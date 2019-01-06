@@ -139,9 +139,11 @@ class WeatherList extends Component {
 
     return (
       <div className={rowClassName} id={id} key={id}>
-        <div className="col-md-3 weather-map-text text-center">
+        <div className="col-md-3 weather-text text-center">
           <GoogleMap lat={lat} lon={lon} />
           <strong>{name}</strong> &nbsp;
+        </div>
+        <div className="col-md-9 col-xs-12 weather-text text-center">
           {showSunrise && `${formatSunrise}`}
           {showDashSunrise}
           {showSunset && `${formatSunset}`}
@@ -151,8 +153,8 @@ class WeatherList extends Component {
             {showDashFetchedUpdated}
             {showUpdated && `updated ${timeLastUpdated}`}
           </em>
-        </div>
-        <div className="col-md-9 col-xs-12 weather-info-text text-center">
+          <br />
+
           <img src={icon} alt={description} />
           {showCelcius && <Chart data={tempInC} units="C" />}
           {showFahrenheit && <Chart data={tempInF} units="F" />}

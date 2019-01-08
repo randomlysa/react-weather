@@ -9,7 +9,7 @@ import Hammer from 'hammerjs';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 
-import Chart from '../components/chart';
+import Chart from '../components/weather-data';
 import GoogleMap from '../components/google-map';
 
 const WeatherText = styled.div`

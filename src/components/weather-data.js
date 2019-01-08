@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const WeatherTemp = styled.span`
+const WeatherData = styled.span`
   padding-left: 20px;
 `;
 
-// Function based component, doesn't need state.
+// Used to display C / F / Humidity
 export default props => {
   return (
-    <WeatherTemp>
+    <WeatherData>
       {props.data} {props.units} {props.label}
-    </WeatherTemp>
+    </WeatherData>
   );
 };

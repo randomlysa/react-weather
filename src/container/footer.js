@@ -57,7 +57,7 @@ const ButtonIconSettings = styled.button`
     opacity: 1;
   }
 
-  :hover ~ .sc-dnqmqq {
+  :hover ~ .openOnHover {
     display: block;
     visibility: visible;
   }
@@ -125,7 +125,7 @@ class Footer extends Component {
             <ButtonIconSettings>
               <MaterialIcon icon="settings" size="medium" />
             </ButtonIconSettings>
-            <SettingsMenuContent className="col-12 col-sm-12 col-md-3">
+            <SettingsMenuContent className="col-12 col-sm-12 col-md-3 openOnHover">
               <button className="btn btn-danger" onClick={this.openModal}>
                 Delete All Cities
               </button>

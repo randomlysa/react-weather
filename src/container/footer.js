@@ -20,6 +20,49 @@ const StyledModal = styled(Modal)`
   text-align: center;
 `;
 
+const StyledFooter = styled.div`
+  text-align: right;
+`;
+
+const SettingsMenu = styled.div`
+  position: relative;
+`;
+
+/* https://www.w3schools.com/howto/howto_css_dropup.asp */
+const SettingsMenuContent = styled.div`
+  position: absolute;
+  visibility: hidden;
+  bottom: 75px;
+  right: 0px;
+  padding: 25px;
+  background: #fff;
+  border: solid 1px #ddd;
+  transition: all 0.2s;
+
+  :hover {
+    display: block;
+    visibility: visible;
+  }
+`;
+
+const ButtonIconSettings = styled.button`
+  padding: 25px;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: all 0.2s ease-in;
+  border: none;
+  background: none;
+
+  :hover {
+    opacity: 1;
+  }
+
+  :hover ~ .sc-dnqmqq {
+    display: block;
+    visibility: visible;
+  }
+`;
+
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -62,14 +105,13 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className="row row--footer">
+      <StyledFooter className="row">
         <div className="col">
           <StyledModal
             isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}
             contentLabel="Delete all cities"
             appElement={document.getElementById('app')}
-            className="modal--delete"
           >
             <h3>Delete All Cities?</h3>
             <button className="btn btn-danger" onClick={this.deleteAllCities}>
@@ -79,11 +121,11 @@ class Footer extends Component {
               Cancel
             </button>
           </StyledModal>
-          <div className="settings-menu">
-            <button className="icon-settings">
+          <SettingsMenu>
+            <ButtonIconSettings>
               <MaterialIcon icon="settings" size="medium" />
-            </button>
-            <div className="settings-menu__content col-12 col-sm-12 col-md-3">
+            </ButtonIconSettings>
+            <SettingsMenuContent className="col-12 col-sm-12 col-md-3">
               <button className="btn btn-danger" onClick={this.openModal}>
                 Delete All Cities
               </button>
@@ -96,10 +138,10 @@ class Footer extends Component {
                   updateCheckbox={this.props.updateCheckbox}
                 />
               ))}
-            </div>
-          </div>
+            </SettingsMenuContent>
+          </SettingsMenu>
         </div>
-      </div>
+      </StyledFooter>
     );
   }
 }

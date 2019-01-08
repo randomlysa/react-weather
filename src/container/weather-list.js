@@ -7,9 +7,35 @@ import { saveState } from '../manageLocalStorage';
 import moment from 'moment';
 import Hammer from 'hammerjs';
 import Modal from 'react-modal';
+import styled from 'styled-components';
 
 import Chart from '../components/chart';
 import GoogleMap from '../components/google-map';
+
+const WeatherText = styled.div`
+  font-family: 'Playfair Display', serif;
+`;
+
+const RowWithBorder = styled.div`
+  border-bottom: solid 2px #adaaaa;
+`;
+
+const NoCities = styled.div`
+  padding: 20px;
+  font-size: 200%;
+  text-align: center;
+`;
+
+const StyledModal = styled(Modal)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: solid 2px #000;
+  padding: 30px;
+  background: #fff;
+  text-align: center;
+`;
 
 class WeatherList extends Component {
   constructor(props) {
@@ -123,7 +149,7 @@ class WeatherList extends Component {
     const { lon, lat } = cityData.coord;
     const timeLastUpdated = moment.unix(cityData.dt).fromNow();
     const timeLastFetched = moment(cityData.timeFetched).fromNow();
-    const rowClassName = `row row--with-border row-swipe`;
+    const rowClassName = `row row-swipe`;
 
     // Sunrise, sunset
     const { sunrise, sunset } = cityData.sys;
@@ -138,12 +164,12 @@ class WeatherList extends Component {
     else showDashSunrise = '';
 
     return (
-      <div className={rowClassName} id={id} key={id}>
-        <div className="col-md-3 weather-text text-center">
+      <RowWithBorder className={rowClassName} id={id} key={id}>
+        <WeatherText className="col-md-3 text-center">
           <GoogleMap lat={lat} lon={lon} />
           <strong>{name}</strong> &nbsp;
-        </div>
-        <div className="col-md-9 col-xs-12 weather-text text-center">
+        </WeatherText>
+        <WeatherText className="col-md-9 col-xs-12 text-center">
           {showSunrise && `${formatSunrise}`}
           {showDashSunrise}
           {showSunset && `${formatSunset}`}
@@ -160,23 +186,21 @@ class WeatherList extends Component {
           {showFahrenheit && <Chart data={tempInF} units="F" />}
           <br />
           {showHumidity && <Chart data={humidity} units="%" label="Humidity" />}
-        </div>
-      </div>
+        </WeatherText>
+      </RowWithBorder>
     );
   }
 
   render() {
     if (this.props.weather.length === 0) {
       return (
-        <div className="nocities" data-cy="nocities">
-          No cities here - search for one!
-        </div>
+        <NoCities data-cy="nocities">No cities here - search for one!</NoCities>
       );
     }
 
     return (
-      <div>
-        <Modal
+      <div className="weather-list">
+        <StyledModal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
@@ -191,7 +215,7 @@ class WeatherList extends Component {
           <button className="btn btn-light" onClick={this.closeModal}>
             Cancel
           </button>
-        </Modal>
+        </StyledModal>
         {this.props.weather.map(function(city) {
           return this.renderWeather(city, this);
         }, this)}

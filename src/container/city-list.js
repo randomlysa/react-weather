@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import find from 'lodash/find';
+import styled from 'styled-components';
+
 import {
   fetchWeatherFromOpenWeather,
   setCityList,
   setNotification
 } from '../actions/index';
-import find from 'lodash/find';
+
+const CityListContainer = styled.div`
+  width: 100%;
+  text-align: center;
+`;
 
 class CityList extends Component {
   fetchWeatherAndClear(city) {
@@ -48,7 +55,7 @@ class CityList extends Component {
     let renderItems;
     if (cityList.length > 0) {
       renderItems = (
-        <div data-cy="cityList" className="city-list__container row">
+        <CityListContainer data-cy="cityList" className="row">
           <div className="col-sm-1 col-lg-3" />
           <div className="col-sm-10 col-lg-6">
             <button
@@ -62,7 +69,7 @@ class CityList extends Component {
             {this.renderCities(this.props.cityList)}
           </div>
           <div className="col-sm-1 col-lg-3" />
-        </div>
+        </CityListContainer>
       );
     } else renderItems = '';
 

@@ -4,9 +4,21 @@ import { bindActionCreators } from 'redux';
 import { deleteCity } from '../actions/index';
 import Modal from 'react-modal';
 import MaterialIcon from 'material-icons-react';
+import styled from 'styled-components';
 
 import { saveState } from '../manageLocalStorage';
 import Option from '../components/option';
+
+const StyledModal = styled(Modal)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: solid 2px #000;
+  padding: 30px;
+  background: #fff;
+  text-align: center;
+`;
 
 class Footer extends Component {
   constructor(props) {
@@ -52,7 +64,7 @@ class Footer extends Component {
     return (
       <div className="row row--footer">
         <div className="col">
-          <Modal
+          <StyledModal
             isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}
             contentLabel="Delete all cities"
@@ -66,7 +78,7 @@ class Footer extends Component {
             <button className="btn btn-light" onClick={this.closeModal}>
               Cancel
             </button>
-          </Modal>
+          </StyledModal>
           <div className="settings-menu">
             <button className="icon-settings">
               <MaterialIcon icon="settings" size="medium" />

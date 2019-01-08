@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const Map = styled.div`
+  text-align: center;
+  height: 200px;
+  width: 100%;
+`;
 
 class GoogleMap extends Component {
   componentDidMount() {
@@ -14,7 +21,7 @@ class GoogleMap extends Component {
 
   render() {
     // this.refs.map refers to this element
-    return <div ref="map" className="google-map-div" />;
+    return <Map ref="map" className="google-map-div" />;
   }
 }
 

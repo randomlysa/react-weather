@@ -171,7 +171,7 @@ class WeatherList extends Component {
       <RowWithBorder className={rowClassName} id={id} key={id}>
         <WeatherTextLeft className="col-md-3 text-center">
           <GoogleMap lat={lat} lon={lon} />
-          <strong>{name}</strong> &nbsp;
+          <strong>{name}</strong>
         </WeatherTextLeft>
         <WeatherTextRight className="col-md-9 col-xs-12 text-center">
           {showSunrise && `${formatSunrise}`}

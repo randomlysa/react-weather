@@ -16,13 +16,17 @@ const WeatherText = styled.div`
   font-family: 'Playfair Display', serif;
 `;
 
+const WeatherTextLeft = styled(WeatherText)``;
+
+const WeatherTextRight = styled(WeatherText)``;
+
 const RowWithBorder = styled.div`
   border-bottom: solid 2px #adaaaa;
 `;
 
 const NoCities = styled.div`
   padding: 20px;
-  font-size: 200%;
+  font-size: 2.5rem;
   text-align: center;
 `;
 
@@ -165,11 +169,11 @@ class WeatherList extends Component {
 
     return (
       <RowWithBorder className={rowClassName} id={id} key={id}>
-        <WeatherText className="col-md-3 text-center">
+        <WeatherTextLeft className="col-md-3 text-center">
           <GoogleMap lat={lat} lon={lon} />
           <strong>{name}</strong> &nbsp;
-        </WeatherText>
-        <WeatherText className="col-md-9 col-xs-12 text-center">
+        </WeatherTextLeft>
+        <WeatherTextRight className="col-md-9 col-xs-12 text-center">
           {showSunrise && `${formatSunrise}`}
           {showDashSunrise}
           {showSunset && `${formatSunset}`}
@@ -186,7 +190,7 @@ class WeatherList extends Component {
           {showFahrenheit && <Chart data={tempInF} units="F" />}
           <br />
           {showHumidity && <Chart data={humidity} units="%" label="Humidity" />}
-        </WeatherText>
+        </WeatherTextRight>
       </RowWithBorder>
     );
   }

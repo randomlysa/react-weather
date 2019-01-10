@@ -7,12 +7,6 @@ const WeatherForDay = styled.span`
   padding-right: 20px;
 `;
 
-/*
-Todo:
-  - better formatting
-  - display in C and F
-*/
-
 // Used to display 5 day forecast
 export default props => {
   if (!props.data) return '';
@@ -27,6 +21,7 @@ export default props => {
     allTempsForDay[dayOfWeek].push(day.main.temp);
   });
 
+  // Sort temps from low to high.
   Object.keys(allTempsForDay).forEach(key => {
     allTempsForDay[key].sort((a, b) => a - b);
   });

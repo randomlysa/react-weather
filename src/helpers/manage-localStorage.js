@@ -11,6 +11,8 @@ export const loadState = (which = 'weather') => {
       }
     } else if (which === 'settings') {
       stateToReturn = localStorage.getItem('weather_settings');
+    } else if (which === 'weather_forecast') {
+      stateToReturn = localStorage.getItem('weather_forecast');
     }
 
     return JSON.parse(stateToReturn);

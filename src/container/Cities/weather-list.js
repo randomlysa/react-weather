@@ -79,8 +79,8 @@ class WeatherList extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.fetchForecastFromOpenWeather('5506956');
     this.props.actions.fetchWeatherFromLocalStorage();
+    this.props.actions.fetchForecastFromLocalStorage();
     this.currentCity = {};
     this.rowToDelete;
     // Store swipe object in an array. Was going to access objects later
@@ -157,7 +157,7 @@ class WeatherList extends Component {
     const timeLastUpdated = moment.unix(cityData.dt).fromNow();
     const timeLastFetched = moment(cityData.timeFetched).fromNow();
     const rowClassName = `row row-swipe`;
-    const forecast = this.props.forecast[id];
+    const forecast = this.props.forecast ? this.props.forecast[id] : null;
 
     // Sunrise, sunset
     const { sunrise, sunset } = cityData.sys;

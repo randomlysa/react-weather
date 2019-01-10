@@ -13,6 +13,9 @@ export default function(state = {}, action) {
       const newState = { ...state, [cityId]: action.payload.data.list };
       saveState('weather_forecast', newState);
       return newState;
+
+    case FETCH_FORECAST_FROM_LOCALSTORAGE:
+      return action.payload;
   }
   return state;
 }

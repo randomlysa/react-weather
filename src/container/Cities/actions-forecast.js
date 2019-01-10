@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { loadState } from '../../helpers/manage-localStorage';
 
 const API_KEY = 'df53338709b54a2247c6e16358430a33';
 const FORECAST_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}&units=metric`;
@@ -24,5 +25,13 @@ export function fetchForecastFromOpenWeather(location) {
   return {
     type: FETCH_FORECAST_FROM_OPENWEATHER,
     payload: request
+  };
+}
+
+export function fetchForecastFromLocalStorage() {
+  const payload = loadState('weather_forecast') || null;
+  return {
+    type: FETCH_FORECAST_FROM_LOCALSTORAGE,
+    payload
   };
 }

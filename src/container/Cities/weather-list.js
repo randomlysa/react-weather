@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 // Gets weather from state.
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actionCreators from './actions-weather';
+import * as weatherActionCreators from './actions-weather';
+import * as forecastActionCreators from './actions-forecast';
 import { saveState } from '../../helpers/manage-localStorage';
 import moment from 'moment';
 import Hammer from 'hammerjs';
@@ -77,6 +78,7 @@ class WeatherList extends Component {
   }
 
   componentDidMount() {
+    this.props.actions.fetchForecastFromOpenWeather('5506956');
     this.props.actions.fetchWeatherFromLocalStorage();
     this.currentCity = {};
     this.rowToDelete;
@@ -154,6 +156,7 @@ class WeatherList extends Component {
     const timeLastUpdated = moment.unix(cityData.dt).fromNow();
     const timeLastFetched = moment(cityData.timeFetched).fromNow();
     const rowClassName = `row row-swipe`;
+    const forecast = this.props.forecast[id];
 
     // Sunrise, sunset
     const { sunrise, sunset } = cityData.sys;
@@ -229,14 +232,15 @@ class WeatherList extends Component {
 }
 
 // Gets weather from state.
-function mapStateToProps({ weather }) {
-  return { weather }; // same as { weather: weather}
+function mapStateToProps({ weather, forecast }) {
+  return { weather, forecast }; // same as { weather: weather}
 }
 
 function mapDispatchToProps(dispatch) {
   // Assign all actions (import * as actionCreators) to props.actions
+  const actions = { ...weatherActionCreators, ...forecastActionCreators };
   return {
-    actions: bindActionCreators(actionCreators, dispatch)
+    actions: bindActionCreators(actions, dispatch)
   };
 }
 

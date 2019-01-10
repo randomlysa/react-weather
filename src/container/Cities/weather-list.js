@@ -10,6 +10,7 @@ import Hammer from 'hammerjs';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 
+import ForecastData from '../../components/forecast-data';
 import WeatherData from '../../components/weather-data';
 import GoogleMap from '../../components/google-map';
 
@@ -195,6 +196,7 @@ class WeatherList extends Component {
           {showHumidity && (
             <WeatherData data={humidity} units="%" label="Humidity" />
           )}
+          <ForecastData data={forecast} />
         </WeatherTextRight>
       </RowWithBorder>
     );

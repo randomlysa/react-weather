@@ -10,7 +10,7 @@ import Hammer from 'hammerjs';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 
-import Chart from '../../components/weather-data';
+import WeatherData from '../../components/weather-data';
 import GoogleMap from '../../components/google-map';
 
 const WeatherText = styled.div`
@@ -189,10 +189,12 @@ class WeatherList extends Component {
           <br />
 
           <img src={icon} alt={description} />
-          {showCelcius && <Chart data={tempInC} units="C" />}
-          {showFahrenheit && <Chart data={tempInF} units="F" />}
+          {showCelcius && <WeatherData data={tempInC} units="C" />}
+          {showFahrenheit && <WeatherData data={tempInF} units="F" />}
           <br />
-          {showHumidity && <Chart data={humidity} units="%" label="Humidity" />}
+          {showHumidity && (
+            <WeatherData data={humidity} units="%" label="Humidity" />
+          )}
         </WeatherTextRight>
       </RowWithBorder>
     );

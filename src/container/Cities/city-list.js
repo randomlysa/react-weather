@@ -9,6 +9,7 @@ import {
   setCityList,
   setNotification
 } from './actions-weather';
+import { fetchForecastFromOpenWeather } from '../Cities/actions-forecast';
 
 const CityListContainer = styled.div`
   width: 100%;
@@ -24,6 +25,7 @@ class CityList extends Component {
       this.props.setNotification('This city is already in your list');
     } else {
       this.props.fetchWeatherFromOpenWeather(city);
+      this.props.fetchForecastFromOpenWeather(city);
       this.props.setNotification('');
       this.props.setCityList([]);
     }
@@ -83,7 +85,12 @@ function mapStateToProps({ weather, cityList }) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { fetchWeatherFromOpenWeather, setCityList, setNotification },
+    {
+      fetchForecastFromOpenWeather,
+      fetchWeatherFromOpenWeather,
+      setCityList,
+      setNotification
+    },
     dispatch
   );
 }

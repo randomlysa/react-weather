@@ -9,6 +9,7 @@ import {
   setCityList,
   setNotification
 } from '../Cities/actions-weather';
+import { fetchForecastFromOpenWeather } from '../Cities/actions-forecast';
 
 import { AsyncTypeahead } from 'react-bootstrap-typeahead'; // ES2015
 import 'react-bootstrap-typeahead/css/Typeahead.css';
@@ -89,6 +90,7 @@ class SearchBar extends Component {
 
       // Fetch weather data.
       this.props.fetchWeatherFromOpenWeather(currentCity);
+      this.props.fetchForecastFromOpenWeather(currentCity);
       // Todo: setState city: '' still needed?
       this.setState({ city: '' });
       this.props.setNotification('');
@@ -218,7 +220,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { fetchWeatherFromOpenWeather, setCityList, setNotification },
+    {
+      fetchForecastFromOpenWeather,
+      fetchWeatherFromOpenWeather,
+      setCityList,
+      setNotification
+    },
     dispatch
   );
 }

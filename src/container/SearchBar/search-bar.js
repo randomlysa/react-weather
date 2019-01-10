@@ -8,12 +8,12 @@ import {
   fetchWeatherFromOpenWeather,
   setCityList,
   setNotification
-} from '../actions/index';
+} from '../Cities/actions-weather';
 
 import { AsyncTypeahead } from 'react-bootstrap-typeahead'; // ES2015
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
-import { logError } from '../helpers/loggly';
+import { logError } from '../../helpers/loggly';
 
 const searchForCity = (city, limit = 5) => {
   const env = process.env.NODE_ENV;

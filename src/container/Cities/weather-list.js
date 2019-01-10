@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 // Gets weather from state.
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actionCreators from '../actions';
-import { saveState } from '../manageLocalStorage';
+import * as actionCreators from './actions-weather';
+import { saveState } from '../../helpers/manage-localStorage';
 import moment from 'moment';
 import Hammer from 'hammerjs';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 
-import Chart from '../components/weather-data';
-import GoogleMap from '../components/google-map';
+import Chart from '../../components/weather-data';
+import GoogleMap from '../../components/google-map';
 
 const WeatherText = styled.div`
   font-family: 'Playfair Display', serif;

@@ -8,7 +8,7 @@ import {
   fetchWeatherFromOpenWeather,
   setCityList,
   setNotification
-} from '../actions/index';
+} from './actions-weather';
 
 const CityListContainer = styled.div`
   width: 100%;

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { deleteCity } from '../actions/index';
+import { deleteCity } from '../Cities/actions-weather';
 import Modal from 'react-modal';
 import MaterialIcon from 'material-icons-react';
 import styled from 'styled-components';
 
-import { saveState } from '../manageLocalStorage';
-import Option from '../components/option';
+import { saveState } from '../../helpers/manage-localStorage';
+import Option from '../../components/option';
 
 const StyledModal = styled(Modal)`
   position: absolute;

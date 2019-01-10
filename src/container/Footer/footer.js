@@ -125,7 +125,7 @@ class Footer extends Component {
             <ButtonIconSettings>
               <MaterialIcon icon="settings" size="medium" />
             </ButtonIconSettings>
-            <SettingsMenuContent className="col-12 col-sm-12 col-md-3 openOnHover">
+            <SettingsMenuContent className="col-12 col-sm-12 col-md-4 openOnHover">
               <button className="btn btn-danger" onClick={this.openModal}>
                 Delete All Cities
               </button>

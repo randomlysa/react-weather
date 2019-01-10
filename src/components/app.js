@@ -5,7 +5,7 @@ import SearchBar from '../container/SearchBar/search-bar';
 import Notification from '../container/Notifications/notification';
 import WeatherList from '../container/Cities/weather-list';
 import Footer from '../container/Footer/footer';
-import CityList from '../container/Cities/city-list';
+import CityList from './CityList/city-list';
 
 export default class App extends Component {
   constructor(props) {

@@ -1,3 +1,6 @@
+/* Used for displaying a list of cities when the user searched from the search
+bar instead of selecting a city from the suggestions. */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -8,8 +11,8 @@ import {
   fetchWeatherFromOpenWeather,
   setCityList,
   setNotification
-} from './actions-weather';
-import { fetchForecastFromOpenWeather } from '../Cities/actions-forecast';
+} from '../../container/Cities/actions-weather';
+import { fetchForecastFromOpenWeather } from '../../container/Cities/actions-forecast';
 
 const CityListContainer = styled.div`
   width: 100%;

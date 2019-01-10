@@ -33,7 +33,7 @@ export default class App extends Component {
     const text = e.target.closest('label').textContent.replace(/\s/g, '');
     const textFinal = text.slice(0, 1).toLowerCase() + text.slice(1);
     this.setState({ [textFinal]: value }, () => {
-      saveState(null, { settings: this.state });
+      saveState('settings', { settings: this.state });
     });
   }
 

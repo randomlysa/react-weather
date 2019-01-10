@@ -19,16 +19,14 @@ export const loadState = (which = 'weather') => {
   }
 };
 
-export const saveState = (weather, settings) => {
+export const saveState = (type, data) => {
+  const serializedState = JSON.stringify(data);
   try {
-    if (weather) {
-      const serializedState = JSON.stringify(weather);
+    if (type === 'weather') {
       localStorage.setItem('weather', serializedState);
     }
-
-    if (settings) {
-      const serializedSettings = JSON.stringify(settings);
-      localStorage.setItem('weather_settings', serializedSettings);
+    if (type === 'settings') {
+      localStorage.setItem('weather_settings', serializedState);
     }
   } catch (err) {
     // Ignore write errors.

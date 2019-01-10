@@ -100,7 +100,7 @@ class Footer extends Component {
     this.props.cities.map(city => {
       this.props.deleteCity(city.id);
     });
-    saveState();
+    saveState('weather', '');
   }
 
   render() {

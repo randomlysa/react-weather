@@ -25,19 +25,6 @@ export default class App extends Component {
       const useSwipeToDelete = settings.useSwipeToDelete;
       this.setState({ useSwipeToDelete });
     }
-
-    // const menu = document.getElementsByClassName('settings-menu__content')[0];
-    // const body = document.getElementById('body');
-    // body.addEventListener('click', e => {
-    //   const obj = e.target.classList;
-    //   // Convert classList into an array.
-    //   const classes = Object.keys(obj).map(key => obj[key]);
-    //   // If the area clicked was not 'settings-menu__content', close
-    //   // the dropup menu.
-    //   if (!classes.includes('settings-menu__content')) {
-    //     menu.classList.remove('settings-menu__content--display');
-    //   }
-    // });
   }
 
   updateCheckbox(e) {

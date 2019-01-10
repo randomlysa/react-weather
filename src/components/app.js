@@ -21,9 +21,8 @@ export default class App extends Component {
 
   componentDidMount() {
     const settings = loadState('settings');
-    if (settings && settings.hasOwnProperty('useSwipeToDelete')) {
-      const useSwipeToDelete = settings.useSwipeToDelete;
-      this.setState({ useSwipeToDelete });
+    if (settings) {
+      this.setState({ ...settings.settings });
     }
   }
 
@@ -33,8 +32,9 @@ export default class App extends Component {
     // Find text for label and remove spaces
     const text = e.target.closest('label').textContent.replace(/\s/g, '');
     const textFinal = text.slice(0, 1).toLowerCase() + text.slice(1);
-    this.setState({ [textFinal]: value });
-    // saveState(null, { useSwipeToDelete: value });
+    this.setState({ [textFinal]: value }, () => {
+      saveState(null, { settings: this.state });
+    });
   }
 
   render() {

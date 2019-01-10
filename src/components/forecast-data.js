@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 
-const ForecastData = styled.span``;
+const ForecastData = styled.div``;
 const WeatherForDay = styled.span`
   padding-right: 20px;
 `;
@@ -37,12 +37,23 @@ export default props => {
     const dayOfWeek = moment(key).format('ddd');
     const today = moment().format('YYYY-MM-DD');
 
+    let lowTemp = temps[0];
+    let highTemp = temps[temps.length - 1];
+    if (props.units === 'C') {
+      lowTemp = Math.round(lowTemp);
+      highTemp = Math.round(highTemp);
+    }
+    if (props.units === 'F') {
+      lowTemp = Math.round((lowTemp * 9) / 5 + 32);
+      highTemp = Math.round((highTemp * 9) / 5 + 32);
+    }
+
     // Skip today since full data isn't available for current day.
     if (today === key) return null;
 
     return (
       <WeatherForDay key={key}>
-        {dayOfWeek} {temps[0]} / {temps[temps.length - 1]}
+        {dayOfWeek} {lowTemp} / {highTemp}
       </WeatherForDay>
     );
   };

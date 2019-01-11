@@ -18,9 +18,13 @@ const WeatherText = styled.div`
   font-family: 'Playfair Display', serif;
 `;
 
-const WeatherTextLeft = styled(WeatherText)``;
+const WeatherTextLeft = styled(WeatherText)`
+  background: lightblue;
+`;
 
-const WeatherTextRight = styled(WeatherText)``;
+const WeatherTextRight = styled(WeatherText)`
+  background: teal;
+`;
 
 const RowWithBorder = styled.div`
   border-bottom: solid 2px #adaaaa;
@@ -174,11 +178,11 @@ class WeatherList extends Component {
 
     return (
       <RowWithBorder className={rowClassName} id={id} key={id}>
-        <WeatherTextLeft className="col-md-3 text-center">
+        <WeatherTextLeft className="col-12 col-md-3 text-center">
+          <h1>{name}</h1>
           <GoogleMap lat={lat} lon={lon} />
-          <strong>{name}</strong>
         </WeatherTextLeft>
-        <WeatherTextRight className="col-md-9 col-xs-12 text-center">
+        <WeatherTextRight className="col-12 col-md-9 text-center">
           {showSunrise && `${formatSunrise}`}
           {showDashSunrise}
           {showSunset && `${formatSunset}`}

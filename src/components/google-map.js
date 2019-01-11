@@ -3,8 +3,7 @@ import styled from 'styled-components';
 
 const Map = styled.div`
   text-align: center;
-  height: 200px;
-  width: 100%;
+  padding-bottom: 1rem;
 `;
 
 // https://stackoverflow.com/a/52943975

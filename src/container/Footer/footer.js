@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { deleteForecast } from '../Cities/actions-forecast';
 import { deleteCity } from '../Cities/actions-weather';
 import Modal from 'react-modal';
 import MaterialIcon from 'material-icons-react';
@@ -99,6 +100,7 @@ class Footer extends Component {
     this.setState({ modalIsOpen: false });
     this.props.cities.map(city => {
       this.props.deleteCity(city.id);
+      this.props.deleteForecast(city.id);
     });
     saveState('weather', '');
   }
@@ -151,7 +153,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ deleteCity }, dispatch);
+  return bindActionCreators({ deleteCity, deleteForecast }, dispatch);
 }
 
 export default connect(

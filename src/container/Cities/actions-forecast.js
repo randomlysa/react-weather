@@ -8,6 +8,7 @@ export const FETCH_FORECAST_FROM_OPENWEATHER =
   'FETCH_FORECAST_FROM_OPENWEATHER';
 export const FETCH_FORECAST_FROM_LOCALSTORAGE =
   'FETCH_FORECAST_FROM_LOCALSTORAGE';
+export const DELETE_ONE_FORECAST = 'DELETE_ONE_FORECAST';
 
 export function fetchForecastFromOpenWeather(location) {
   let url;
@@ -32,6 +33,14 @@ export function fetchForecastFromLocalStorage() {
   const payload = loadState('weather_forecast') || null;
   return {
     type: FETCH_FORECAST_FROM_LOCALSTORAGE,
+    payload
+  };
+}
+
+// Payload = city id
+export function deleteForecast(payload) {
+  return {
+    type: DELETE_ONE_FORECAST,
     payload
   };
 }

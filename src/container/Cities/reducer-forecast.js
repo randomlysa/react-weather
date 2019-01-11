@@ -1,6 +1,7 @@
 import {
   FETCH_FORECAST_FROM_OPENWEATHER,
-  FETCH_FORECAST_FROM_LOCALSTORAGE
+  FETCH_FORECAST_FROM_LOCALSTORAGE,
+  DELETE_ONE_FORECAST
 } from './actions-forecast';
 
 import { loadState, saveState } from '../../helpers/manage-localStorage';
@@ -16,6 +17,12 @@ export default function(state = {}, action) {
 
     case FETCH_FORECAST_FROM_LOCALSTORAGE:
       return action.payload;
+
+    case DELETE_ONE_FORECAST:
+      // https://stackoverflow.com/a/47227198/3996097
+      const { [action.payload]: value, ...withoutId } = state;
+      saveState('weather_forecast', withoutId);
+      return withoutId;
   }
   return state;
 }

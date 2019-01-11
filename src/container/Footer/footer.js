@@ -61,6 +61,7 @@ const ButtonIconSettings = styled.button`
   :hover ~ .openOnHover {
     display: block;
     visibility: visible;
+    padding: 2rem 1rem;
   }
 `;
 
@@ -105,9 +106,10 @@ class Footer extends Component {
     saveState('weather', '');
   }
 
+  // Putting the footer at the bottom helps the menu to show fully (it opens up)
   render() {
     return (
-      <StyledFooter className="row">
+      <StyledFooter className="row fixed-bottom">
         <div className="col">
           <StyledModal
             isOpen={this.state.modalIsOpen}

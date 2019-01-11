@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const Map = styled.div`
@@ -7,22 +7,16 @@ const Map = styled.div`
   width: 100%;
 `;
 
-class GoogleMap extends Component {
-  componentDidMount() {
-    new google.maps.Map(this.refs.map, {
-      zoom: 12,
-      center: {
-        lat: this.props.lat,
-        lng: this.props.lon
-      },
-      disableDefaultUI: true
-    });
-  }
-
-  render() {
-    // this.refs.map refers to this element
-    return <Map ref="map" className="google-map-div" />;
-  }
-}
-
-export default GoogleMap;
+// https://stackoverflow.com/a/52943975
+export default props => {
+  const url = `https://www.google.com/maps/search/?api=1&query=${props.lat},${
+    props.lon
+  }`;
+  return (
+    <Map>
+      <a href={url} target="_blank">
+        See Map
+      </a>
+    </Map>
+  );
+};

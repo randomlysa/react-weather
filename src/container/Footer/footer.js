@@ -61,7 +61,6 @@ const ButtonIconSettings = styled.button`
   :hover ~ .openOnHover {
     display: block;
     visibility: visible;
-    padding: 2rem 1rem;
   }
 `;
 

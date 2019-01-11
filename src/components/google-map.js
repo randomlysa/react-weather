@@ -14,7 +14,7 @@ export default props => {
   return (
     <Map>
       <a href={url} target="_blank">
-        See Map
+        Map »
       </a>
     </Map>
   );

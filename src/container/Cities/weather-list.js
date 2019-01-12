@@ -194,8 +194,7 @@ class WeatherList extends Component {
         {showHumidity && (
           <WeatherData data={humidity} units="%" label="Humidity" />
         )}
-        <ForecastData data={forecast} units="C" />
-        <ForecastData data={forecast} units="F" />
+        <ForecastData data={forecast} />
       </WeatherText>
     );
   }

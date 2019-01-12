@@ -2,10 +2,16 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 
-const ForecastData = styled.div``;
-const WeatherForDay = styled.span`
-  padding-right: 20px;
+const ForecastData = styled.div`
+  padding-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 `;
+const WeatherForDay = styled.div``;
+
+const Header = styled.div``;
+const TempC = styled.div``;
+const TempF = styled.div``;
 
 // Used to display 5 day forecast
 export default props => {
@@ -32,23 +38,27 @@ export default props => {
     const dayOfWeek = moment(key).format('ddd');
     const today = moment().format('YYYY-MM-DD');
 
-    let lowTemp = temps[0];
-    let highTemp = temps[temps.length - 1];
-    if (props.units === 'C') {
-      lowTemp = Math.round(lowTemp);
-      highTemp = Math.round(highTemp);
-    }
-    if (props.units === 'F') {
-      lowTemp = Math.round((lowTemp * 9) / 5 + 32);
-      highTemp = Math.round((highTemp * 9) / 5 + 32);
-    }
+    const lowTemp = temps[0];
+    const highTemp = temps[temps.length - 1];
+
+    const lowTempC = Math.round(lowTemp);
+    const highTempC = Math.round(highTemp);
+
+    const lowTempF = Math.round((lowTemp * 9) / 5 + 32);
+    const highTempF = Math.round((highTemp * 9) / 5 + 32);
 
     // Skip today since full data isn't available for current day.
     if (today === key) return null;
 
     return (
-      <WeatherForDay key={key}>
-        {dayOfWeek} {lowTemp} / {highTemp}
+      <WeatherForDay key={key} className="THE_WEATHER">
+        <Header>{dayOfWeek}</Header>
+        <TempC>
+          {lowTempC} / {highTempC}
+        </TempC>
+        <TempF>
+          {lowTempF} / {highTempF}
+        </TempF>
       </WeatherForDay>
     );
   };

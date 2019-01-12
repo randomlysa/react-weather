@@ -91,6 +91,9 @@ class WeatherList extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    // Used to check how old the current weather is.
+    const now = new Date().getTime();
+
     this.props.weather.map(city => {
       // Track if city.id has swipe attached to it. If it does not, add city.id
       // to state.itemsWithSwipe and add swipe to that city.
@@ -112,18 +115,9 @@ class WeatherList extends Component {
           // Open a confirmation asking to delete the city or cancel.
           this.openModal(city);
         });
-      }
-    });
-  }
+      } // End track cities with swipe and add swipe.
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.weather[0]) {
-      saveState('weather', nextProps.weather);
-    }
-
-    const now = new Date().getTime();
-
-    nextProps.weather.map(city => {
+      // Update current weather if > 30 min old.
       const { timeFetched } = city;
       // Convert milliseconds to minutes.
       const timeDifference = (now - timeFetched) / 1000 / 60;
@@ -131,8 +125,8 @@ class WeatherList extends Component {
       // Request weather update if fetched over 30 minutes ago.
       if (timeDifference > 30 || timeFetched === undefined) {
         this.props.actions.fetchWeatherUpdate(city.id);
-      }
-    });
+      } // End update current weather if > 30 min old.
+    }); // this.props.weather.map(city)
   }
 
   renderWeather(cityData) {

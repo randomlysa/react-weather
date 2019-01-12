@@ -143,7 +143,9 @@ class WeatherList extends Component {
       const today = moment().format('YYYY-MM-DD');
       // If forecast date !== today, update.
       if (forecast === today) {
-        console.log('update forecast');
+        // This works but it causes too many network requests. See actions-weather
+        // line 20 and do something similar?
+        this.props.actions.fetchForecastFromOpenWeather(city);
       }
     }); // this.props.weather.map(city)
   }

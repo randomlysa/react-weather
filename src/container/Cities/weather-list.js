@@ -126,6 +126,15 @@ class WeatherList extends Component {
       if (timeDifference > 30 || timeFetched === undefined) {
         this.props.actions.fetchWeatherUpdate(city.id);
       } // End update current weather if > 30 min old.
+
+      // Should forecast be updated.
+      // forecast = YYYY-MM-DD of the first item in the forecast.
+      const forecast = this.props.forecast[city.id][0].dt_txt.split(' ')[0];
+      const today = moment().format('YYYY-MM-DD');
+      // If forecast date !== today, update.
+      if (forecast === today) {
+        console.log('update forecast');
+      }
     }); // this.props.weather.map(city)
   }
 

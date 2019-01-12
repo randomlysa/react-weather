@@ -90,26 +90,29 @@ class WeatherList extends Component {
     this.swipeItems = [];
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     this.props.weather.map(city => {
+      // Track if city.id has swipe attached to it. If it does not, add city.id
+      // to state.itemsWithSwipe and add swipe to that city.
       if (!this.state.itemsWithSwipe.includes(city.id)) {
         this.setState(prevState => ({
           itemsWithSwipe: [...prevState.itemsWithSwipe, city.id]
         }));
-      }
-      const swipeRow = document.getElementById(city.id);
-      const id = city.id;
 
-      this.swipeItems[id] = new Hammer(swipeRow);
-      this.swipeItems[id].on('swipeleft', e => {
-        // Can't figure out how to unbind/disable swipe left, so using
-        // this instead to disable the modal when needed.
-        if (!this.props.options.useSwipeToDelete) return;
-        // If delete is confirmed, use css to animate-out this div.
-        this.rowToDelete = e.target.closest('.row-swipe');
-        // Open a confirmation asking to delete the city or cancel.
-        this.openModal(city);
-      });
+        const swipeRow = document.getElementById(city.id);
+        const id = city.id;
+
+        this.swipeItems[id] = new Hammer(swipeRow);
+        this.swipeItems[id].on('swipeleft', e => {
+          // Can't figure out how to unbind/disable swipe left, so using
+          // this instead to disable the modal when needed.
+          if (!this.props.options.useSwipeToDelete) return;
+          // If delete is confirmed, use css to animate-out this div.
+          this.rowToDelete = e.target.closest('.row-swipe');
+          // Open a confirmation asking to delete the city or cancel.
+          this.openModal(city);
+        });
+      }
     });
   }
 

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const ForecastData = styled.div`
   padding-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 `;
 const WeatherForDay = styled.div``;
 

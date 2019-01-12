@@ -91,6 +91,16 @@ class WeatherList extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (
+      (prevProps.weather.length > 0) &
+      (prevProps.weather !== this.props.weather)
+    ) {
+      // Something (most likely a this.props.actions.fetchWeatherUpdate, but
+      // also maybe a city got deleted?) caused prevProps.weather to not equal
+      // this.props.weather. Save this.props.weather to storage.
+      saveState('weather', this.props.weather);
+    }
+
     // Used to check how old the current weather is.
     const now = new Date().getTime();
 

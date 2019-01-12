@@ -50,15 +50,26 @@ export default props => {
     // Skip today since full data isn't available for current day.
     if (today === key) return null;
 
+    const showHeader =
+      props.options.showFahrenheit || props.options.showCelcius;
+
     return (
-      <WeatherForDay key={key} className="THE_WEATHER">
-        <Header>{dayOfWeek}</Header>
-        <TempC>
-          {lowTempC} / {highTempC}
-        </TempC>
-        <TempF>
-          {lowTempF} / {highTempF}
-        </TempF>
+      <WeatherForDay key={key}>
+        {showHeader && (
+          <Header>
+            <strong>{dayOfWeek}</strong>
+          </Header>
+        )}
+        {props.options.showCelcius && (
+          <TempC>
+            {lowTempC} / {highTempC}
+          </TempC>
+        )}
+        {props.options.showFahrenheit && (
+          <TempF>
+            {lowTempF} / {highTempF}
+          </TempF>
+        )}
       </WeatherForDay>
     );
   };

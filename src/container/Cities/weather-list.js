@@ -14,16 +14,14 @@ import ForecastData from '../../components/forecast-data';
 import WeatherData from '../../components/weather-data';
 import GoogleMap from '../../components/google-map';
 
+const StyledWeatherList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+`;
+
 const WeatherText = styled.div`
   font-family: 'Playfair Display', serif;
   padding: 1rem;
-`;
-
-const WeatherTextLeft = styled(WeatherText)``;
-
-const WeatherTextRight = styled(WeatherText)``;
-
-const RowWithBorder = styled.div`
   border-bottom: solid 2px #adaaaa;
 `;
 
@@ -158,7 +156,7 @@ class WeatherList extends Component {
     const { lon, lat } = cityData.coord;
     const timeLastUpdated = moment.unix(cityData.dt).fromNow();
     const timeLastFetched = moment(cityData.timeFetched).fromNow();
-    const rowClassName = `row row-swipe`;
+    const rowClassName = `row-swipe`;
     const forecast = this.props.forecast ? this.props.forecast[id] : null;
 
     // Sunrise, sunset
@@ -174,34 +172,31 @@ class WeatherList extends Component {
     else showDashSunrise = '';
 
     return (
-      <RowWithBorder className={rowClassName} id={id} key={id}>
-        <WeatherTextLeft className="col-12 col-md-5 text-center">
-          <h1>{name}</h1>
-          <GoogleMap lat={lat} lon={lon} />
-        </WeatherTextLeft>
-        <WeatherTextRight className="col-12 col-md-7 text-center">
-          {showSunrise && `${formatSunrise}`}
-          {showDashSunrise}
-          {showSunset && `${formatSunset}`}
-          <br />
-          <em>
-            {showFetched && `fetched ${timeLastFetched}`}
-            {showDashFetchedUpdated}
-            {showUpdated && `updated ${timeLastUpdated}`}
-          </em>
-          <br />
+      <WeatherText className={rowClassName} id={id} key={id}>
+        <h1>{name}</h1>
+        <GoogleMap lat={lat} lon={lon} />
 
-          <img src={icon} alt={description} />
-          {showCelcius && <WeatherData data={tempInC} units="C" />}
-          {showFahrenheit && <WeatherData data={tempInF} units="F" />}
-          <br />
-          {showHumidity && (
-            <WeatherData data={humidity} units="%" label="Humidity" />
-          )}
-          <ForecastData data={forecast} units="C" />
-          <ForecastData data={forecast} units="F" />
-        </WeatherTextRight>
-      </RowWithBorder>
+        {showSunrise && `${formatSunrise}`}
+        {showDashSunrise}
+        {showSunset && `${formatSunset}`}
+        <br />
+        <em>
+          {showFetched && `fetched ${timeLastFetched}`}
+          {showDashFetchedUpdated}
+          {showUpdated && `updated ${timeLastUpdated}`}
+        </em>
+        <br />
+
+        <img src={icon} alt={description} />
+        {showCelcius && <WeatherData data={tempInC} units="C" />}
+        {showFahrenheit && <WeatherData data={tempInF} units="F" />}
+        <br />
+        {showHumidity && (
+          <WeatherData data={humidity} units="%" label="Humidity" />
+        )}
+        <ForecastData data={forecast} units="C" />
+        <ForecastData data={forecast} units="F" />
+      </WeatherText>
     );
   }
 
@@ -213,7 +208,7 @@ class WeatherList extends Component {
     }
 
     return (
-      <div className="weather-list">
+      <StyledWeatherList>
         <StyledModal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
@@ -233,7 +228,7 @@ class WeatherList extends Component {
         {this.props.weather.map(function(city) {
           return this.renderWeather(city, this);
         }, this)}
-      </div>
+      </StyledWeatherList>
     );
   }
 }

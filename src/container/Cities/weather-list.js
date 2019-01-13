@@ -53,6 +53,8 @@ class WeatherList extends Component {
       rowToDelete: ''
     };
 
+    this.fetchQueue = [];
+
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.deleteCity = this.deleteCity.bind(this);
@@ -145,12 +147,17 @@ class WeatherList extends Component {
         const today = moment().format('YYYY-MM-DD');
         // If forecast date !== today, update.
         if (forecast === today) {
-          // This works but it causes too many network requests. See actions-weather
-          // line 20 and do something similar?
-          this.props.actions.fetchForecastFromOpenWeather(city);
+          if (!this.fetchQueue.includes(id)) {
+            this.fetchQueue = [...this.fetchQueue, id];
+            this.props.actions.fetchForecastFromOpenWeather(city);
+          }
         }
       } else {
-        this.props.actions.fetchForecastFromOpenWeather(city);
+        const id = city.id;
+        if (!this.fetchQueue.includes(id)) {
+          this.fetchQueue = [...this.fetchQueue, id];
+          this.props.actions.fetchForecastFromOpenWeather(city);
+        }
       }
     }); // this.props.weather.map(city)
   }

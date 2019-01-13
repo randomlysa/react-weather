@@ -175,7 +175,9 @@ class WeatherList extends Component {
     } = this.props.options;
 
     const id = cityData.id;
-    const name = cityData.name;
+    let name = cityData.name;
+    // Todo: make optional?
+    if (name.length > 22) name = name.slice(0, 20) + '...';
     const description = cityData.weather[0].description;
     const icon = `https://openweathermap.org/img/w/${
       cityData.weather[0].icon

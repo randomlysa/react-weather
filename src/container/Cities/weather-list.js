@@ -138,14 +138,18 @@ class WeatherList extends Component {
         this.props.actions.fetchWeatherUpdate(city.id);
       } // End update current weather if > 30 min old.
 
-      // Should forecast be updated.
-      // forecast = YYYY-MM-DD of the first item in the forecast.
-      const forecast = this.props.forecast[city.id][0].dt_txt.split(' ')[0];
-      const today = moment().format('YYYY-MM-DD');
-      // If forecast date !== today, update.
-      if (forecast === today) {
-        // This works but it causes too many network requests. See actions-weather
-        // line 20 and do something similar?
+      if (this.props.forecast && this.props.forecast[city.id]) {
+        // Should forecast be updated.
+        // forecast = YYYY-MM-DD of the first item in the forecast.
+        const forecast = this.props.forecast[city.id][0].dt_txt.split(' ')[0];
+        const today = moment().format('YYYY-MM-DD');
+        // If forecast date !== today, update.
+        if (forecast === today) {
+          // This works but it causes too many network requests. See actions-weather
+          // line 20 and do something similar?
+          this.props.actions.fetchForecastFromOpenWeather(city);
+        }
+      } else {
         this.props.actions.fetchForecastFromOpenWeather(city);
       }
     }); // this.props.weather.map(city)

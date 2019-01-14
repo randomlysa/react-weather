@@ -33,7 +33,8 @@ export function fetchForecastFromOpenWeather(location) {
 }
 
 export function fetchForecastFromLocalStorage() {
-  const payload = loadState('weather_forecast') || null;
+  const payload = loadState('weather_forecast') || {};
+
   return {
     type: FETCH_FORECAST_FROM_LOCALSTORAGE,
     payload

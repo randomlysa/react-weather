@@ -17,6 +17,7 @@ export default function(state = [], action) {
       if (typeof action.payload.data === 'object') {
         const cityWithTimeFetched = {
           ...action.payload.data,
+          area: action.meta.area,
           timeFetched: now
         };
         return [cityWithTimeFetched, ...state];

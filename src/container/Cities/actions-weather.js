@@ -42,6 +42,7 @@ function manageRequestVolume(url, cityId) {
 }
 
 export function fetchWeatherFromOpenWeather(location) {
+  const { area } = location;
   let url;
 
   // Location is an object that was fetched from my database. It should have
@@ -55,7 +56,8 @@ export function fetchWeatherFromOpenWeather(location) {
 
   return {
     type: FETCH_WEATHER_FROM_OPENWEATHER,
-    payload: request
+    payload: request,
+    meta: { area }
   };
 }
 

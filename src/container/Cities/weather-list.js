@@ -191,6 +191,9 @@ class WeatherList extends Component {
     const rowClassName = `row-swipe`;
     const forecast = this.props.forecast ? this.props.forecast[id] : null;
 
+    const area = cityData.area;
+    const country = cityData.sys.country;
+
     // Sunrise, sunset
     const { sunrise, sunset } = cityData.sys;
     const formatSunrise = moment.unix(sunrise).format('HH:mm');
@@ -206,6 +209,8 @@ class WeatherList extends Component {
     return (
       <WeatherText className={rowClassName} id={id} key={id}>
         <h1>{name}</h1>
+        {/* don't include comma if no 'area' */}
+        {area && `${area},`} {country}
         <GoogleMap lat={lat} lon={lon} />
 
         {showSunrise && `${formatSunrise}`}

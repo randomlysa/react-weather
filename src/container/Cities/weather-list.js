@@ -108,6 +108,8 @@ class WeatherList extends Component {
     const now = new Date().getTime();
 
     this.props.weather.map(city => {
+      const id = city.id;
+
       // Track if city.id has swipe attached to it. If it does not, add city.id
       // to state.itemsWithSwipe and add swipe to that city.
       if (!this.state.itemsWithSwipe.includes(city.id)) {
@@ -116,7 +118,6 @@ class WeatherList extends Component {
         }));
 
         const swipeRow = document.getElementById(city.id);
-        const id = city.id;
 
         this.swipeItems[id] = new Hammer(swipeRow);
         this.swipeItems[id].on('swipeleft', e => {
@@ -153,7 +154,6 @@ class WeatherList extends Component {
           }
         }
       } else {
-        const id = city.id;
         if (!this.fetchQueue.includes(id)) {
           this.fetchQueue = [...this.fetchQueue, id];
           this.props.actions.fetchForecastFromOpenWeather(city);

@@ -1,7 +1,7 @@
 import {
   FETCH_WEATHER_FROM_LOCALSTORAGE,
-  FETCH_WEATHER_FROM_OPENWEATHER,
-  FETCH_WEATHER_UPDATE,
+  FETCH_WEATHER_FROM_OPENWEATHER_FULFILLED,
+  FETCH_WEATHER_UPDATE_FULFILLED,
   DELETE_ONE_CITY
 } from './actions-weather';
 import reject from 'lodash/reject';
@@ -12,7 +12,7 @@ export default function(state = [], action) {
   switch (action.type) {
     case FETCH_WEATHER_FROM_LOCALSTORAGE:
       return action.payload;
-    case FETCH_WEATHER_FROM_OPENWEATHER:
+    case FETCH_WEATHER_FROM_OPENWEATHER_FULFILLED:
       // Copy payload.data (new city) to new object.
       if (typeof action.payload.data === 'object') {
         const cityWithTimeFetched = {
@@ -24,7 +24,7 @@ export default function(state = [], action) {
         return state;
       }
 
-    case FETCH_WEATHER_UPDATE:
+    case FETCH_WEATHER_UPDATE_FULFILLED:
       if (action.payload) {
         let updatedCity = action.payload.data;
         updatedCity.timeFetched = now;

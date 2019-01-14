@@ -12,7 +12,7 @@ import styled from 'styled-components';
 
 import ForecastData from '../../components/forecast-data';
 import WeatherData from '../../components/weather-data';
-import GoogleMap from '../../components/google-map';
+import GoogleMapLink from '../../components/google-map-link';
 
 const StyledWeatherList = styled.div`
   display: grid;
@@ -211,8 +211,7 @@ class WeatherList extends Component {
         <h1>{name}</h1>
         {/* don't include comma if no 'area' */}
         {area && `${area},`} {country}
-        <GoogleMap lat={lat} lon={lon} />
-
+        <GoogleMapLink lat={lat} lon={lon} />
         {showSunrise && `${formatSunrise}`}
         {showDashSunrise}
         {showSunset && `${formatSunset}`}

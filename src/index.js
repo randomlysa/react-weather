@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-import ReduxPromise from 'redux-promise';
+import promiseMiddleware from 'redux-promise-middleware';
 
 import App from './components/app';
 import reducers from './reducers';
@@ -10,7 +10,7 @@ import reducers from './reducers';
 const store = createStore(
   reducers,
   compose(
-    applyMiddleware(ReduxPromise),
+    applyMiddleware(promiseMiddleware()),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );

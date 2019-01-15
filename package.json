@@ -29,6 +29,7 @@
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
     "html-webpack-plugin": "^3.2.0",
+    "jest-localstorage-mock": "^2.4.0",
     "jquery": "^3.2.1",
     "jsdom": "^13.0.0",
     "mocha": "^5.2.0",
@@ -63,5 +64,10 @@
     "redux-promise": "^0.6.0",
     "redux-promise-middleware": "^5.1.1",
     "styled-components": "^4.1.3"
+  },
+  "jest": {
+    "setupFiles": [
+      "jest-localstorage-mock"
+    ]
   }
 }

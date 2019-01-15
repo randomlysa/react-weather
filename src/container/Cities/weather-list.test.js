@@ -72,7 +72,7 @@ it('should display a city when pass in as a prop', () => {
   expect(wrapper.text()).toMatch(/Mountain View/);
 });
 
-it('should call localstorage when a city is added', () => {
+it('should call (save to) localstorage when a city is added', () => {
   let node = document.createElement('div');
   // Note that first time props is used, second time, props2!
   ReactDOM.render(<WeatherList {...props} />, node);

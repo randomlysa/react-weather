@@ -9,11 +9,6 @@ configure({ adapter: new Adapter() });
 import { mount } from 'enzyme';
 
 import { WeatherList } from './weather-list';
-import * as weatherActionCreators from './actions-weather';
-import * as forecastActionCreators from './actions-forecast';
-import { saveState } from '../../helpers/manage-localStorage';
-
-const mockFetchWeather = jest.fn();
 
 const exampleWeatherResponse = {
   coord: { lon: -122.09, lat: 37.39 },

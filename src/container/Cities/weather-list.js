@@ -113,17 +113,20 @@ export class WeatherList extends Component {
         }));
 
         const swipeRow = document.getElementById(city.id);
-
-        this.swipeItems[id] = new Hammer(swipeRow);
-        this.swipeItems[id].on('swipeleft', e => {
-          // Can't figure out how to unbind/disable swipe left, so using
-          // this instead to disable the modal when needed.
-          if (!this.props.options.useSwipeToDelete) return;
-          // If delete is confirmed, use css to animate-out this div.
-          this.rowToDelete = e.target.closest('.row-swipe');
-          // Open a confirmation asking to delete the city or cancel.
-          this.openModal(city);
-        });
+        // Currently swipeRow doesn't exist in testing but this is a good check
+        // either way...
+        if (swipeRow) {
+          this.swipeItems[id] = new Hammer(swipeRow);
+          this.swipeItems[id].on('swipeleft', e => {
+            // Can't figure out how to unbind/disable swipe left, so using
+            // this instead to disable the modal when needed.
+            if (!this.props.options.useSwipeToDelete) return;
+            // If delete is confirmed, use css to animate-out this div.
+            this.rowToDelete = e.target.closest('.row-swipe');
+            // Open a confirmation asking to delete the city or cancel.
+            this.openModal(city);
+          });
+        }
       } // End track cities with swipe and add swipe.
 
       // Update current weather if > 30 min old.

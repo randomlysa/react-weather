@@ -36,7 +36,8 @@ const exampleWeatherResponse = {
   dt: 1427700245,
   id: 0,
   name: 'Mountain View',
-  cod: 200
+  cod: 200,
+  timeFetched: 0
 };
 
 const props = {
@@ -77,4 +78,20 @@ it('should call localstorage when a city is added', () => {
   ReactDOM.render(<WeatherList {...props} />, node);
   ReactDOM.render(<WeatherList {...props2} />, node);
   expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+});
+
+it('should fetchWeatherUpdate when weather is > 30 min old', () => {
+  let node = document.createElement('div');
+  ReactDOM.render(<WeatherList {...props2} />, node);
+  expect(props2.actions.fetchWeatherUpdate).toHaveBeenLastCalledWith(
+    exampleWeatherResponse.id
+  );
+});
+
+it('should fetch weather, forecast from localstorage when mounted', () => {
+  let node = document.createElement('div');
+  // Note that first time props is used, second time, props2!
+  ReactDOM.render(<WeatherList {...props} />, node);
+  expect(props2.actions.fetchWeatherFromLocalStorage).toHaveBeenCalledWith();
+  expect(props2.actions.fetchForecastFromLocalStorage).toHaveBeenCalledWith();
 });

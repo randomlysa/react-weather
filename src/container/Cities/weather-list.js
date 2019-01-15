@@ -74,8 +74,8 @@ export class WeatherList extends Component {
     this.rowToDelete.classList.add('faster');
     this.rowToDelete.classList.add('zoomOut');
     setTimeout(() => {
-      this.props.actions.deleteCity(this.currentCity.id);
-      this.props.actions.deleteForecast(this.currentCity.id);
+      this.props.actions.deleteCity(this.state.cityToDelete.id);
+      this.props.actions.deleteForecast(this.state.cityToDelete.id);
       saveState('weather', this.props.weather);
     }, 500);
   }
@@ -83,7 +83,6 @@ export class WeatherList extends Component {
   componentDidMount() {
     this.props.actions.fetchWeatherFromLocalStorage();
     this.props.actions.fetchForecastFromLocalStorage();
-    this.currentCity = {};
     this.rowToDelete;
     // Store swipe object in an array. Was going to access objects later
     // and remove swipeleft but that definitely didn't work.

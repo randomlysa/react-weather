@@ -43,7 +43,7 @@ const StyledModal = styled(Modal)`
   text-align: center;
 `;
 
-class WeatherList extends Component {
+export class WeatherList extends Component {
   constructor(props) {
     super(props);
 

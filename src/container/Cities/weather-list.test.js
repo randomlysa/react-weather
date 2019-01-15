@@ -57,6 +57,7 @@ const props = {
 const props2 = {
   weather: [exampleWeatherResponse],
   actions: {
+    fetchWeatherUpdate: jest.fn(),
     fetchWeatherFromLocalStorage: jest.fn(),
     fetchWeatherFromOpenWeather: jest.fn(),
     fetchForecastFromOpenWeather: jest.fn(),
@@ -70,6 +71,15 @@ it('should load when there are no cities', () => {
   expect(wrapper.text()).toBe('No cities here - search for one!');
 });
 
-it('should save a city to local storage after fetching from openweather', () => {
-  const wrapper = mount(<WeatherList {...props} />);
+it('should display a city when pass in as a prop', () => {
+  const wrapper = mount(<WeatherList {...props2} />);
+  expect(wrapper.text()).toMatch(/Mountain View/);
+});
+
+it('should call localstorage when a city is added', () => {
+  let node = document.createElement('div');
+  // Note that first time props is used, second time, props2!
+  ReactDOM.render(<WeatherList {...props} />, node);
+  ReactDOM.render(<WeatherList {...props2} />, node);
+  expect(localStorage.setItem).toHaveBeenCalledTimes(1);
 });

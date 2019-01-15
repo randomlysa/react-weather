@@ -3,42 +3,14 @@ import ReactDOM from 'react-dom';
 
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import renderer from 'react-test-renderer';
 
 configure({ adapter: new Adapter() });
 
 import { mount } from 'enzyme';
 
 import { WeatherList } from './weather-list';
-
-const exampleWeatherResponse = {
-  coord: { lon: -122.09, lat: 37.39 },
-  sys: {
-    type: 3,
-    id: 168940,
-    message: 0.0297,
-    country: 'US',
-    sunrise: 1427723751,
-    sunset: 1427768967
-  },
-  weather: [
-    { id: 800, main: 'Clear', description: 'Sky is Clear', icon: '01n' }
-  ],
-  base: 'stations',
-  main: {
-    temp: 285.68,
-    humidity: 74,
-    pressure: 1016.8,
-    temp_min: 284.82,
-    temp_max: 286.48
-  },
-  wind: { speed: 0.96, deg: 285.001 },
-  clouds: { all: 0 },
-  dt: 1427700245,
-  id: 0,
-  name: 'Mountain View',
-  cod: 200,
-  timeFetched: 0
-};
+import { weather1, weather2, forecast1, forecast2 } from './sample-data-test';
 
 const props = {
   weather: [],
@@ -51,7 +23,7 @@ const props = {
 };
 
 const props2 = {
-  weather: [exampleWeatherResponse],
+  weather: [weather1],
   actions: {
     fetchWeatherUpdate: jest.fn(),
     fetchWeatherFromLocalStorage: jest.fn(),
@@ -84,7 +56,7 @@ it('should fetchWeatherUpdate when weather is > 30 min old', () => {
   let node = document.createElement('div');
   ReactDOM.render(<WeatherList {...props2} />, node);
   expect(props2.actions.fetchWeatherUpdate).toHaveBeenLastCalledWith(
-    exampleWeatherResponse.id
+    weather1.id
   );
 });
 

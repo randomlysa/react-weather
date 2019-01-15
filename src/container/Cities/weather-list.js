@@ -50,7 +50,7 @@ export class WeatherList extends Component {
     this.state = {
       itemsWithSwipe: [],
       modalIsOpen: false,
-      rowToDelete: ''
+      cityToDelete: ''
     };
 
     this.fetchQueue = [];
@@ -61,8 +61,7 @@ export class WeatherList extends Component {
   }
 
   openModal(city) {
-    this.currentCity = city;
-    this.setState({ modalIsOpen: true });
+    this.setState({ modalIsOpen: true, cityToDelete: city });
   }
 
   closeModal() {
@@ -252,7 +251,7 @@ export class WeatherList extends Component {
           appElement={document.getElementById('app')}
           className="modal--delete"
         >
-          <h3>Delete {this.currentCity.name}?</h3>
+          <h3>Delete {this.state.cityToDelete.name}?</h3>
           <button className="btn btn-danger" onClick={this.deleteCity}>
             Delete
           </button>

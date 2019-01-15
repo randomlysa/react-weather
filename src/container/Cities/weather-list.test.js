@@ -15,16 +15,6 @@ import { saveState } from '../../helpers/manage-localStorage';
 
 const mockFetchWeather = jest.fn();
 
-const props = {
-  weather: [],
-  actions: {
-    fetchWeatherFromLocalStorage: jest.fn(),
-    fetchWeatherFromOpenWeather: jest.fn(),
-    fetchForecastFromOpenWeather: jest.fn(),
-    fetchForecastFromLocalStorage: jest.fn()
-  }
-};
-
 const exampleWeatherResponse = {
   coord: { lon: -122.09, lat: 37.39 },
   sys: {
@@ -54,7 +44,28 @@ const exampleWeatherResponse = {
   cod: 200
 };
 
-it.only('should load when there are no cities', () => {
+const props = {
+  weather: [],
+  actions: {
+    fetchWeatherFromLocalStorage: jest.fn(),
+    fetchWeatherFromOpenWeather: jest.fn(),
+    fetchForecastFromOpenWeather: jest.fn(),
+    fetchForecastFromLocalStorage: jest.fn()
+  }
+};
+
+const props2 = {
+  weather: [exampleWeatherResponse],
+  actions: {
+    fetchWeatherFromLocalStorage: jest.fn(),
+    fetchWeatherFromOpenWeather: jest.fn(),
+    fetchForecastFromOpenWeather: jest.fn(),
+    fetchForecastFromLocalStorage: jest.fn()
+  },
+  options: {}
+};
+
+it('should load when there are no cities', () => {
   const wrapper = mount(<WeatherList {...props} />);
   expect(wrapper.text()).toBe('No cities here - search for one!');
 });

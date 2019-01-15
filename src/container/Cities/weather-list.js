@@ -92,10 +92,7 @@ export class WeatherList extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      (prevProps.weather.length > 0) &
-      (prevProps.weather !== this.props.weather)
-    ) {
+    if (prevProps.weather !== this.props.weather) {
       // Something (most likely a this.props.actions.fetchWeatherUpdate, but
       // also maybe a city got deleted?) caused prevProps.weather to not equal
       // this.props.weather. Save this.props.weather to storage.

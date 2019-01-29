@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { loadState } from '../../helpers/manage-localStorage';
+import { WEATHER_API_KEY } from '../../helpers/config.js';
 
-const API_KEY = 'df53338709b54a2247c6e16358430a33';
-const WEATHER_URL = `http://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}&units=metric`;
+const WEATHER_URL = `http://api.openweathermap.org/data/2.5/weather?appid=${WEATHER_API_KEY}&units=metric`;
 
 export const FETCH_WEATHER_FROM_OPENWEATHER = 'FETCH_WEATHER_FROM_OPENWEATHER';
 export const FETCH_WEATHER_FROM_OPENWEATHER_FULFILLED =

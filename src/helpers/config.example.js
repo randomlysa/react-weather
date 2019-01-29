@@ -1,3 +1,4 @@
 const LOGGLY_URL = 'YOUR_URL_TO_POST_TO_LOGGLY';
+const WEATHER_API_KEY = 'YOUR_KEY';
 
-export { LOGGLY_URL };
+export { LOGGLY_URL, WEATHER_API_KEY };

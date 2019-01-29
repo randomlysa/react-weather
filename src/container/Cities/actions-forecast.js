@@ -28,7 +28,10 @@ export function fetchForecastFromOpenWeather(location) {
 
   return {
     type: FETCH_FORECAST_FROM_OPENWEATHER,
-    payload: request
+    payload: request,
+    meta: {
+      throttle: 2000
+    }
   };
 }
 
@@ -37,7 +40,10 @@ export function fetchForecastFromLocalStorage() {
 
   return {
     type: FETCH_FORECAST_FROM_LOCALSTORAGE,
-    payload
+    payload,
+    meta: {
+      throttle: 2000
+    }
   };
 }
 

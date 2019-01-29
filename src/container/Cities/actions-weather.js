@@ -57,7 +57,7 @@ export function fetchWeatherFromOpenWeather(location) {
   return {
     type: FETCH_WEATHER_FROM_OPENWEATHER,
     payload: request,
-    meta: { area }
+    meta: { throttle: 2000, area }
   };
 }
 

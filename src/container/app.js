@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { loadState, saveState } from '../helpers/manage-localStorage';
 
-import SearchBar from '../container/SearchBar/search-bar';
-import Notification from '../container/Notifications/notification';
-import WeatherList from '../container/Cities/weather-list';
-import Footer from '../container/Footer/footer';
+import SearchBar from './SearchBar/search-bar';
+import Notification from './Notifications/notification';
+import WeatherList from './Cities/weather-list';
+import Footer from './Footer/footer';
 import CityList from './CityList/city-list';
 
 export default class App extends Component {

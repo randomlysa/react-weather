@@ -51,7 +51,6 @@ export function fetchWeatherFromOpenWeather(location) {
     url = `${WEATHER_URL}&id=${location.id}`;
   }
 
-  // const url = `${WEATHER_URL}&q=${city},${alpha2code}`;
   const request = axios.get(url);
 
   return {

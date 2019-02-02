@@ -16,8 +16,10 @@ export default props => {
   // but change font-size of temp based on screen size.
   // Also put a space between number and C/F but not between number
   // and % humidity. (1 C  34F  35% humidity)
+  const dataCy = `${props.units}_data`;
+
   return (
-    <WeatherData label={props.label}>
+    <WeatherData label={props.label} data-cy={dataCy}>
       {props.data}
       {!props.label && ' '}
       {props.units} {props.label}

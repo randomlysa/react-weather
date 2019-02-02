@@ -56,6 +56,18 @@ describe('Search bar', function() {
       });
   });
 
+  it('should have a weather in C and F for each city', function() {
+    // Should contain digit C|F
+    cy.get('[data-cy=F_data]').each(function(value) {
+      const myRe = /\d+ C|F/;
+      expect(myRe.test(value[0].textContent)).to.be.true;
+    });
+    // Should have 3 of C and 3 of F, one for each city.
+    cy.get('[data-cy=F_data]').should('have.length', 3);
+
+    cy.get('[data-cy=C_data]').should('have.length', 3);
+  });
+
   it('should NOT delete any cities when CANCEL is selected', function() {
     cy.get('[data-cy=openOnHover]').invoke('toggle');
     // This does not delete! It opens a modal asking to confirm/cancel

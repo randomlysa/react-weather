@@ -75,7 +75,7 @@ export default props => {
   };
 
   return (
-    <ForecastData>
+    <ForecastData data-cy="forecast">
       {Object.keys(allTempsForDay).map(key => {
         return renderHighLowForDay(key, allTempsForDay[key]);
       })}

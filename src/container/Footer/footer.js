@@ -32,7 +32,7 @@ const SettingsMenu = styled.div`
 /* https://www.w3schools.com/howto/howto_css_dropup.asp */
 const SettingsMenuContent = styled.div`
   position: absolute;
-  visibility: hidden;
+  display: none;
   bottom: 75px;
   right: 0px;
   padding: 25px;
@@ -42,7 +42,6 @@ const SettingsMenuContent = styled.div`
 
   :hover {
     display: block;
-    visibility: visible;
   }
 `;
 

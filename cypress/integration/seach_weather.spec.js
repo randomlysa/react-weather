@@ -53,14 +53,22 @@ describe('Search bar', function() {
       });
   });
 
-  // Click doesn't work...
-  // it('should fetch weather when a user clicks on a typeahead item and presses submit', function() {
-  //   cy.get('.rbt-input-main')
-  //     .type('Prague')
-  //     .wait(700); // Wait for typeahead to get some data and make a list.
-  //   cy.get('li')
-  //     .first()
-  //     .click({ x: 5, y: 5 });
-  //   cy.get('[data-cy=submit').click();
-  // });
+  it('should NOT delete any cities when CANCEL is selected', function() {
+    cy.get('[data-cy=openOnHover]').invoke('toggle');
+    // This does not delete! It opens a modal asking to confirm/cancel
+    cy.get('[data-cy=buttonToDeleteAll]').click();
+    cy.get('[data-cy=buttonCancelDelete]').click();
+    // Close the menu for the next test to reopen it.
+    cy.get('[data-cy=openOnHover]').invoke('toggle');
+    cy.contains('Boston District');
+  });
+
+  it('should delete all cities when delete is confirmed', function() {
+    cy.get('[data-cy=openOnHover]').invoke('toggle');
+    // This does not delete! It opens a modal asking to confirm/cancel
+    cy.get('[data-cy=buttonToDeleteAll]').click();
+    cy.get('[data-cy=buttonConfirmDelete]').click();
+    cy.get('[data-cy=openOnHover]').invoke('toggle');
+    cy.contains('No cities here');
+  });
 });

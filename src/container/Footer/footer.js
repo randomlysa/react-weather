@@ -116,10 +116,18 @@ class Footer extends Component {
             appElement={document.getElementById('app')}
           >
             <h3>Delete All Cities?</h3>
-            <button className="btn btn-danger" onClick={this.deleteAllCities}>
+            <button
+              className="btn btn-danger"
+              onClick={this.deleteAllCities}
+              data-cy="buttonConfirmDelete"
+            >
               Delete
             </button>
-            <button className="btn btn-light" onClick={this.closeModal}>
+            <button
+              className="btn btn-light"
+              onClick={this.closeModal}
+              data-cy="buttonCancelDelete"
+            >
               Cancel
             </button>
           </StyledModal>
@@ -127,8 +135,15 @@ class Footer extends Component {
             <ButtonIconSettings>
               <MaterialIcon icon="settings" size="medium" />
             </ButtonIconSettings>
-            <SettingsMenuContent className="col-12 col-sm-12 col-md-4 openOnHover">
-              <button className="btn btn-danger" onClick={this.openModal}>
+            <SettingsMenuContent
+              className="col-12 col-sm-12 col-md-4 openOnHover"
+              data-cy="openOnHover"
+            >
+              <button
+                className="btn btn-danger"
+                onClick={this.openModal}
+                data-cy="buttonToDeleteAll"
+              >
                 Delete All Cities
               </button>
 

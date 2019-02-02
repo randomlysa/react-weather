@@ -71,4 +71,15 @@ describe('Search bar', function() {
     cy.get('[data-cy=openOnHover]').invoke('toggle');
     cy.contains('No cities here');
   });
+
+  it('should still fetch a city after deleting all', function() {
+    // If this is typed too fast, there will be a city search result with only
+    // one city inside a button: <button>Boston District, England, GB</button>.
+    // This is why I am checking for city name + fetched.
+    cy.get('.rbt-input-main')
+      .type('Two Boa', { delay: 80 })
+      .wait(400) // Wait for typeahead to get some data and make a list.
+      .type('{downarrow}{enter}', { delay: 30 });
+    cy.contains('Two Boats');
+  });
 });

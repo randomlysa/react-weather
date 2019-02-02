@@ -10,25 +10,27 @@ describe('Search bar', function() {
     // one city inside a button: <button>Boston District, England, GB</button>.
     // This is why I am checking for city name + fetched.
     cy.get('.rbt-input-main')
-      .type('Boston District')
+      .type('Boston District', { delay: 80 })
       .wait(400) // Wait for typeahead to get some data and make a list.
-      .type('{downarrow}{enter}');
-    cy.contains('Boston District fetched');
+      .type('{downarrow}{enter}', { delay: 30 });
+    cy.contains('Boston District');
   });
 
   it('should fetch weather using typeahead, down arrow, enter AFTER a first search', function() {
     cy.get('.rbt-input-main')
-      .type('Tokyo')
-      .wait(700) // Wait for typeahead to get some data and make a list.
-      .type('{downarrow}{enter}');
-    cy.contains('Tokyo fetched');
+      .wait(50)
+      .type('Tokyo', { delay: 80 })
+      .wait(1000) // Wait for typeahead to get some data and make a list.
+      .type('{downarrow}{enter}', { delay: 150 });
+    cy.contains('Tokyo');
   });
 
   it('should show a list of cities if user did not select typeahead option and pressed enter', function() {
     cy.get('.rbt-input-main')
-      .type('Johan')
+      .wait(400)
+      .type('Johan', { delay: 80 })
       .wait(400) // Wait for typeahead to get some data and make a list.
-      .type('{enter}');
+      .type('{enter}', { delay: 150 });
     cy.get('[data-cy=cityList--city]');
   });
 
@@ -39,7 +41,7 @@ describe('Search bar', function() {
       .then(text1 => {
         const [city] = text1.split(',');
         // text1 is the text of the first button. once it is clicked,
-        // there should be `${city} fetched on the page.
+        // there should be `${city}` on the page.
         // Note, this currently also depends on there not being another
         // city with this name already on the page.
         // But I think it's also important to test this by itself AND
@@ -47,7 +49,7 @@ describe('Search bar', function() {
         cy.get('[data-cy=cityList--city]')
           .first()
           .click();
-        cy.contains(`${city} fetched`);
+        cy.contains(`${city}`);
       });
   });
 

@@ -139,7 +139,8 @@ export class WeatherList extends Component {
             var order = sortable.toArray();
             localStorage.setItem(sortable.options.group.name, order.join('|'));
           }
-        }
+        },
+        handle: '.handle'
       });
     }
 
@@ -167,8 +168,9 @@ export class WeatherList extends Component {
         // Currently swipeRow doesn't exist in testing but this is a good check
         // either way...
         if (swipeRow) {
-          return;
           this.swipeItems[id] = new Hammer(swipeRow);
+          this.swipeItems[id].get('swipe').set({ velocity: 0.5 });
+
           this.swipeItems[id].on('swipeleft', e => {
             // Can't figure out how to unbind/disable swipe left, so using
             // this instead to disable the modal when needed.
@@ -258,36 +260,38 @@ export class WeatherList extends Component {
     const closeButtonClassName = `${id}_closeButton material-icons`;
 
     return (
-      <WeatherText className="row-swipe" id={id} key={id}>
+      <WeatherText>
         <Draghandle className="handle material-icons">drag_handle</Draghandle>
-        <CloseButton
-          className={closeButtonClassName}
-          onClick={this.openModal.bind(this, cityData)}
-        >
-          close
-        </CloseButton>
-        <h1>{name}</h1>
-        {/* don't include comma if no 'area' */}
-        {area && `${area},`} {country}
-        <GoogleMapLink lat={lat} lon={lon} />
-        {showSunrise && `${formatSunrise}`}
-        {showDashSunrise}
-        {showSunset && `${formatSunset}`}
-        <br />
-        <em>
-          {showFetched && `fetched ${timeLastFetched}`}
-          {showDashFetchedUpdated}
-          {showUpdated && `updated ${timeLastUpdated}`}
-        </em>
-        <br />
-        <img src={icon} alt={description} />
-        {showCelcius && <WeatherData data={tempInC} units="C" />}
-        {showFahrenheit && <WeatherData data={tempInF} units="F" />}
-        <br />
-        {showHumidity && (
-          <WeatherData data={humidity} units="%" label="Humidity" />
-        )}
-        <ForecastData data={forecast} options={this.props.options} />
+        <div className="row-swipe" id={id} key={id}>
+          <CloseButton
+            className={closeButtonClassName}
+            onClick={this.openModal.bind(this, cityData)}
+          >
+            close
+          </CloseButton>
+          <h1>{name}</h1>
+          {/* don't include comma if no 'area' */}
+          {area && `${area},`} {country}
+          <GoogleMapLink lat={lat} lon={lon} />
+          {showSunrise && `${formatSunrise}`}
+          {showDashSunrise}
+          {showSunset && `${formatSunset}`}
+          <br />
+          <em>
+            {showFetched && `fetched ${timeLastFetched}`}
+            {showDashFetchedUpdated}
+            {showUpdated && `updated ${timeLastUpdated}`}
+          </em>
+          <br />
+          <img src={icon} alt={description} />
+          {showCelcius && <WeatherData data={tempInC} units="C" />}
+          {showFahrenheit && <WeatherData data={tempInF} units="F" />}
+          <br />
+          {showHumidity && (
+            <WeatherData data={humidity} units="%" label="Humidity" />
+          )}
+          <ForecastData data={forecast} options={this.props.options} />
+        </div>
       </WeatherText>
     );
   }

@@ -65,6 +65,11 @@ export class WeatherList extends Component {
   };
 
   deleteCity = () => {
+    // When using the 'x' button, this.rowToDelete isn't set.
+    if (!this.rowToDelete) {
+      this.rowToDelete = document.getElementById(this.state.cityToDelete.id);
+    }
+
     this.setState({ modalIsOpen: false });
     this.rowToDelete.classList.add('animated');
     this.rowToDelete.classList.add('faster');
@@ -73,8 +78,11 @@ export class WeatherList extends Component {
       this.props.actions.deleteCity(this.state.cityToDelete.id);
       this.props.actions.deleteForecast(this.state.cityToDelete.id);
       saveState('weather', this.props.weather);
+      // Reset rowToDelete, otherwise deleting with the 'x' button won't work
+      // after one city is deleted.
+      this.rowToDelete = null;
     }, 500);
-  }
+  };
 
   componentDidMount() {
     this.props.actions.fetchWeatherFromLocalStorage();
@@ -202,6 +210,12 @@ export class WeatherList extends Component {
 
     return (
       <WeatherText className={rowClassName} id={id} key={id}>
+        <i
+          className="material-icons"
+          onClick={this.openModal.bind(this, cityData, rowClassName)}
+        >
+          close
+        </i>
         <h1>{name}</h1>
         {/* don't include comma if no 'area' */}
         {area && `${area},`} {country}
@@ -216,7 +230,6 @@ export class WeatherList extends Component {
           {showUpdated && `updated ${timeLastUpdated}`}
         </em>
         <br />
-
         <img src={icon} alt={description} />
         {showCelcius && <WeatherData data={tempInC} units="C" />}
         {showFahrenheit && <WeatherData data={tempInF} units="F" />}

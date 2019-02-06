@@ -54,21 +54,17 @@ export class WeatherList extends Component {
     };
 
     this.fetchQueue = [];
-
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.deleteCity = this.deleteCity.bind(this);
   }
 
-  openModal(city) {
+  openModal = city => {
     this.setState({ modalIsOpen: true, cityToDelete: city });
-  }
+  };
 
-  closeModal() {
+  closeModal = () => {
     this.setState({ modalIsOpen: false });
-  }
+  };
 
-  deleteCity() {
+  deleteCity = () => {
     this.setState({ modalIsOpen: false });
     this.rowToDelete.classList.add('animated');
     this.rowToDelete.classList.add('faster');

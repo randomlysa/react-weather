@@ -14,6 +14,16 @@ import ForecastData from '../../components/forecast-data';
 import WeatherData from '../../components/weather-data';
 import GoogleMapLink from '../../components/google-map-link';
 
+const CloseButton = styled.i`
+  float: right;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  :hover {
+    color: #dc3545; /* same color as delete button */
+  }
+`;
+
 const StyledWeatherList = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -211,12 +221,12 @@ export class WeatherList extends Component {
 
     return (
       <WeatherText className="row-swipe" id={id} key={id}>
-        <i
+        <CloseButton
           className={closeButtonClassName}
           onClick={this.openModal.bind(this, cityData)}
         >
           close
-        </i>
+        </CloseButton>
         <h1>{name}</h1>
         {/* don't include comma if no 'area' */}
         {area && `${area},`} {country}

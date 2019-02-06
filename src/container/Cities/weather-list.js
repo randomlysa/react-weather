@@ -9,10 +9,16 @@ import moment from 'moment';
 import Hammer from 'hammerjs';
 import Modal from 'react-modal';
 import styled from 'styled-components';
+import Sortable from 'sortablejs';
 
 import ForecastData from '../../components/forecast-data';
 import WeatherData from '../../components/weather-data';
 import GoogleMapLink from '../../components/google-map-link';
+
+const Draghandle = styled.i`
+  float: left;
+  cursor: pointer;
+`;
 
 const CloseButton = styled.i`
   float: right;
@@ -64,6 +70,9 @@ export class WeatherList extends Component {
     };
 
     this.fetchQueue = [];
+    // Create draggable during DidUpdate, but keep it from being created more
+    // than once. DOM element isn't available during DidMount.
+    this.dragCreated = false;
   }
 
   openModal = city => {
@@ -106,6 +115,34 @@ export class WeatherList extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    const el = document.getElementById('draggable');
+    if (el && this.dragCreated === false) {
+      this.dragCreated = true;
+      const sortable = Sortable.create(el, {
+        // From the docs:
+        store: {
+          /**
+           * Get the order of elements. Called once during initialization.
+           * @param   {Sortable}  sortable
+           * @returns {Array}
+           */
+          get: function(sortable) {
+            var order = localStorage.getItem(sortable.options.group.name);
+            return order ? order.split('|') : [];
+          },
+
+          /**
+           * Save the order of elements. Called onEnd (when the item is dropped).
+           * @param {Sortable}  sortable
+           */
+          set: function(sortable) {
+            var order = sortable.toArray();
+            localStorage.setItem(sortable.options.group.name, order.join('|'));
+          }
+        }
+      });
+    }
+
     if (prevProps.weather !== this.props.weather) {
       // Something (most likely a this.props.actions.fetchWeatherUpdate, but
       // also maybe a city got deleted?) caused prevProps.weather to not equal
@@ -130,6 +167,7 @@ export class WeatherList extends Component {
         // Currently swipeRow doesn't exist in testing but this is a good check
         // either way...
         if (swipeRow) {
+          return;
           this.swipeItems[id] = new Hammer(swipeRow);
           this.swipeItems[id].on('swipeleft', e => {
             // Can't figure out how to unbind/disable swipe left, so using
@@ -221,6 +259,7 @@ export class WeatherList extends Component {
 
     return (
       <WeatherText className="row-swipe" id={id} key={id}>
+        <Draghandle className="handle material-icons">drag_handle</Draghandle>
         <CloseButton
           className={closeButtonClassName}
           onClick={this.openModal.bind(this, cityData)}
@@ -261,7 +300,7 @@ export class WeatherList extends Component {
     }
 
     return (
-      <StyledWeatherList>
+      <StyledWeatherList id="draggable">
         <StyledModal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}

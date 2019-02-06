@@ -190,7 +190,6 @@ export class WeatherList extends Component {
     const { lon, lat } = cityData.coord;
     const timeLastUpdated = moment.unix(cityData.dt).fromNow();
     const timeLastFetched = moment(cityData.timeFetched).fromNow();
-    const rowClassName = `row-swipe`;
     const forecast = this.props.forecast ? this.props.forecast[id] : null;
 
     const area = cityData.area;
@@ -209,10 +208,10 @@ export class WeatherList extends Component {
     else showDashSunrise = '';
 
     return (
-      <WeatherText className={rowClassName} id={id} key={id}>
+      <WeatherText className="row-swipe" id={id} key={id}>
         <i
           className="material-icons"
-          onClick={this.openModal.bind(this, cityData, rowClassName)}
+          onClick={this.openModal.bind(this, cityData)}
         >
           close
         </i>

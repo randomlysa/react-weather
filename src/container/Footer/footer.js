@@ -32,16 +32,18 @@ const SettingsMenu = styled.div`
 /* https://www.w3schools.com/howto/howto_css_dropup.asp */
 const SettingsMenuContent = styled.div`
   position: absolute;
-  display: none;
   bottom: 75px;
   right: 0px;
   padding: 25px;
   background: #fff;
   border: solid 1px #ddd;
-  transition: all 0.2s;
+  transition: all 0.2s ease-out;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  transform: translateX(900px);
 
   :hover {
-    display: block;
+    transform: translateX(0px);
   }
 `;
 
@@ -58,8 +60,10 @@ const ButtonIconSettings = styled.button`
   }
 
   :hover ~ .openOnHover {
-    display: block;
     visibility: visible;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    transform: translateX(0px);
   }
 `;
 

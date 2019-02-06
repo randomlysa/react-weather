@@ -6,10 +6,8 @@ import * as weatherActionCreators from './actions-weather';
 import * as forecastActionCreators from './actions-forecast';
 import { saveState } from '../../helpers/manage-localStorage';
 import moment from 'moment';
-import Hammer from 'hammerjs';
 import Modal from 'react-modal';
 import styled from 'styled-components';
-import Sortable from 'sortablejs';
 
 import WeatherOneCity from './weather-onecity';
 
@@ -93,32 +91,39 @@ export class WeatherList extends Component {
 
   componentDidUpdate(prevProps) {
     const el = document.getElementById('draggable');
-    if (el && this.dragCreated === false) {
+    if (el && this.dragCreated === false && this.props.weather.length > 1) {
       this.dragCreated = true;
-      const sortable = Sortable.create(el, {
-        // From the docs:
-        store: {
-          /**
-           * Get the order of elements. Called once during initialization.
-           * @param   {Sortable}  sortable
-           * @returns {Array}
-           */
-          get: function(sortable) {
-            var order = localStorage.getItem(sortable.options.group.name);
-            return order ? order.split('|') : [];
-          },
+      import(/* webpackChunkName: "sortablejs" */ 'sortablejs').then(
+        ({ default: Sortable }) => {
+          const sortable = Sortable.create(el, {
+            // From the docs:
+            store: {
+              /**
+               * Get the order of elements. Called once during initialization.
+               * @param   {Sortable}  sortable
+               * @returns {Array}
+               */
+              get: function(sortable) {
+                var order = localStorage.getItem(sortable.options.group.name);
+                return order ? order.split('|') : [];
+              },
 
-          /**
-           * Save the order of elements. Called onEnd (when the item is dropped).
-           * @param {Sortable}  sortable
-           */
-          set: function(sortable) {
-            var order = sortable.toArray();
-            localStorage.setItem(sortable.options.group.name, order.join('|'));
-          }
-        },
-        handle: '.handle'
-      });
+              /**
+               * Save the order of elements. Called onEnd (when the item is dropped).
+               * @param {Sortable}  sortable
+               */
+              set: function(sortable) {
+                var order = sortable.toArray();
+                localStorage.setItem(
+                  sortable.options.group.name,
+                  order.join('|')
+                );
+              }
+            },
+            handle: '.handle'
+          });
+        }
+      );
     }
 
     if (prevProps.weather !== this.props.weather) {
@@ -145,18 +150,22 @@ export class WeatherList extends Component {
         // Currently swipeRow doesn't exist in testing but this is a good check
         // either way...
         if (swipeRow) {
-          this.swipeItems[id] = new Hammer(swipeRow);
-          this.swipeItems[id].get('swipe').set({ velocity: 0.5 });
+          import(/* webpackChunkName: "hammerjs" */ 'hammerjs').then(
+            ({ default: Hammer }) => {
+              this.swipeItems[id] = new Hammer(swipeRow);
+              this.swipeItems[id].get('swipe').set({ velocity: 0.5 });
 
-          this.swipeItems[id].on('swipeleft', e => {
-            // Can't figure out how to unbind/disable swipe left, so using
-            // this instead to disable the modal when needed.
-            if (!this.props.options.useSwipeToDelete) return;
-            // If delete is confirmed, use css to animate-out this div.
-            this.rowToDelete = e.target.closest('.row-swipe');
-            // Open a confirmation asking to delete the city or cancel.
-            this.openModal(city);
-          });
+              this.swipeItems[id].on('swipeleft', e => {
+                // Can't figure out how to unbind/disable swipe left, so using
+                // this instead to disable the modal when needed.
+                if (!this.props.options.useSwipeToDelete) return;
+                // If delete is confirmed, use css to animate-out this div.
+                this.rowToDelete = e.target.closest('.row-swipe');
+                // Open a confirmation asking to delete the city or cancel.
+                this.openModal(city);
+              });
+            }
+          );
         }
       } // End track cities with swipe and add swipe.
 

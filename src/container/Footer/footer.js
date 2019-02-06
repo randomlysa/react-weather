@@ -10,6 +10,13 @@ import styled from 'styled-components';
 import { saveState } from '../../helpers/manage-localStorage';
 import Option from '../../components/option';
 
+// Check if Cypress is undefined. Used to not hide menu during tests
+// so it can be tested.
+let cypress = true;
+if (typeof Cypress === 'undefined') {
+  cypress = false;
+}
+
 const StyledModal = styled(Modal)`
   position: absolute;
   top: 50%;
@@ -40,7 +47,8 @@ const SettingsMenuContent = styled.div`
   transition: all 0.2s ease-out;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  transform: translateX(900px);
+  transform: ${props =>
+    props.cypress ? 'translateX(0px)' : 'translateX(900px)'};
 
   :hover {
     transform: translateX(0px);
@@ -140,6 +148,7 @@ class Footer extends Component {
               <MaterialIcon icon="settings" size="medium" />
             </ButtonIconSettings>
             <SettingsMenuContent
+              cypress={cypress}
               className="col-12 col-sm-12 col-md-4 openOnHover"
               data-cy="openOnHover"
             >

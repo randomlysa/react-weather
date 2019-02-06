@@ -87,18 +87,16 @@ describe('Search bar', function() {
 
   // Tests up to here work with .only
   // Tests below this are ??? - the menu being off screen is an issue again.
-  it.only('should NOT delete any cities when CANCEL is selected', function() {
-    cy.get('[data-cy=openOnHover]').invoke('toggle');
+  it('should NOT delete any cities when CANCEL is selected', function() {
     // This does not delete! It opens a modal asking to confirm/cancel
     cy.get('[data-cy=buttonToDeleteAll]').click();
     cy.get('[data-cy=buttonCancelDelete]').click();
     // Close the menu for the next test to reopen it.
     cy.get('[data-cy=openOnHover]').invoke('toggle');
-    cy.contains('Boston District');
+    cy.contains('Zederhaus');
   });
 
   it('should delete all cities when delete is confirmed', function() {
-    cy.get('[data-cy=openOnHover]').invoke('toggle');
     // This does not delete! It opens a modal asking to confirm/cancel
     cy.get('[data-cy=buttonToDeleteAll]').click();
     cy.get('[data-cy=buttonConfirmDelete]').click();

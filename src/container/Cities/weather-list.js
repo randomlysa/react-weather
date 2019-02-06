@@ -228,6 +228,7 @@ export class WeatherList extends Component {
           return (
             <WeatherOneCity
               city={city}
+              forecast={this.props.forecast}
               options={this.props.options}
               openModal={this.openModal}
               key={city.id}

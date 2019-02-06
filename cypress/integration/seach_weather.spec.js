@@ -37,6 +37,7 @@ describe('Search bar', function() {
   });
 
   it('should fetch weather & forecast for a city in cityList', function() {
+    cy.wait(400); // Wait for typeahead to get some data and make a list.
     cy.get('[data-cy=cityList--city]')
       .first()
       .invoke('text')
@@ -99,5 +100,17 @@ describe('Search bar', function() {
       .type('{downarrow}{enter}', { delay: 30 });
     cy.contains('Two Boats');
     cy.get('[data-cy=forecast]').should('have.length', 1);
+  });
+
+  it('should delete a city using the close button', function() {
+    cy.wait(400);
+    cy.get('.rbt-input-main')
+      .type('Fareh', { delay: 100 })
+      .wait(1000) // Wait for typeahead to get some data and make a list.
+      .type('{downarrow}{enter}', { delay: 150 });
+    cy.contains('Fareham District');
+    cy.get('.7290556_closeButton').click();
+    cy.get('[data-cy=deleteOneCity]').click();
+    cy.contains('Fareh').should('not.exist');
   });
 });

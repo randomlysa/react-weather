@@ -191,7 +191,6 @@ export class WeatherList extends Component {
     const timeLastUpdated = moment.unix(cityData.dt).fromNow();
     const timeLastFetched = moment(cityData.timeFetched).fromNow();
     const forecast = this.props.forecast ? this.props.forecast[id] : null;
-
     const area = cityData.area;
     const country = cityData.sys.country;
 
@@ -207,10 +206,13 @@ export class WeatherList extends Component {
     if (showSunrise && showSunset) showDashSunrise = ' - ';
     else showDashSunrise = '';
 
+    // Class for close button (hopefully useful for testing / which button to click)
+    const closeButtonClassName = `${id}_closeButton material-icons`;
+
     return (
       <WeatherText className="row-swipe" id={id} key={id}>
         <i
-          className="material-icons"
+          className={closeButtonClassName}
           onClick={this.openModal.bind(this, cityData)}
         >
           close
@@ -259,10 +261,18 @@ export class WeatherList extends Component {
           className="modal--delete"
         >
           <h3>Delete {this.state.cityToDelete.name}?</h3>
-          <button className="btn btn-danger" onClick={this.deleteCity}>
+          <button
+            data-cy="deleteOneCity"
+            className="btn btn-danger"
+            onClick={this.deleteCity}
+          >
             Delete
           </button>
-          <button className="btn btn-light" onClick={this.closeModal}>
+          <button
+            data-cy="cancelDeleteOneCity"
+            className="btn btn-light"
+            onClick={this.closeModal}
+          >
             Cancel
           </button>
         </StyledModal>

@@ -40,7 +40,6 @@ module.exports = merge(common, {
         vendor: {
           // import file path containing node_modules
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
           // sync + async chunks
           chunks: 'all'
         }

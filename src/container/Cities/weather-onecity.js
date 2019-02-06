@@ -8,13 +8,20 @@ import GoogleMapLink from '../../components/google-map-link';
 
 const Draghandle = styled.i`
   float: left;
+  transition: all 0.3s ease-in;
   cursor: pointer;
+  color: #b4b4b4;
+
+  :hover {
+    color: #000; /* same color as delete button */
+  }
 `;
 
 const CloseButton = styled.i`
   float: right;
   transition: all 0.3s;
   cursor: pointer;
+  color: #b4b4b4;
 
   :hover {
     color: #dc3545; /* same color as delete button */
